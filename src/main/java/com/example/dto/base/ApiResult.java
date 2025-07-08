@@ -1,10 +1,12 @@
 package com.example.dto.base;
 
+import com.example.enums.LanguageEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.Locale;
 
 @Getter
 @ToString
@@ -17,19 +19,13 @@ public class ApiResult<T> implements Serializable {
 
     private T data;
 
-    private ApiResult(Boolean success) {
+    private ApiResult(String s, Boolean success, Locale locale) {
         this.success = success;
     }
 
     private ApiResult(T data, Boolean success) {
         this.data = data;
         this.success = success;
-    }
-
-    private ApiResult(T data, Boolean success, String message) {
-        this.data = data;
-        this.success = success;
-        this.message = message;
     }
 
     private ApiResult(String message, Boolean success) {
@@ -41,16 +37,15 @@ public class ApiResult<T> implements Serializable {
         this.data = data;
     }
 
-    public static <E> ApiResult<E> successResponse(E data) {
+    public <E> ApiResult(E data, Boolean aTrue, String message) {
+    }
+
+    public static <E> ApiResult<E> successResponse(String s, E data, Locale locale) {
         return new ApiResult<>(data, Boolean.TRUE);
 }
 
-    public static <E> ApiResult<E> successResponse(E data, String message) {
-        return new ApiResult<>(data, Boolean.TRUE, message);
-    }
-
-    public static <E> ApiResult<E> successResponse() {
-        return new ApiResult<>(Boolean.TRUE);
+    public static <E> ApiResult<E> successResponse(E data) {
+        return new ApiResult<>(data, Boolean.TRUE);
     }
 
     public static ApiResult<String> successResponse(String message) {

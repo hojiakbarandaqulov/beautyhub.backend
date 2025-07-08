@@ -23,7 +23,7 @@ public class JwtUtil {
                 .signWith(getSignInKey())
                 .compact();
     }
-    public static String encode(String username, Integer profileId, List<ProfileRole> roleList) {
+    public static String encode(String username, Long profileId, List<ProfileRole> roleList) {
         String strRoles = roleList.stream().map(Enum::name).
                 collect(Collectors.joining(","));
 

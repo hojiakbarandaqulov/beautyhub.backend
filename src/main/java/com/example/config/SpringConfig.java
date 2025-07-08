@@ -56,15 +56,7 @@ public class SpringConfig {
                     .requestMatchers("/webjars/**").permitAll()
                     .requestMatchers("/swagger-ui.html").permitAll()
 
-                    .requestMatchers("/api/v1/auth/**").permitAll()
-                    .requestMatchers("/api/v1/attach/**").permitAll()
-                    .requestMatchers("/api/v1/profile/detail/**").permitAll()
-                    .requestMatchers("/api/v1/post/profile").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers("/api/v1/post/create").permitAll()
-                    .requestMatchers("/api/v1/profile/photo").permitAll()
-                    .requestMatchers("/api/v1/profile/update/confirm").permitAll()
-                    .requestMatchers("/api/v1/profile/update/password").permitAll()
-                    .requestMatchers("/api/v1/profile/update/username").permitAll()
+                    .requestMatchers("/api/auth/**").permitAll()
                     .anyRequest()
                     .authenticated();
         }).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
