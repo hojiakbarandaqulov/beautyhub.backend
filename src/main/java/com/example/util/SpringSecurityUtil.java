@@ -1,23 +1,22 @@
 package com.example.util;
 
-import com.example.config.CustomUserDetail;
-import com.example.entity.ProfileEntity;
+import com.example.config.CustomUserDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class SpringSecurityUtil {
 
-    public static CustomUserDetail getCurrentProfile() {
+    public static CustomUserDetails getCurrentProfile() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomUserDetail user = (CustomUserDetail) authentication.getPrincipal();
+        CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
         return user;
     }
 
-    public static ProfileEntity getProfileId() {
+    public static Long getProfileId() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof CustomUserDetail) {
-            CustomUserDetail user = (CustomUserDetail) principal;
-            return user.getProfile();
+        if (principal instanceof CustomUserDetails) {
+            CustomUserDetails user = (CustomUserDetails) principal;
+            return user.getId();
         } else if (principal instanceof String) {
             String username = (String) principal;
         }

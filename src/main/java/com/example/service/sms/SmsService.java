@@ -1,6 +1,7 @@
 package com.example.service.sms;
 
 import com.example.dto.sms.SmsAuthDTO;
+import com.example.enums.SmsType;
 import com.example.util.RandomUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,12 +26,14 @@ public class SmsService {
     @Value("${my.eskiz.uz.password}")
     private String myEskizUzPassword;
     private final RestTemplate restTemplate;
+    private final SmsHistoryService smsHistoryService;
     private final ResourceBundleMessageSource messageSource;
 
     public void sendSms(String phone) {
-//        String code = RandomUtil.getRandomSmsCode();
+        String code = RandomUtil.getRandomCode();
         String message = "This is test from Eskiz";
         send(phone, message);
+        smsHistoryService.create(phone,message,code, SmsType.RESET_PASSWORD);
     }
 
     private void send(String phone, String message) {

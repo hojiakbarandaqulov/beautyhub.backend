@@ -24,7 +24,7 @@ public class SmsHistoryEntity {
     private String phone;
 
     @Column(name = "created_date")
-    private LocalDateTime createdDate;
+    private LocalDateTime createdDate=LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "email_type")

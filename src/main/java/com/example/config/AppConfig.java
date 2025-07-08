@@ -19,6 +19,7 @@ public class AppConfig {
         messageSource.setDefaultLocale(new Locale("UZ"));
         return messageSource;
     }
+
     @Bean
     public RestTemplate restTemplate(){
         return new RestTemplate();

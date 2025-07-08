@@ -1,26 +1,44 @@
 package com.example.controller;
 
-import com.example.dto.RegistrationDTO;
+import com.example.dto.auth.RegistrationDTO;
+import com.example.dto.auth.SmsVerificationDTO;
+import com.example.dto.auth.LoginDTO;
 import com.example.dto.base.ApiResult;
+import com.example.dto.profile.ProfileDTO;
 import com.example.enums.LanguageEnum;
 import com.example.service.AuthService;
-import io.swagger.v3.oas.models.responses.ApiResponse;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private final AuthService profileService;
+    private final AuthService authService;
+
+    public AuthController(AuthService profileService) {
+        this.authService = profileService;
+    }
 
     @PostMapping("/registration")
     public ResponseEntity<ApiResult<String>> registration(@RequestBody @Valid RegistrationDTO registrationDTO,
-                                                          @RequestHeader(value = "Accept-Language", defaultValue = "UZ") LanguageEnum language){
-       ApiResult<String> apiResult= profileService.registration(registrationDTO,language);
-       return ResponseEntity.ok(apiResult);
+                                                          @RequestHeader(value = "Accept-Language", defaultValue = "UZ") LanguageEnum language) {
+        ApiResult<String> apiResult = authService.registration(registrationDTO, language);
+        return ResponseEntity.ok(apiResult);
+    }
+
+    @PostMapping("/registration/login")
+    public ResponseEntity<ApiResult<ProfileDTO>> login(@Valid @RequestBody LoginDTO dto,
+                                                       @RequestHeader(value = "Accept-Language", defaultValue = "UZ") LanguageEnum language) {
+        ApiResult<ProfileDTO> ok = authService.login(dto, language);
+        return ResponseEntity.ok(ok);
+    }
+
+    @GetMapping("/registration/verification")
+    public ResponseEntity<ProfileDTO> registrationVerification(@RequestBody SmsVerificationDTO smsVerification,
+                                                               @RequestHeader(value = "Accept-Language", defaultValue = "UZ") LanguageEnum lang) {
+        ProfileDTO ok = authService.regVerification(smsVerification, lang);
+        return ResponseEntity.ok(ok);
     }
 }
