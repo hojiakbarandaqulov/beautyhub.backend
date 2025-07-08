@@ -1,19 +1,27 @@
 package com.example.config;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Locale;
 
 @Configuration
-public class ResourceBundleConfig {
+public class AppConfig {
+
     @Bean
-    public ResourceBundleMessageSource getMessage() {
+    public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasenames("message/message");
         messageSource.setDefaultEncoding("UTF-8");
-        messageSource.setDefaultLocale(new Locale("uz")); // if local not found use this
+        messageSource.setDefaultLocale(new Locale("UZ"));
         return messageSource;
+    }
+
+    @Bean
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
     }
 }
