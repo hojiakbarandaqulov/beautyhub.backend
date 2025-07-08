@@ -5,6 +5,7 @@ import com.example.dto.auth.SmsVerificationDTO;
 import com.example.dto.auth.LoginDTO;
 import com.example.dto.base.ApiResult;
 import com.example.dto.profile.ProfileDTO;
+import com.example.dto.reset.ResetPasswordDTO;
 import com.example.enums.LanguageEnum;
 import com.example.service.AuthService;
 import jakarta.validation.Valid;
@@ -41,4 +42,11 @@ public class AuthController {
         ProfileDTO ok = authService.regVerification(smsVerification, lang);
         return ResponseEntity.ok(ok);
     }
+    @PostMapping("/registration/reset")
+    public ResponseEntity<ApiResult<String>> resent(@Valid @RequestBody ResetPasswordDTO dto,
+                                                      @RequestHeader(value = "Accept-Language", defaultValue = "UZ") LanguageEnum language) {
+        ApiResult<String> ok = authService.resetPassword(dto, language);
+        return ResponseEntity.ok(ok);
+    }
+
 }
