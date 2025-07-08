@@ -5,6 +5,7 @@ import com.example.dto.auth.LoginDTO;
 import com.example.dto.auth.SmsVerificationDTO;
 import com.example.dto.base.ApiResult;
 import com.example.dto.profile.ProfileDTO;
+import com.example.dto.reset.ResetPasswordDTO;
 import com.example.entity.ProfileEntity;
 import com.example.enums.GeneralStatus;
 import com.example.enums.LanguageEnum;
@@ -65,7 +66,7 @@ public class AuthService {
         profileRepository.save(profileEntity);
 
         profileRoleService.create(profileEntity.getId(),ProfileRole.USER);
-        smsService.sendSms(profileEntity.getPhone());
+//        smsService.sendSms(profileEntity.getPhone());
         return new ApiResult<>(messageSource.getMessage("phone.sms.send",language));
     }
 
@@ -120,5 +121,17 @@ public class AuthService {
         return response;
     }
 
+    public ApiResult<String> resetPassword(ResetPasswordDTO dto, LanguageEnum language) {
+        Optional<ProfileEntity> optional = profileRepository.findByPhoneAndVisibleTrue(dto.getPhone());
+        if (optional.isEmpty()) {
+            throw new AppBadException(messageSource.getMessage("phone.password.wrong", language));
+        }
+        ProfileEntity profile = optional.get();
+        if (!profile.getStatus().equals(GeneralStatus.ACTIVE)) {
+            throw new AppBadException(messageSource.getMessage("wrong.status", language));
+        }
+        smsService.sendSms(profile.getPhone());
+        return new ApiResult<String>(messageSource.getMessage("reset.password.response", language));
+    }
 }
 
