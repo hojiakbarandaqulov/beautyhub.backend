@@ -4,8 +4,8 @@ Content-Type: application/json
 Accept-Language: UZ
 
 {
-  "fullName": "Xojiakbar Andaqulov",
-  "phone": "+998995092376",
+  "fullName": "Ali Aliyev",
+  "phone": "+998999476970",
   "password": "12345678",
   "confirmPassword": "12345678"
 }
@@ -28,4 +28,13 @@ Content-Type: application/json
   "phone": "+998995092376",
   "code": "60248"
 }
+
+###
+POST http://localhost:8080/api/auth/registration/reset
+Content-Type: application/json
+
+{
+  "phone": "+998995092376"
+}
+
 
