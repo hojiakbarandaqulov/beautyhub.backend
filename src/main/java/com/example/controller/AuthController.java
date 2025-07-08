@@ -1,8 +1,8 @@
 package com.example.controller;
 
-import com.example.LanguageEnum;
 import com.example.dto.RegistrationDTO;
 import com.example.dto.base.ApiResult;
+import com.example.enums.LanguageEnum;
 import com.example.service.AuthService;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import jakarta.validation.Valid;
