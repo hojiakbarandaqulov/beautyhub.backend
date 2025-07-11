@@ -5,6 +5,7 @@ import com.example.dto.auth.LoginDTO;
 import com.example.dto.auth.SmsVerificationDTO;
 import com.example.dto.base.ApiResult;
 import com.example.dto.profile.ProfileDTO;
+import com.example.dto.reset.ResetPasswordConfirmDTO;
 import com.example.dto.reset.ResetPasswordDTO;
 import com.example.entity.ProfileEntity;
 import com.example.enums.GeneralStatus;
@@ -16,6 +17,7 @@ import com.example.repository.ProfileRoleRepository;
 import com.example.service.sms.SmsHistoryService;
 import com.example.service.sms.SmsService;
 import com.example.util.JwtUtil;
+import com.example.util.PhoneUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -65,7 +67,7 @@ public class AuthService {
         profileEntity.setCreatedDate(LocalDateTime.now());
         profileRepository.save(profileEntity);
 
-        profileRoleService.create(profileEntity.getId(),ProfileRole.USER);
+        profileRoleService.create(profileEntity.getId(),ProfileRole.ROLE_USER);
 //        smsService.sendSms(profileEntity.getPhone());
         return new ApiResult<>(messageSource.getMessage("phone.sms.send",language));
     }
@@ -132,6 +134,24 @@ public class AuthService {
         }
         smsService.sendSms(profile.getPhone());
         return new ApiResult<String>(messageSource.getMessage("reset.password.response", language));
+    }
+
+    public ApiResult<String> resetPasswordConfirm(ResetPasswordConfirmDTO dto, LanguageEnum language) {
+        Optional<ProfileEntity> optional = profileRepository.findByPhoneAndVisibleTrue(dto.getPhone());
+        if (optional.isEmpty()) {
+            throw new AppBadException(messageSource.getMessage("verification.wrong", language));
+        }
+        ProfileEntity profile = optional.get();
+        if (!profile.getStatus().equals(GeneralStatus.ACTIVE)) {
+            throw new AppBadException(messageSource.getMessage("wrong.status", language));
+        }
+        if (PhoneUtil.isPhone(dto.getPhone())) {
+            smsService.sendSms(dto.getPhone());
+        } else {
+            throw new AppBadException("phone.not.valid.number");
+        }
+        profileRepository.updatePassword(profile.getId(), bCryptPasswordEncoder.encode(dto.getPassword()));
+        return new ApiResult<String>(messageSource.getMessage("reset.password.success", language));
     }
 }
 

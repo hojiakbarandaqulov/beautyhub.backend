@@ -28,8 +28,8 @@ public class SpringConfig {
     private final UserDetailsService userDetailsService;
 
     public static final String[] AUTH_WHITELIST = {
-            "/api/v1/auth/**",
-            "/profile/authorization",
+            "/api/auth/**",
+            "/profile/auth",
     };
 
     @Bean
