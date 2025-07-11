@@ -8,4 +8,5 @@ public class PhoneUtil {
         String phoneRegex = "^\\+998\\d{9}$";
         return Pattern.matches(phoneRegex, phone);
     }
+
 }
