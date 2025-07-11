@@ -37,4 +37,14 @@ Content-Type: application/json
   "phone": "+998995092376"
 }
 
+###
+POST http://localhost:8080/api/auth/registration/reset-password/confirm
+Content-Type: application/json
+
+{
+  "phone": "+998995092376",
+  "password": "123456789",
+  "confirmPassword": "123456789"
+}
+
 
