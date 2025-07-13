@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin
 @RestController
 @RequestMapping("/api/attach")
 public class AttachController {
