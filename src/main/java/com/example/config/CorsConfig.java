@@ -23,6 +23,7 @@ public class CorsConfig {
                 "http://localhost:8080",
                 "https://beautyhubuz-3d777984d358.herokuapp.com"
         ));*/
+
         configuration.setAllowedOriginPatterns(List.of("*"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
