@@ -22,7 +22,6 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
-@EnableMethodSecurity(prePostEnabled = true)
 public class SpringConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -63,12 +62,13 @@ public class SpringConfig {
                     .authenticated();
         }).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        http.csrf(AbstractHttpConfigurer::disable);
-        http.cors(httpSecurityCorsConfigurer -> {
+        http.csrf(AbstractHttpConfigurer::disable); // csrf o'chirilgan
+
+        http.cors(httpSecurityCorsConfigurer -> { // cors konfiguratsiya qilingan
             CorsConfiguration configuration = new CorsConfiguration();
-            configuration.setAllowedOriginPatterns(Arrays.asList("*")); // Barcha manbalarga ruxsat
-            configuration.setAllowedMethods(Arrays.asList("*")); // Barcha metodlarga ruxsat
-            configuration.setAllowedHeaders(Arrays.asList("*")); // Barcha headerlarga ruxsat
+            configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+            configuration.setAllowedMethods(Arrays.asList("*"));
+            configuration.setAllowedHeaders(Arrays.asList("*"));
 
             UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
             source.registerCorsConfiguration("/**", configuration);
