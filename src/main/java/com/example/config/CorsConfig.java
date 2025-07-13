@@ -19,9 +19,9 @@ public class CorsConfig {
                 "http://localhost:3000",
                 "http://localhost:3001",
                 "http://localhost:3002",
-                "https://yodimdasiz.uz",
+                "https://beautyhub.uz",
                 "http://localhost:8080",
-                "https://api.yodimdasiz.uz"
+                "https://api.beautyhub.uz"
         ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
