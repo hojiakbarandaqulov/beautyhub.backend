@@ -17,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/attach")
-@CrossOrigin(origins = "https://beautyhubuz-3d777984d358.herokuappapp.com")
 public class AttachController {
     private final AttachService attachService;
 
