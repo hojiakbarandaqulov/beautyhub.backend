@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "https://beautyhubuz-3d777984d358.herokuapp.com/")
 @RequestMapping("/api/auth")
 public class AuthController {
 
@@ -47,16 +46,17 @@ public class AuthController {
 
     @PostMapping("/registration/reset")
     public ResponseEntity<ApiResult<String>> resent(@Valid @RequestBody ResetPasswordDTO dto,
-                                                      @RequestHeader(value = "Accept-Language", defaultValue = "UZ") LanguageEnum language) {
+                                                    @RequestHeader(value = "Accept-Language", defaultValue = "UZ") LanguageEnum language) {
         ApiResult<String> ok = authService.resetPassword(dto, language);
         return ResponseEntity.ok(ok);
     }
 
     @PostMapping("/registration/reset-password/confirm")
     public ResponseEntity<ApiResult<String>> resentPassword(@Valid @RequestBody ResetPasswordConfirmDTO dto,
-                                                              @RequestHeader(value = "Accept-Language", defaultValue = "UZ") LanguageEnum language) {
+                                                            @RequestHeader(value = "Accept-Language", defaultValue = "UZ") LanguageEnum language) {
         ApiResult<String> ok = authService.resetPasswordConfirm(dto, language);
         return ResponseEntity.ok(ok);
     }
 
 }
+

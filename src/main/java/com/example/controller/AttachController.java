@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @RequiredArgsConstructor
-@CrossOrigin(origins = "https://beautyhubuz-3d777984d358.herokuapp.com/")
 @RestController
 @RequestMapping("/api/attach")
 public class AttachController {
@@ -35,3 +34,5 @@ public class AttachController {
     }
 
 }
+
+

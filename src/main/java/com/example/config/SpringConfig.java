@@ -1,6 +1,7 @@
 package com.example.config;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -24,7 +25,8 @@ import static org.springframework.security.authorization.SingleResultAuthorizati
 
 @Configuration
 @EnableWebSecurity
-@AllArgsConstructor
+@RequiredArgsConstructor
+@EnableMethodSecurity(prePostEnabled = true)
 public class SpringConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -60,24 +62,26 @@ public class SpringConfig {
                     .requestMatchers("/webjars/**").permitAll()
                     .requestMatchers("/swagger-ui.html").permitAll()
 
-                    .requestMatchers("/api/auth/**").permitAll()
-                    .requestMatchers(HttpMethod.GET,"/api/attach/open_general/**").permitAll()
+                    .requestMatchers("/api/auth/registration/login").permitAll()
+                    .requestMatchers("/api/attach/open_general/**").permitAll()
                     .anyRequest()
                     .authenticated();
         }).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        http.csrf(AbstractHttpConfigurer::disable);
 
-     /*   http.csrf(AbstractHttpConfigurer::disable); // csrf o'chirilgan
-
-        http.cors(httpSecurityCorsConfigurer -> { // cors konfiguratsiya qilingan
+        // .cors(AbstractHttpConfigurer::disable);
+        http.cors(httpSecurityCorsConfigurer -> {
             CorsConfiguration configuration = new CorsConfiguration();
-            configuration.setAllowedOriginPatterns(List.of("*"));
+            configuration.setAllowedOriginPatterns(Arrays.asList("*"));
             configuration.setAllowedMethods(Arrays.asList("*"));
             configuration.setAllowedHeaders(Arrays.asList("*"));
+//            configuration.setAllowCredentials(true);
+
 
             UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
             source.registerCorsConfiguration("/**", configuration);
             httpSecurityCorsConfigurer.configurationSource(source);
-        });*/
+        });
         return http.build();
 
     }
