@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResetPasswordConfirmDTO {
+
     @NotBlank(message = "phone required")
     private String phone;
     @NotBlank(message = "password required")
