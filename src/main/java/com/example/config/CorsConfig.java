@@ -19,7 +19,7 @@ public class CorsConfig {
                 "http://localhost:3000",
                 "http://localhost:3001",
                 "http://localhost:3002",
-                "https://beautyhub.uz",
+                "https://beautyhubuz-3d777984d358.herokuappapp.com",
                 "http://localhost:8080",
                 "https://api.beautyhub.uz"
         ));
