@@ -22,12 +22,16 @@ public class CorsConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
                         .allowedOrigins(
+                                "http://localhost:63342",
+                                "http://localhost:3000",
+                                "http://localhost:3001",
+                                "http://localhost:3002",
                                 "https://beautyhubuz.uz",
                                 "https://beautyhubuz-3d777984d358.herokuapp.com",
                                 "http://localhost:3000",
-                                "http://localhost:8080"
+                                "http://localhost:8080",
+                                "*"
                         )
-                        .allowCredentials(true)
                         .maxAge(3600)
                         .allowedHeaders("*")
                         .allowedMethods("*");
