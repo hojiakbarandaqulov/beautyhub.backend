@@ -14,16 +14,9 @@ public class CorsConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(
-                "http://localhost:63342",
-                "http://localhost:3000",
-                "http://localhost:3001",
-                "http://localhost:3002",
-                "https://beautyhubuz.uz",
-                "http://localhost:8080",
-                "https://beautyhubuz-3d777984d358.herokuapp.com"
-        ));
+        configuration.setAllowedOrigins(List.of("*"));
         configuration.setAllowedOriginPatterns(List.of("*"));
+
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setExposedHeaders(List.of("*"));

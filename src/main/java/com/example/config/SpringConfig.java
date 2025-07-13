@@ -66,7 +66,7 @@ public class SpringConfig {
                     .authenticated();
         }).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        http.csrf(AbstractHttpConfigurer::disable); // csrf o'chirilgan
+     /*   http.csrf(AbstractHttpConfigurer::disable); // csrf o'chirilgan
 
         http.cors(httpSecurityCorsConfigurer -> { // cors konfiguratsiya qilingan
             CorsConfiguration configuration = new CorsConfiguration();
@@ -77,7 +77,7 @@ public class SpringConfig {
             UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
             source.registerCorsConfiguration("/**", configuration);
             httpSecurityCorsConfigurer.configurationSource(source);
-        });
+        });*/
         return http.build();
 
     }
