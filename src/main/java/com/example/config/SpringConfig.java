@@ -75,6 +75,7 @@ public class SpringConfig {
             httpSecurityCorsConfigurer.configurationSource(source);
         });
         return http.build();
+
     }
 
     @Bean
