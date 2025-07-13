@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
         servers = {
                 @io.swagger.v3.oas.annotations.servers.Server(
                         description = "Server ENV",
-                        url = "https://beautyhubuz-3d777984d358.herokuappapp.com"
+                        url = "https://beautyhubuz-3d777984d358.herokuapp.com"
                 ),
                 @io.swagger.v3.oas.annotations.servers.Server(
                         description = "Local ENV",

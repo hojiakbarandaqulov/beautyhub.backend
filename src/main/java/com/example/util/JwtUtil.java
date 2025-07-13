@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class JwtUtil {
     private static final int tokenLiveTime = 1000 * 3600 * 96; // 2-day
-    private static final String secretKey = "verylongmazgiskjdhskjdhadasdasgfgdfgdfdftrhdgrgefergetdgsfegvergdgsbdzsfbvgdsetbgrFLKWRMFKJERNGVSFUOISNIUVNSDBFIUSHIULFHWAUOIESIUOFIOEJOIGJMKLDFMGghjgjOTFIJBP";
+    private static final String secretKey = "skjdhadasdasgfgdfgdfdftrhdgrgefergetdgsfegvergdgsbdzsfbvgdsetbg";
 
     public static String encode(Integer profileId, String email) {
         return Jwts

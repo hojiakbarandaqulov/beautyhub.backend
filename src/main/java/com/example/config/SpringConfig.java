@@ -26,15 +26,23 @@ import static org.springframework.security.authorization.SingleResultAuthorizati
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@EnableMethodSecurity(prePostEnabled = true)
 public class SpringConfig {
-
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final UserDetailsService userDetailsService;
 
     public static final String[] AUTH_WHITELIST = {
             "/api/auth/**",
             "/profile/auth",
+            "/v2/api-docs",
+            "/v3/api-docs",
+            "/v3/api-docs/**",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui/**",
+            "/webjars/**",
+            "/swagger-ui.html"
     };
 
     @Bean
@@ -47,43 +55,32 @@ public class SpringConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
-            authorizationManagerRequestMatcherRegistry
-                    .requestMatchers(AUTH_WHITELIST).permitAll()
-                    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                    .requestMatchers("/v2/api-docs").permitAll()
-                    .requestMatchers("/v3/api-docs").permitAll()
-                    .requestMatchers("/v3/api-docs/**").permitAll()
-                    .requestMatchers("/swagger-resources").permitAll()
-                    .requestMatchers("/swagger-resources/**").permitAll()
-                    .requestMatchers("/configuration/ui").permitAll()
-                    .requestMatchers("/configuration/security").permitAll()
-                    .requestMatchers("/swagger-ui/**").permitAll()
-                    .requestMatchers("/webjars/**").permitAll()
-                    .requestMatchers("/swagger-ui.html").permitAll()
+        http
+                .csrf(AbstractHttpConfigurer::disable);
 
-                    .requestMatchers("/api/auth/registration/login").permitAll()
-                    .requestMatchers("/api/attach/open_general/**").permitAll()
-                    .anyRequest()
-                    .authenticated();
-        }).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-        http.csrf(AbstractHttpConfigurer::disable);
-
-        // .cors(AbstractHttpConfigurer::disable);
         http.cors(httpSecurityCorsConfigurer -> {
             CorsConfiguration configuration = new CorsConfiguration();
-            configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+            configuration.setAllowedOriginPatterns(List.of("*"));
             configuration.setAllowedMethods(Arrays.asList("*"));
             configuration.setAllowedHeaders(Arrays.asList("*"));
-//            configuration.setAllowCredentials(true);
-
 
             UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
             source.registerCorsConfiguration("/**", configuration);
             httpSecurityCorsConfigurer.configurationSource(source);
         });
-        return http.build();
 
+        http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
+                    authorizationManagerRequestMatcherRegistry
+                            .requestMatchers(AUTH_WHITELIST).permitAll()
+                            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() //
+                            .requestMatchers("/api/auth/**").permitAll()
+                            .requestMatchers(HttpMethod.GET,"/api/attach/open_general/**").permitAll()
+                            .anyRequest()
+                            .authenticated();
+                })
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
     }
 
     @Bean
