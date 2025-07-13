@@ -1,5 +1,5 @@
 ### attach upload
-POST http://localhost:8080/api/v1/attach/upload
+POST http://localhost:8080/api/attach/upload
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 Authorization:  Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MjI1NDIzNywiZXhwIjoxNzUyNTk5ODM3fQ.WE2_BWYX6c5DhR82xJ4QlkHlurjXnYjpIpTgivVTqSBg88KrYAiKKmYXmoaQy-4ZoD-v8a7SWiom87uwUMGmNw
 
