@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "https://beautyhubuz-3d777984d358.herokuapp.com/")
 @RequestMapping("/api/auth")
 public class AuthController {
 
