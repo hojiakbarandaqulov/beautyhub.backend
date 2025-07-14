@@ -33,6 +33,7 @@ public class SpringConfig {
     public static final String[] AUTH_WHITELIST = {
             "/api/auth/**",
             "/profile/auth",
+            "/api/attach/**",
             "/v2/api-docs",
             "/v3/api-docs",
             "/v3/api-docs/**",
@@ -75,6 +76,7 @@ public class SpringConfig {
                             .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() //
                             .requestMatchers("/api/auth/**").permitAll()
                             .requestMatchers(HttpMethod.GET,"/api/attach/open_general/**").permitAll()
+                            .requestMatchers(HttpMethod.POST,"/api/attach/upload").permitAll()
                             .anyRequest()
                             .authenticated();
                 })
