@@ -6,16 +6,20 @@ import com.example.exp.AppBadException;
 import com.example.repository.AttachRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
+import org.springframework.core.io.Resource;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -62,7 +66,7 @@ public class AttachService {
             entity.setPath(pathFolder);
             entity.setSize(file.getSize());
             entity.setCreatedDate(LocalDateTime.now());
-            entity.setOriginalName(file.getOriginalFilename());
+            entity.setOrigenName(file.getOriginalFilename());
             entity.setExtension(extension);
             attachRepository.save(entity);
 
@@ -90,6 +94,23 @@ public class AttachService {
         } catch (Exception e) {
             log.warn("Attach error : {}", e.getMessage());
             return new byte[0];
+        }
+    }
+
+    public ResponseEntity<Resource> download(String fileName) {
+        AttachEntity entity = getAttach(fileName);
+        try {
+            Path file = Paths.get(getPath(entity));
+            Resource resource = new UrlResource(file.toUri());
+            if (resource.exists() || resource.isReadable()) {
+                return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + entity.getOrigenName() + "\"").body(resource);
+            } else {
+                log.warn("Attach error : Could not read the file!");
+                throw new RuntimeException("Could not read the file!");
+            }
+        } catch (MalformedURLException e) {
+            log.warn("Attach error : {}", e.getMessage());
+            throw new RuntimeException("Error: " + e.getMessage());
         }
     }
 
@@ -130,7 +151,7 @@ public class AttachService {
         dto.setExtension(entity.getExtension());
         dto.setPath(entity.getPath());
         dto.setSize(entity.getSize());
-        dto.setOriginalName(entity.getOriginalName());
+        dto.setOriginalName(entity.getOrigenName());
         dto.setUrl(serverUrl + "/attach/upload/" + entity.getId());
         return dto;
     }
@@ -153,6 +174,15 @@ public class AttachService {
         }
         return optional.get();
     }
+    public AttachEntity getAttach(String origenName) {
+        Optional<AttachEntity> optional = attachRepository.findByOrigenName(origenName);
+        if (optional.isEmpty()) {
+            log.warn("Attach error : file not found");
+            throw new AppBadException("File not found");
+        }
+        return optional.get();
+    }
+
 
     public String getTempExtension(String extension) {
         String extSml = extension.toLowerCase();

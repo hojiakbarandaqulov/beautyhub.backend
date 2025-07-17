@@ -29,6 +29,13 @@ public class ProfileEntity {
     @Column(name = "status")
     private GeneralStatus status;
 
+    @Column(name = "photo_id")
+    private String photoId;
+
+    @ManyToOne(fetch =FetchType.LAZY)
+    @JoinColumn(name = "photo_id",insertable=false,updatable=false)
+    private AttachEntity photo;
+
     @Column(name = "visible")
     private Boolean visible = Boolean.TRUE;
 

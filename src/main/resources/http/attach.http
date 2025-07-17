@@ -12,6 +12,9 @@ Content-Disposition: form-data; name="file"; filename="logo1.jpg"
 GET http://localhost:8080/api/attach/open_general/65c4a6a4-1d38-48ef-a049-bbf8da7b446d.jpg
 
 
+### attach download
+GET http://localhost:8080/api/attach/download/logo1.jpg
+
 
 
 

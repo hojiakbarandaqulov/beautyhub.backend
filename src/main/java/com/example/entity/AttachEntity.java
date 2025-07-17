@@ -15,8 +15,8 @@ public class AttachEntity {
     @Id
     private String id;
 
-    @Column(name = "original_name", length = 255)
-    private String originalName;
+    @Column(name = "origen_name",length = 255)
+    private String origenName;
 
     @Column(name = "size")
     private Long size;
