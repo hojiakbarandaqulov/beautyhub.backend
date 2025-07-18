@@ -1,2 +1,1 @@
-web
-java -Dserver.port=$PORT -jar target/api.beautyhub.jar
+web: java -Dserver.port=$PORT -jar target/api.beautyhub.jar
