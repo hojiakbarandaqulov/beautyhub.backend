@@ -57,4 +57,5 @@ public class ProfileEntity {
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
+
 }
