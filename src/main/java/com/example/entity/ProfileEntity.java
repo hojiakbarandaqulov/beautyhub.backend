@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -29,10 +30,32 @@ public class ProfileEntity {
     @Column(name = "status")
     private GeneralStatus status;
 
+    @Column(name = "photo_id")
+    private String photoId;
+
+    @ManyToOne(fetch =FetchType.LAZY)
+    @JoinColumn(name = "photo_id",insertable=false,updatable=false)
+    private AttachEntity photo;
+
+    @Column(name = "notifications_enabled")
+    private Boolean notificationsEnabled = Boolean.TRUE; // "Уведомления"
+    @Column(name = "dark_theme_enabled")
+    private Boolean darkThemeEnabled = Boolean.FALSE;
+
     @Column(name = "visible")
     private Boolean visible = Boolean.TRUE;
 
     @Column(name = "created_date")
-    private LocalDateTime createdDate;
+    private LocalDateTime createdDate=LocalDateTime.now();
+
+    private LocalDateTime updatedAt;
+
+   /* @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<CardEntity> cards;*/
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 
 }

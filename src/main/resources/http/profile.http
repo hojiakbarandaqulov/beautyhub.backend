@@ -1,0 +1,19 @@
+### profile update photo
+PUT http://localhost:8080/api/profile/update/photo
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MjUxMjQ1NiwiZXhwIjoxNzUyODU4MDU2fQ.dZT2Oyy02vRo9uDGz5q9nVmE1qHeU7Nfc0ZvtTxNOJM
+
+{
+  "photoId": "15fc9050-a8a1-437e-8e20-9cc8ecf14632.jpg"
+}
+
+
+### profile update password
+PUT http://localhost:8080/api/profile/update/password
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1Mjc0MjMzMiwiZXhwIjoxNzUzMDg3OTMyfQ.xqsUJ3zPh-Sqd9LM4iGzK4QnGyyFqmaTuHdSWvLy3_E
+
+{
+  "currentPassword": "123456789",
+  "newPassword": "12345678"
+}

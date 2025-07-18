@@ -77,6 +77,8 @@ public class SpringConfig {
                             .requestMatchers("/api/auth/**").permitAll()
                             .requestMatchers(HttpMethod.GET,"/api/attach/open_general/**").permitAll()
                             .requestMatchers(HttpMethod.POST,"/api/attach/upload").permitAll()
+                            .requestMatchers("/api/profile/update/photo").permitAll()
+                            .requestMatchers("/api/profile/update/password").permitAll()
                             .anyRequest()
                             .authenticated();
                 })
