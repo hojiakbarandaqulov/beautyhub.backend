@@ -46,7 +46,7 @@ public class ProfileEntity {
     private Boolean visible = Boolean.TRUE;
 
     @Column(name = "created_date")
-    private LocalDateTime createdDate;
+    private LocalDateTime createdDate=LocalDateTime.now();
 
     private LocalDateTime updatedAt;
 
