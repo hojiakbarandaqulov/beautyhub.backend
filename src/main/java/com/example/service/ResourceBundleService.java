@@ -16,9 +16,7 @@ public class ResourceBundleService {
         this.resourceBundle = resourceBundle;
     }
 
-
     public String getMessage(String code, LanguageEnum lang) {
         return resourceBundle.getMessage(code,null, new Locale(lang.name()));
     }
-
 }
