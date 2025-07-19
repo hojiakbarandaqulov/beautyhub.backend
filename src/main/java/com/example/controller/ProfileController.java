@@ -19,14 +19,14 @@ public class ProfileController {
 
     @PutMapping("/update/photo")
     public ResponseEntity<ApiResult<String>> updatePhoto(@Valid @RequestBody ProfileSavePhoto photo,
-                                                         @RequestHeader(value = "Accept-Language",defaultValue = "UZ") LanguageEnum language) {
+                                                         @RequestHeader(value = "Accept-Language",defaultValue = "uz") LanguageEnum language) {
         ApiResult<String> apiResult=profileService.updatePhoto(photo.getPhotoId(),language);
         return ResponseEntity.ok(apiResult);
     }
 
     @PutMapping("/update/password")
     public ResponseEntity<ApiResult<String>> updatePassword(@Valid @RequestBody ProfileUpdatePasswordDTO profileDTO,
-                                                              @RequestHeader(value = "Accept-Language", defaultValue = "UZ") LanguageEnum language) {
+                                                              @RequestHeader(value = "Accept-Language", defaultValue = "uz") LanguageEnum language) {
         ApiResult<String> apiResponse = profileService.updatePassword(profileDTO, language);
         return ResponseEntity.ok(apiResponse);
     }
