@@ -1,9 +1,11 @@
 package com.example.config;
 
 import com.example.entity.ProfileEntity;
+import com.example.entity.ProfileRoleEntity;
 import com.example.enums.GeneralStatus;
 import com.example.enums.ProfileRole;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,9 +13,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 @Getter
 @Setter
+@RequiredArgsConstructor
 public class CustomUserDetails implements UserDetails {
     private Long id;
     private String name;
@@ -30,7 +34,6 @@ public class CustomUserDetails implements UserDetails {
         this.status = profile.getStatus();
         this.authorities = roleList.stream().map(item -> new SimpleGrantedAuthority(item.name())).toList();
     }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;

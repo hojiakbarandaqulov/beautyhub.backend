@@ -1,19 +1,38 @@
 ### profile update photo
 PUT http://localhost:8080/api/profile/update/photo
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MjUxMjQ1NiwiZXhwIjoxNzUyODU4MDU2fQ.dZT2Oyy02vRo9uDGz5q9nVmE1qHeU7Nfc0ZvtTxNOJM
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MjkwMjQwNSwiZXhwIjoxNzUzMjQ4MDA1fQ.0CqoPyApYE5_PKBJAKjS6X1SKotNKVh6FyAstenukDg
 
 {
   "photoId": "15fc9050-a8a1-437e-8e20-9cc8ecf14632.jpg"
 }
 
-
 ### profile update password
 PUT http://localhost:8080/api/profile/update/password
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1Mjc0MjMzMiwiZXhwIjoxNzUzMDg3OTMyfQ.xqsUJ3zPh-Sqd9LM4iGzK4QnGyyFqmaTuHdSWvLy3_E
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MjkyMDU1MSwiZXhwIjoxNzUzMjY2MTUxfQ.jO8GctYJJXiUQGtfOUzhlyt4ax254lMi8ZyjAT5ygG8
 
 {
   "currentPassword": "123456789",
   "newPassword": "12345678"
+}
+
+### Profile update
+PUT http://localhost:8080/api/profile/update/phone
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4NzcyNjUzNTA3Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MjkzMTgyMywiZXhwIjoxNzUzMjc3NDIzfQ.o7u1qMSvBl_5DapekqP8tHUJAtyspwgX_ZMP_6kqbDU
+Accept-Language: en
+
+{
+  "phone": "+998995092376"
+}
+
+
+### Profile update confirm
+POST http://localhost:8080/api/profile/update/confirm
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4NzcyNjUzNTA3Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MjkzMTgyMywiZXhwIjoxNzUzMjc3NDIzfQ.o7u1qMSvBl_5DapekqP8tHUJAtyspwgX_ZMP_6kqbDU
+
+{
+  "code": "34838"
 }

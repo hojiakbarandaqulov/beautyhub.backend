@@ -1,7 +1,7 @@
 ###
 POST http://localhost:8080/api/auth/registration
 Content-Type: application/json
-Accept-Language: UZ
+Accept-Language: en
 
 {
   "fullName": "Ali Aliyev",
@@ -16,8 +16,8 @@ Content-Type: application/json
 Accept-Language: ru
 
 {
-  "phone": "+998995092376",
-  "password": "123456789"
+  "phone": "+998772653507",
+  "password": "12345678"
 }
 
 
@@ -26,7 +26,7 @@ GET http://localhost:8080/api/auth/registration/verification
 Content-Type: application/json
 
 {
-  "phone": "+998995092376",
+  "phone": "+998999476970",
   "code": "60248"
 }
 
@@ -43,7 +43,7 @@ POST http://localhost:8080/api/auth/registration/reset-password/confirm
 Content-Type: application/json
 
 {
-  "phone": "+998995092376",
+  "phone": "+998772653507",
   "password": "123456789",
   "confirmPassword": "123456789"
 }

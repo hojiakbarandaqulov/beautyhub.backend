@@ -27,17 +27,12 @@ public class SmsHistoryEntity {
     @Column(name = "created_date")
     private LocalDateTime createdDate=LocalDateTime.now();
 
-    @ManyToOne(fetch = FetchType.LAZY) // Til ma'lumotlari faqat kerak bo'lganda yuklansin
-    @JoinColumn(name = "app_language_code") // Ma'lumotlar bazasida 'app_language_code' ustuni bo'ladi (FK)
-    private LanguageEntity appLanguage; // Foydalanuvchi tanlagan til obyekti
-
-    // Shaharni saqlash uchun bog'lanish (oldin berilgan)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "city_id")
     private CityEntity city;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "email_type")
+    @Column(name = "sms_type")
     private SmsType smsType;
     @Column(name = "attempt_count")
     private Integer attemptCount;

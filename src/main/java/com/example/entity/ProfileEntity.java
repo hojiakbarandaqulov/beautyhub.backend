@@ -22,6 +22,8 @@ public class ProfileEntity {
 
     @Column(name = "phone")
     private String phone;
+    @Column(name = "temp_phone")
+    private String tempPhone;
 
     @Column(name = "password")
     private String password;
@@ -48,14 +50,8 @@ public class ProfileEntity {
     @Column(name = "created_date")
     private LocalDateTime createdDate=LocalDateTime.now();
 
-    private LocalDateTime updatedAt;
 
    /* @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CardEntity> cards;*/
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
-    }
 
 }
