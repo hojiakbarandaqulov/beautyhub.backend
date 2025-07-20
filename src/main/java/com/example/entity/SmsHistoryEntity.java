@@ -32,7 +32,7 @@ public class SmsHistoryEntity {
     private CityEntity city;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "email_type")
+    @Column(name = "sms_type")
     private SmsType smsType;
     @Column(name = "attempt_count")
     private Integer attemptCount;

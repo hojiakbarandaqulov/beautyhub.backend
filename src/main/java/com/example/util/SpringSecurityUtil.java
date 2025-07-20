@@ -22,4 +22,10 @@ public class SpringSecurityUtil {
         }
         return null;
     }
+
+   /* public static Long getProfileId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
+        return user.getId();
+    }*/
 }
