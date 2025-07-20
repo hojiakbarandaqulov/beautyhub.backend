@@ -75,10 +75,12 @@ public class SpringConfig {
                             .requestMatchers(AUTH_WHITELIST).permitAll()
                             .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() //
                             .requestMatchers("/api/auth/**").permitAll()
-                            .requestMatchers(HttpMethod.GET,"/api/attach/open_general/**").permitAll()
-                            .requestMatchers(HttpMethod.POST,"/api/attach/upload").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/api/attach/open_general/**").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/attach/upload").permitAll()
                             .requestMatchers("/api/profile/update/photo").permitAll()
                             .requestMatchers("/api/profile/update/password").permitAll()
+                            .requestMatchers("/api/profile/update/phone",
+                                             "/api/profile/update/confirm").permitAll()
                             .anyRequest()
                             .authenticated();
                 })

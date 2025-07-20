@@ -68,7 +68,7 @@ public class AuthService {
         profileRepository.save(profileEntity);
 
         profileRoleService.create(profileEntity.getId(),ProfileRole.ROLE_USER);
-        smsService.sendSms(profileEntity.getPhone());
+//        smsService.sendSms(profileEntity.getPhone());
         return new ApiResult<>(messageSource.getMessage("phone.sms.send",language));
     }
 

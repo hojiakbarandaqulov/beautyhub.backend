@@ -1,6 +1,7 @@
 package com.example.config;
 
 import com.example.entity.ProfileEntity;
+import com.example.entity.ProfileRoleEntity;
 import com.example.enums.ProfileRole;
 import com.example.repository.ProfileRepository;
 import com.example.repository.ProfileRoleRepository;
@@ -27,6 +28,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
         ProfileEntity profile = optional.get();
         List<ProfileRole> roleList=profileRoleRepository.getAllRolesListByProfileId(profile.getId());
-        return new CustomUserDetails(profile,roleList);
+        return new CustomUserDetails(profile, roleList);
     }
 }
