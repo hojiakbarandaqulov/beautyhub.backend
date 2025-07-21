@@ -80,7 +80,8 @@ public class SpringConfig {
                             .requestMatchers("/api/profile/update/photo").permitAll()
                             .requestMatchers("/api/profile/update/password").permitAll()
                             .requestMatchers("/api/profile/update/phone",
-                                             "/api/profile/update/confirm").permitAll()
+                                             "/api/profile/update/confirm",
+                                             "/api/profile/update/language/").permitAll()
                             .anyRequest()
                             .authenticated();
                 })

@@ -26,35 +26,35 @@ public class AuthController {
 
     @PostMapping("/registration")
     public ResponseEntity<ApiResult<String>> registration(@RequestBody @Valid RegistrationDTO registrationDTO,
-                                                          @RequestHeader(value = "Accept-Language", defaultValue = "uz") LanguageEnum language) {
+                                                          @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
         ApiResult<String> apiResult = authService.registration(registrationDTO, language);
         return ResponseEntity.ok(apiResult);
     }
 
     @PostMapping("/registration/login")
     public ResponseEntity<ApiResult<ProfileDTO>> login(@Valid @RequestBody LoginDTO dto,
-                                                       @RequestHeader(value = "Accept-Language", defaultValue = "uz") LanguageEnum language) {
+                                                       @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
         ApiResult<ProfileDTO> ok = authService.login(dto, language);
         return ResponseEntity.ok(ok);
     }
 
     @GetMapping("/registration/verification")
     public ResponseEntity<ProfileDTO> registrationVerification(@RequestBody SmsVerificationDTO smsVerification,
-                                                               @RequestHeader(value = "Accept-Language", defaultValue = "uz") LanguageEnum lang) {
+                                                               @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum lang) {
         ProfileDTO ok = authService.regVerification(smsVerification, lang);
         return ResponseEntity.ok(ok);
     }
 
     @PostMapping("/registration/reset")
     public ResponseEntity<ApiResult<String>> resent(@Valid @RequestBody ResetPasswordDTO dto,
-                                                    @RequestHeader(value = "Accept-Language", defaultValue = "uz") LanguageEnum language) {
+                                                    @RequestHeader(defaultValue = "ru") LanguageEnum language) {
         ApiResult<String> ok = authService.resetPassword(dto, language);
         return ResponseEntity.ok(ok);
     }
 
     @PostMapping("/registration/reset-password/confirm")
     public ResponseEntity<ApiResult<String>> resentPassword(@Valid @RequestBody ResetPasswordConfirmDTO dto,
-                                                            @RequestHeader(value = "Accept-Language", defaultValue = "uz") LanguageEnum language) {
+                                                            @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
         ApiResult<String> ok = authService.resetPasswordConfirm(dto, language);
         return ResponseEntity.ok(ok);
     }
