@@ -7,17 +7,17 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Locale;
+import java.util.Map;
 
 @Getter
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResult<T> implements Serializable {
 
-    private  Boolean success;
-
-    private String message;
-
+    private Boolean success;
+    private String errMessage;
     private T data;
+    private Map<LanguageEnum, String> messages;
 
     private ApiResult(String s, Boolean success, Locale locale) {
         this.success = success;
@@ -28,33 +28,53 @@ public class ApiResult<T> implements Serializable {
         this.success = success;
     }
 
-    private ApiResult(String message, Boolean success) {
-        this.message = message;
+    private ApiResult(String errMessage, Boolean success) {
+        this.errMessage = errMessage;
         this.success = success;
     }
 
-    public ApiResult(T data, String message) {
+    public ApiResult(T data, String errMessage) {
         this.data = data;
-        this.message = message;
+        this.errMessage = errMessage;
     }
 
     public ApiResult(T data) {
         this.data = data;
     }
 
-    public <E> ApiResult(E data, Boolean aTrue, String message) {
+    public <E> ApiResult(E data, Boolean aTrue, String errMessage) {
+        this.data = (T) data;
+        this.success = aTrue;
+        this.errMessage = errMessage;
     }
 
+    public ApiResult(T data, Map<LanguageEnum, String> messages) {
+        this.data = data;
+        this.messages = messages;
+        if (messages != null && !messages.isEmpty()) {
+            this.errMessage = messages.get(LanguageEnum.uz); // Default to Uzbek
+        }
+        this.success = true;
+    }
+
+    // New constructor for error with multilingual messages
+    public ApiResult(String errorMsg, Map<LanguageEnum, String> messages, Boolean success) {
+        this.errMessage = errorMsg;
+        this.messages = messages;
+        this.success = success;
+    }
+
+    // Existing static factory methods remain unchanged
     public static <E> ApiResult<E> successResponse(String s, E data, Locale locale) {
         return new ApiResult<>(data, Boolean.TRUE);
-}
+    }
 
     public static <E> ApiResult<E> successResponse(E data) {
         return new ApiResult<>(data, Boolean.TRUE);
     }
 
-    public static ApiResult<String> successResponse(String message) {
-        return new ApiResult<>(message, Boolean.TRUE);
+    public static ApiResult<String> successResponse(String errMessage) {
+        return new ApiResult<>(errMessage, Boolean.TRUE);
     }
 
     public static ApiResult<ErrorResponse> errorResponse(String errorMsg) {
@@ -69,4 +89,12 @@ public class ApiResult<T> implements Serializable {
         return new ApiResult<>(data, Boolean.FALSE);
     }
 
+    public static <E> ApiResult<E> successResponse(E data, Map<LanguageEnum, String> messages) {
+        return new ApiResult<>(data, messages);
+    }
+
+    public static ApiResult<ErrorResponse> errorResponse(Map<LanguageEnum, String> messages) {
+        String defaultMsg = messages != null ? messages.get(LanguageEnum.uz) : "Error occurred";
+        return new ApiResult<>(defaultMsg, messages, Boolean.FALSE);
+    }
 }

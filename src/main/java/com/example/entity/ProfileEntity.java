@@ -1,6 +1,7 @@
 package com.example.entity;
 
 import com.example.enums.GeneralStatus;
+import com.example.enums.LanguageEnum;
 import com.example.enums.ProfileRole;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -50,6 +51,9 @@ public class ProfileEntity {
     @Column(name = "created_date")
     private LocalDateTime createdDate=LocalDateTime.now();
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "language")
+    private LanguageEnum language=LanguageEnum.uz;
 
    /* @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CardEntity> cards;*/

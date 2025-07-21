@@ -69,7 +69,7 @@ public class AuthService {
 
         profileRoleService.create(profileEntity.getId(),ProfileRole.ROLE_USER);
 //        smsService.sendSms(profileEntity.getPhone());
-        return new ApiResult<>(messageSource.getMessage("phone.sms.send",language));
+        return new ApiResult<>(messageSource.getMessage("phone.sms).send",language));
     }
 
     public ApiResult<ProfileDTO> login(LoginDTO loginDTO, LanguageEnum language) {
