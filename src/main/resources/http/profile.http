@@ -2,6 +2,7 @@
 PUT http://localhost:8080/api/profile/update/photo
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MjkwMjQwNSwiZXhwIjoxNzUzMjQ4MDA1fQ.0CqoPyApYE5_PKBJAKjS6X1SKotNKVh6FyAstenukDg
+Accept-Language: uz
 
 {
   "photoId": "15fc9050-a8a1-437e-8e20-9cc8ecf14632.jpg"
@@ -27,7 +28,6 @@ Accept-Language: en
   "phone": "+998995092376"
 }
 
-
 ### Profile update confirm
 POST http://localhost:8080/api/profile/update/confirm
 Content-Type: application/json
@@ -36,3 +36,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4NzcyNjUzNTA3Iiwicm9sZ
 {
   "code": "34838"
 }
+
+###
+POST http://localhost:8080/api/profile/update/language/confirm
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzA5ODU2MCwiZXhwIjoxNzUzNDQ0MTYwfQ.ybeAefVMs760ypEcYUpbU90JEPxfHWQOPNeHwk07_jw
+
+{
+  "languageCode": "en"
+}
+

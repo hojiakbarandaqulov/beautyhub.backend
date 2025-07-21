@@ -7,17 +7,17 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Locale;
+import java.util.Map;
 
 @Getter
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResult<T> implements Serializable {
 
-    private  Boolean success;
-
+    private Boolean success;
     private String message;
-
     private T data;
+    private Map<LanguageEnum, String> messages;
 
     private ApiResult(String s, Boolean success, Locale locale) {
         this.success = success;
@@ -43,11 +43,31 @@ public class ApiResult<T> implements Serializable {
     }
 
     public <E> ApiResult(E data, Boolean aTrue, String message) {
+        this.data = (T) data;
+        this.success = aTrue;
+        this.message = message;
     }
 
+    public ApiResult(T data, Map<LanguageEnum, String> messages) {
+        this.data = data;
+        this.messages = messages;
+        if (messages != null && !messages.isEmpty()) {
+            this.message = messages.get(LanguageEnum.uz); // Default to Uzbek
+        }
+        this.success = true;
+    }
+
+    // New constructor for error with multilingual messages
+    public ApiResult(String errorMsg, Map<LanguageEnum, String> messages, Boolean success) {
+        this.message = errorMsg;
+        this.messages = messages;
+        this.success = success;
+    }
+
+    // Existing static factory methods remain unchanged
     public static <E> ApiResult<E> successResponse(String s, E data, Locale locale) {
         return new ApiResult<>(data, Boolean.TRUE);
-}
+    }
 
     public static <E> ApiResult<E> successResponse(E data) {
         return new ApiResult<>(data, Boolean.TRUE);
@@ -69,4 +89,12 @@ public class ApiResult<T> implements Serializable {
         return new ApiResult<>(data, Boolean.FALSE);
     }
 
+    public static <E> ApiResult<E> successResponse(E data, Map<LanguageEnum, String> messages) {
+        return new ApiResult<>(data, messages);
+    }
+
+    public static ApiResult<ErrorResponse> errorResponse(Map<LanguageEnum, String> messages) {
+        String defaultMsg = messages != null ? messages.get(LanguageEnum.uz) : "Error occurred";
+        return new ApiResult<>(defaultMsg, messages, Boolean.FALSE);
+    }
 }

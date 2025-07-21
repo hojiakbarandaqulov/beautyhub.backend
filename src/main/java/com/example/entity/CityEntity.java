@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "cities") // Shaharlar jadvali
@@ -23,6 +24,16 @@ public class CityEntity {
     @Column(name = "name_ru", nullable = false)
     private String nameRu;
 
-     @Column(name = "name_en")
-     private String nameEn;
+    @Column(name = "name_en")
+    private String nameEn;
+
+    @Column(name = "order_number")
+    private Integer orderNumber;
+
+    @Column(name = "visible")
+    private Boolean visible = Boolean.TRUE;
+
+    @Column(name = "created_date")
+    private LocalDateTime createdDate = LocalDateTime.now();
+
 }
