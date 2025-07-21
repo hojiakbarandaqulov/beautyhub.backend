@@ -13,10 +13,9 @@ Accept-Language: en
 ###
 POST http://localhost:8080/api/auth/registration/login
 Content-Type: application/json
-Accept-Language: ru
 
 {
-  "phone": "+998772653507",
+  "phone": "+998995092376",
   "password": "12345678"
 }
 

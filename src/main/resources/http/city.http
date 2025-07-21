@@ -1,0 +1,17 @@
+###
+POST http://localhost:8080/api/city/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzEwOTUxMiwiZXhwIjoxNzUzNDU1MTEyfQ.73c3DhFqtG3HehDgPtZSsrhFxl97sE5AXX2PCaJQqwo
+
+{
+  "orderNumber": 1,
+  "nameUz": "Toshkent",
+  "nameRu": "Ташкент",
+  "nameEn": "Tashkent"
+}
+
+
+
+###
+GET http://localhost:8080/api/city/cityAll
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzEwOTUxMiwiZXhwIjoxNzUzNDU1MTEyfQ.73c3DhFqtG3HehDgPtZSsrhFxl97sE5AXX2PCaJQqwo
