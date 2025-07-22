@@ -34,4 +34,14 @@ public class CityController {
         return ResponseEntity.ok().body(cityService.getAll());
     }
 
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/search")
+    public ResponseEntity<ApiResult<List<CityResponseDTO>>> search(
+            @RequestParam String query,
+            @RequestParam(required = false, defaultValue = "uz") String language) {
+
+        ApiResult<List<CityResponseDTO>> result = cityService.citySearch(query, language);
+        return ResponseEntity.ok(result);
+    }
+
 }
