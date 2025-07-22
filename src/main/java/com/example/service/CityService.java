@@ -23,6 +23,7 @@ public class CityService {
 
     private final CityRepository cityRepository;
     private final DistrictRepository districtRepository;
+    private final ResourceBundleService messageService;
 
 
     public ApiResult<CityResponseDTO> createCity(CityCreateDTO dto) {
@@ -113,7 +114,7 @@ public class CityService {
                 .map(this::convertToDistrictResponseDTO)
                 .collect(Collectors.toList());
 
-        return new ApiResult<>(new SearchResultDTO(cities, districts), true, "search.results.retrieved");
+        return new ApiResult<>(new SearchResultDTO(cities, districts), true, messageService.getMessage("search.results.retrieved",language));
     }
 
     // Qo'lda yozilgan mapping metodi

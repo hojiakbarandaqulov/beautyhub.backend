@@ -1,5 +1,6 @@
 package com.example.dto.base;
 
+import com.example.dto.city.SearchResultDTO;
 import com.example.enums.LanguageEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -63,6 +64,7 @@ public class ApiResult<T> implements Serializable {
         this.messages = messages;
         this.success = success;
     }
+
 
     // Existing static factory methods remain unchanged
     public static <E> ApiResult<E> successResponse(String s, E data, Locale locale) {
