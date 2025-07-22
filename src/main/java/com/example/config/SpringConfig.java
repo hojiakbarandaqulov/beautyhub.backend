@@ -82,6 +82,7 @@ public class SpringConfig {
                             .requestMatchers("/api/profile/update/phone",
                                              "/api/profile/update/confirm",
                                              "/api/profile/update/language/").permitAll()
+                            .requestMatchers("/api/city/create").hasRole("ADMIN")
                             .anyRequest()
                             .authenticated();
                 })

@@ -1,13 +1,71 @@
-###
+
+###City Create
 POST http://localhost:8080/api/city/create
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzEwOTUxMiwiZXhwIjoxNzUzNDU1MTEyfQ.73c3DhFqtG3HehDgPtZSsrhFxl97sE5AXX2PCaJQqwo
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzE3NDIxMywiZXhwIjoxNzUzNTE5ODEzfQ.nhmPpmiZ4g5xj3qyS8XW5sI7NoGza2HtvVvBpJKKYi0
 
 {
-  "orderNumber": 1,
-  "nameUz": "Toshkent",
-  "nameRu": "Ташкент",
-  "nameEn": "Tashkent"
+  "nameUz": "Toshkent Shahri",
+  "nameRu": "Город Ташкент",
+  "nameEn": "Tashkent City",
+  "districts": [
+    {
+      "nameUz": "Yunusobod tumani",
+      "nameRu": "Юнусабадский район",
+      "nameEn": "Yunusabad District"
+    },
+    {
+      "nameUz": "Mirzo Ulug'bek tumani",
+      "nameRu": "Мирзо-Улугбекский район",
+      "nameEn": "Mirzo Ulugbek District"
+    },
+    {
+      "nameUz": "Chilonzor tumani",
+      "nameRu": "Чиланзарский район",
+      "nameEn": "Chilanzar District"
+    },
+    {
+      "nameUz": "Shayxontoxur tumani",
+      "nameRu": "Шайхантахурский район",
+      "nameEn": "Shaykhantakhur District"
+    },
+    {
+      "nameUz": "Olmazor tumani",
+      "nameRu": "Алмазарский район",
+      "nameEn": "Almazar District"
+    },
+    {
+      "nameUz": "Bektemir tumani",
+      "nameRu": "Бектемирский район",
+      "nameEn": "Bektemir District"
+    },
+    {
+      "nameUz": "Yakkasaroy tumani",
+      "nameRu": "Яккасарайский район",
+      "nameEn": "Yakkasaray District"
+    },
+    {
+      "nameUz": "Mirobod tumani",
+      "nameRu": "Мирабадский район",
+      "nameEn": "Mirabad District"
+    },
+    {
+      "nameUz": "Sergeli tumani",
+      "nameRu": "Сергелийский район",
+      "nameEn": "Sergeli District"
+    },
+    {
+      "nameUz": "Uchtepa tumani",
+      "nameRu": "Учтепинский район",
+      "nameEn": "Uchtepa District"
+    },
+    {
+      "nameUz": "Yashnobod tumani",
+      "nameRu": "Яшнободский район",
+      "nameEn": "Yashnobod District"
+    }
+  ],
+  "orderNumber": 1
 }
 
 ###

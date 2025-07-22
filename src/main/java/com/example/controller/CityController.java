@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.dto.city.CityCreateDTO;
+import com.example.dto.city.CityResponseAllDTO;
 import com.example.dto.city.CityResponseDTO;
 import com.example.dto.base.ApiResult;
 import com.example.service.CityService;
@@ -21,16 +22,15 @@ public class CityController {
 
     private final CityService cityService;
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/create")
     public ResponseEntity<ApiResult<CityResponseDTO>> create(@Valid @RequestBody CityCreateDTO region){
-        ApiResult<CityResponseDTO> response=cityService.create(region);
+        ApiResult<CityResponseDTO> response=cityService.createCity(region);
         return ResponseEntity.ok().body(response);
     }
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/cityAll")
-    public ResponseEntity<ApiResult<List<CityResponseDTO>>> all() {
+    public ResponseEntity<ApiResult<List<CityResponseAllDTO>>> all() {
         return ResponseEntity.ok().body(cityService.getAll());
     }
 
