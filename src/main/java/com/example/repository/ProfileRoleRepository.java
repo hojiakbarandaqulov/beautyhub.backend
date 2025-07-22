@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface ProfileRoleRepository extends JpaRepository<ProfileRoleEntity, 
 
     @Transactional
     @Modifying
-    @Query("DELETE from ProfileRoleEntity p where p.id=?1")
-    void deleteByProfileId(Long profileId);
+    @Query("DELETE from ProfileRoleEntity p where p.profileId=:profileId")
+    void deleteByProfileId(@Param("profileId") Long profileId);
 
 }

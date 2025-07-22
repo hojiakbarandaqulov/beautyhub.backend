@@ -53,7 +53,7 @@ public class ProfileEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "language")
-    private LanguageEnum language=LanguageEnum.uz;
+    private LanguageEnum language=LanguageEnum.ru;
 
    /* @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CardEntity> cards;*/
