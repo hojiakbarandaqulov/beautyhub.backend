@@ -15,7 +15,7 @@ import java.util.Map;
 public class ApiResult<T> implements Serializable {
 
     private Boolean success;
-    private String message;
+    private String errMessage;
     private T data;
     private Map<LanguageEnum, String> messages;
 
@@ -28,38 +28,38 @@ public class ApiResult<T> implements Serializable {
         this.success = success;
     }
 
-    private ApiResult(String message, Boolean success) {
-        this.message = message;
+    private ApiResult(String errMessage, Boolean success) {
+        this.errMessage = errMessage;
         this.success = success;
     }
 
-    public ApiResult(T data, String message) {
+    public ApiResult(T data, String errMessage) {
         this.data = data;
-        this.message = message;
+        this.errMessage = errMessage;
     }
 
     public ApiResult(T data) {
         this.data = data;
     }
 
-    public <E> ApiResult(E data, Boolean aTrue, String message) {
+    public <E> ApiResult(E data, Boolean aTrue, String errMessage) {
         this.data = (T) data;
         this.success = aTrue;
-        this.message = message;
+        this.errMessage = errMessage;
     }
 
     public ApiResult(T data, Map<LanguageEnum, String> messages) {
         this.data = data;
         this.messages = messages;
         if (messages != null && !messages.isEmpty()) {
-            this.message = messages.get(LanguageEnum.uz); // Default to Uzbek
+            this.errMessage = messages.get(LanguageEnum.uz); // Default to Uzbek
         }
         this.success = true;
     }
 
     // New constructor for error with multilingual messages
     public ApiResult(String errorMsg, Map<LanguageEnum, String> messages, Boolean success) {
-        this.message = errorMsg;
+        this.errMessage = errorMsg;
         this.messages = messages;
         this.success = success;
     }
@@ -73,8 +73,8 @@ public class ApiResult<T> implements Serializable {
         return new ApiResult<>(data, Boolean.TRUE);
     }
 
-    public static ApiResult<String> successResponse(String message) {
-        return new ApiResult<>(message, Boolean.TRUE);
+    public static ApiResult<String> successResponse(String errMessage) {
+        return new ApiResult<>(errMessage, Boolean.TRUE);
     }
 
     public static ApiResult<ErrorResponse> errorResponse(String errorMsg) {
