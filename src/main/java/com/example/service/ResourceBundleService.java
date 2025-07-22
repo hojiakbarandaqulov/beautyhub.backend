@@ -19,4 +19,8 @@ public class ResourceBundleService {
     public String getMessage(String code, LanguageEnum lang) {
         return resourceBundle.getMessage(code,null, new Locale(lang.name()));
     }
+
+    public String getMessage(String code, String lang) {
+        return resourceBundle.getMessage(code,null, new Locale(lang));
+    }
 }
