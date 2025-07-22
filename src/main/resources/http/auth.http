@@ -19,7 +19,6 @@ Content-Type: application/json
   "password": "12345678"
 }
 
-
 ###
 GET http://localhost:8080/api/auth/registration/verification
 Content-Type: application/json
