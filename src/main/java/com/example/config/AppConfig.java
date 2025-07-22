@@ -1,5 +1,7 @@
 package com.example.config;
 
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,4 +26,6 @@ public class AppConfig {
     public RestTemplate restTemplate(){
         return new RestTemplate();
     }
+
+
 }

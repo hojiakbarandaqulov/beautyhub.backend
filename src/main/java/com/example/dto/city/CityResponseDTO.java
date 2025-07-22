@@ -20,5 +20,7 @@ public class CityResponseDTO {
 
     @NotBlank
     private String nameEn;
+
     private List<DistrictDTO> districts;
+
 }

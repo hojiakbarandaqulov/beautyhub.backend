@@ -5,69 +5,90 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzE3NDIxMywiZXhwIjoxNzUzNTE5ODEzfQ.nhmPpmiZ4g5xj3qyS8XW5sI7NoGza2HtvVvBpJKKYi0
 
 {
-  "nameUz": "Toshkent Shahri",
-  "nameRu": "Город Ташкент",
-  "nameEn": "Tashkent City",
+  "nameUz": "Toshkent viloyati",
+  "nameRu": "Ташкентская область",
+  "nameEn": "Tashkent Region",
   "districts": [
     {
-      "nameUz": "Yunusobod tumani",
-      "nameRu": "Юнусабадский район",
-      "nameEn": "Yunusabad District"
+      "nameUz": "Bekobod tumani",
+      "nameRu": "Бекабадский район",
+      "nameEn": "Bekabad District"
     },
     {
-      "nameUz": "Mirzo Ulug'bek tumani",
-      "nameRu": "Мирзо-Улугбекский район",
-      "nameEn": "Mirzo Ulugbek District"
+      "nameUz": "Bo'stonliq tumani",
+      "nameRu": "Бостанлыкский район",
+      "nameEn": "Bostanliq District"
     },
     {
-      "nameUz": "Chilonzor tumani",
-      "nameRu": "Чиланзарский район",
-      "nameEn": "Chilanzar District"
+      "nameUz": "Bo'ka tumani",
+      "nameRu": "Букинский район",
+      "nameEn": "Boka District"
     },
     {
-      "nameUz": "Shayxontoxur tumani",
-      "nameRu": "Шайхантахурский район",
-      "nameEn": "Shaykhantakhur District"
+      "nameUz": "Chinoz tumani",
+      "nameRu": "Чиназский район",
+      "nameEn": "Chinoz District"
     },
     {
-      "nameUz": "Olmazor tumani",
-      "nameRu": "Алмазарский район",
-      "nameEn": "Almazar District"
+      "nameUz": "Yuqorichirchiq tumani",
+      "nameRu": "Юкоричирчикский район",
+      "nameEn": "Yukorichirchik District"
     },
     {
-      "nameUz": "Bektemir tumani",
-      "nameRu": "Бектемирский район",
-      "nameEn": "Bektemir District"
+      "nameUz": "Qibray tumani",
+      "nameRu": "Кибрайский район",
+      "nameEn": "Kibray District"
     },
     {
-      "nameUz": "Yakkasaroy tumani",
-      "nameRu": "Яккасарайский район",
-      "nameEn": "Yakkasaray District"
+      "nameUz": "Ohangaron tumani",
+      "nameRu": "Ахангаранский район",
+      "nameEn": "Ohangaron District"
     },
     {
-      "nameUz": "Mirobod tumani",
-      "nameRu": "Мирабадский район",
-      "nameEn": "Mirabad District"
+      "nameUz": "Oqqo'rg'on tumani",
+      "nameRu": "Аккурганский район",
+      "nameEn": "Oqqo'rg'on District"
     },
     {
-      "nameUz": "Sergeli tumani",
-      "nameRu": "Сергелийский район",
-      "nameEn": "Sergeli District"
+      "nameUz": "Parkent tumani",
+      "nameRu": "Паркентский район",
+      "nameEn": "Parkent District"
     },
     {
-      "nameUz": "Uchtepa tumani",
-      "nameRu": "Учтепинский район",
-      "nameEn": "Uchtepa District"
+      "nameUz": "Piskent tumani",
+      "nameRu": "Пскентский район",
+      "nameEn": "Piskent District"
     },
     {
-      "nameUz": "Yashnobod tumani",
-      "nameRu": "Яшнободский район",
-      "nameEn": "Yashnobod District"
+      "nameUz": "Quyichirchiq tumani",
+      "nameRu": "Куйичирчикский район",
+      "nameEn": "Quyichirchiq District"
+    },
+    {
+      "nameUz": "O'rtachirchiq tumani",
+      "nameRu": "Уртачирчикский район",
+      "nameEn": "O'rtachirchiq District"
+    },
+    {
+      "nameUz": "Yangiyo'l tumani",
+      "nameRu": "Янгиюльский район",
+      "nameEn": "Yangiyo'l District"
+    },
+    {
+      "nameUz": "Zangiota tumani",
+      "nameRu": "Зангиатинский район",
+      "nameEn": "Zangiota District"
     }
   ],
-  "orderNumber": 1
+  "orderNumber": 12
 }
-
 ###
 GET http://localhost:8080/api/city/cityAll
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzEwOTUxMiwiZXhwIjoxNzUzNDU1MTEyfQ.73c3DhFqtG3HehDgPtZSsrhFxl97sE5AXX2PCaJQqwo
+
+
+###
+GET http://localhost:8080/api/city/search?
+    query=Q&
+    language=uz
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzEwOTUxMiwiZXhwIjoxNzUzNDU1MTEyfQ.73c3DhFqtG3HehDgPtZSsrhFxl97sE5AXX2PCaJQqwo
