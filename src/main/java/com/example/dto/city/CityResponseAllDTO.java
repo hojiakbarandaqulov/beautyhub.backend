@@ -1,17 +1,11 @@
 package com.example.dto.city;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.apache.catalina.LifecycleState;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-
 @Data
-public class CityResponseDTO {
-    private Long id;
+public class CityResponseAllDTO {
     @NotBlank
     private String nameUz;
 
