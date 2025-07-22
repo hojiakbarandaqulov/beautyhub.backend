@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "cities") // Shaharlar jadvali
@@ -24,8 +27,11 @@ public class CityEntity {
     @Column(name = "name_ru", nullable = false)
     private String nameRu;
 
-    @Column(name = "name_en")
+    @Column(name = "name_en", nullable = false)
     private String nameEn;
+
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DistrictEntity> districts = new ArrayList<>();
 
     @Column(name = "order_number")
     private Integer orderNumber;
