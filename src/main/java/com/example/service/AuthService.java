@@ -18,6 +18,7 @@ import com.example.service.sms.SmsHistoryService;
 import com.example.service.sms.SmsService;
 import com.example.util.JwtUtil;
 import com.example.util.PhoneUtil;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -40,6 +41,7 @@ public class AuthService {
     private final SmsService smsService;
     private final SmsHistoryService smsHistoryService;
 
+    @Transactional
     public ApiResult<String> registration(RegistrationDTO registrationDTO, LanguageEnum language) {
         Optional<ProfileEntity> optional = profileRepository.findByPhoneAndVisibleTrue(registrationDTO.getPhone());
         if (optional.isPresent()) {
@@ -47,7 +49,6 @@ public class AuthService {
             if (profileEntity.getStatus().equals(GeneralStatus.IN_REGISTRATION)) {
                 profileRoleService.deleteRoles(profileEntity.getId());
                 profileRepository.delete(profileEntity);
-
             } else {
                 throw new AppBadException(messageSource.getMessage("email.phone.exists",language));
             }
@@ -69,7 +70,7 @@ public class AuthService {
 
         profileRoleService.create(profileEntity.getId(),ProfileRole.ROLE_USER);
 //        smsService.sendSms(profileEntity.getPhone());
-        return new ApiResult<>(messageSource.getMessage("phone.sms).send",language));
+        return new ApiResult<>(messageSource.getMessage("phone.sms.send",language));
     }
 
     public ApiResult<ProfileDTO> login(LoginDTO loginDTO, LanguageEnum language) {
