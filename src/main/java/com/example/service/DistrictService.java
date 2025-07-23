@@ -34,7 +34,6 @@ public class DistrictService {
         List<DistrictResponseLanguageDTO> dtoList = new LinkedList<>();
         for (DistrictMapper entity : mapperList) {
             DistrictResponseLanguageDTO dto = new DistrictResponseLanguageDTO();
-            dto.setId(entity.getId());
             dto.setName(entity.getName());
             dtoList.add(dto);
         }

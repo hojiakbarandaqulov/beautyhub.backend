@@ -8,6 +8,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class DistrictResponseLanguageDTO {
-    private Long id;
     private String name;
 }
