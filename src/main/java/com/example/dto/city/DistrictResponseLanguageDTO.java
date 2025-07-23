@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class DistrictResponseDTO {
-    private String nameUz;
-    private String nameRu;
-    private String nameEn;
+public class DistrictResponseLanguageDTO {
+    private Long id;
     private String name;
 }

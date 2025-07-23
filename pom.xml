@@ -114,7 +114,6 @@
             <artifactId>java-jwt</artifactId>
             <version>4.4.0</version> <!-- yoki eng oxirgi versiyasi -->
         </dependency>
-
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
