@@ -1,0 +1,12 @@
+###
+PUT http://localhost:8080/api/district/update/177
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzI2MDE2NCwiZXhwIjoxNzUzMzQ2NTY0fQ.EXX3PbcvNY25_3LOCr4K7JC0EcteWb0bdGU5HeNrIIc
+
+{
+  "name": "Zangiota District 1"
+}
+
+###
+GET http://localhost:8080/api/district/district/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzI2MDE2NCwiZXhwIjoxNzUzMzQ2NTY0fQ.EXX3PbcvNY25_3LOCr4K7JC0EcteWb0bdGU5HeNrIIc
