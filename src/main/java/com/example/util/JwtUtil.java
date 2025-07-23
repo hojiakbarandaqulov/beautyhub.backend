@@ -5,12 +5,17 @@ import com.example.enums.ProfileRole;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+
 import javax.crypto.SecretKey;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.security.KeyRep.Type.SECRET;
+
 public class JwtUtil {
-    private static final int tokenLiveTime = 1000 * 3600 * 96; // 2-day
+    private static final int tokenLiveTime = 1000 * 3600 * 24; // 1-day
     private static final String secretKey = "skjdhadasdasgfgdfgdfdftrhdgrgefergetdgsfegvergdgsbdzsfbvgdsetbg";
 
     public static String encode(Integer profileId, String email) {
@@ -65,6 +70,15 @@ public class JwtUtil {
                 .parseSignedClaims(token)
                 .getPayload();
         return Integer.valueOf(claims.getSubject());
+    }
+
+    public static String generateRefreshToken(String phone, Long profileId) {
+        // Refresh token uchun alohida expiration time (30 kun)
+        return JWT.create()
+                .withSubject(phone)
+                .withExpiresAt(new Date(System.currentTimeMillis() + tokenLiveTime)) // 30 kun
+                .withClaim("id", profileId)
+                .sign(Algorithm.HMAC256(secretKey));
     }
 
     private static SecretKey getSignInKey() {

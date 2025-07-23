@@ -21,4 +21,5 @@ public class ProfileDTO {
     private String phone;
     private List<ProfileRole> role;
     private String jwt;
+    private String refreshToken;
 }

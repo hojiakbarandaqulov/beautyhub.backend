@@ -50,7 +50,7 @@ public class AuthService {
                 profileRoleService.deleteRoles(profileEntity.getId());
                 profileRepository.delete(profileEntity);
             } else {
-                throw new AppBadException(messageSource.getMessage("email.phone.exists",language));
+                throw new AppBadException(messageSource.getMessage("email.phone.exists", language));
             }
         }
         if (!registrationDTO.getPassword().equals(registrationDTO.getConfirmPassword())) {
@@ -68,19 +68,19 @@ public class AuthService {
         profileEntity.setCreatedDate(LocalDateTime.now());
         profileRepository.save(profileEntity);
 
-        profileRoleService.create(profileEntity.getId(),ProfileRole.ROLE_USER);
+        profileRoleService.create(profileEntity.getId(), ProfileRole.ROLE_USER);
         smsService.sendSms(profileEntity.getPhone());
-        return new ApiResult<>(messageSource.getMessage("phone.sms.send",language));
+        return new ApiResult<>(messageSource.getMessage("phone.sms.send", language));
     }
 
     public ApiResult<ProfileDTO> login(LoginDTO loginDTO, LanguageEnum language) {
         Optional<ProfileEntity> optional = profileRepository.findByPhoneAndVisibleTrue(loginDTO.getPhone());
         if (optional.isEmpty()) {
-            throw new AppBadException(messageSource.getMessage("phone.not.found",language));
+            throw new AppBadException(messageSource.getMessage("phone.not.found", language));
         }
         ProfileEntity profile = optional.get();
         if (!bCryptPasswordEncoder.matches(loginDTO.getPassword(), profile.getPassword())) {
-            throw new AppBadException(messageSource.getMessage("wrong.password",language));
+            throw new AppBadException(messageSource.getMessage("wrong.password", language));
         }
         if (!profile.getStatus().equals(GeneralStatus.ACTIVE)) {
             throw new AppBadException(messageSource.getMessage("wrong.status", language));
@@ -90,23 +90,24 @@ public class AuthService {
         response.setPhone(profile.getPhone());
         response.setRole(profileRoleRepository.getAllRolesListByProfileId(profile.getId()));
         response.setJwt(JwtUtil.encode(profile.getPhone(), profile.getId(), response.getRole()));
+        response.setRefreshToken(JwtUtil.generateRefreshToken(profile.getPhone(), profile.getId()));
         return new ApiResult<>(response);
     }
 
     public ProfileDTO regVerification(SmsVerificationDTO dto, LanguageEnum lang) {
         Optional<ProfileEntity> optional = profileRepository.findByPhoneAndVisibleTrue(dto.getPhone());
-        if (optional.isEmpty()){
-            throw new AppBadException(messageSource.getMessage("phone.not.found",lang));
+        if (optional.isEmpty()) {
+            throw new AppBadException(messageSource.getMessage("phone.not.found", lang));
         }
 
         ProfileEntity profile = optional.get();
         if (!profile.getStatus().equals(GeneralStatus.IN_REGISTRATION)) {
-           throw new AppBadException(messageSource.getMessage("wrong.status", lang));
+            throw new AppBadException(messageSource.getMessage("wrong.status", lang));
         }
-        if (!smsHistoryService.checkSmsCode(dto.getPhone(), dto.getCode())){
-            throw new AppBadException("smsCode.invalid",null,new Locale(lang.name()));
+        if (!smsHistoryService.checkSmsCode(dto.getPhone(), dto.getCode())) {
+            throw new AppBadException("smsCode.invalid", null, new Locale(lang.name()));
         }
-        profileRepository.changeStatus(profile.getId(),GeneralStatus.ACTIVE);
+        profileRepository.changeStatus(profile.getId(), GeneralStatus.ACTIVE);
         ProfileDTO response = new ProfileDTO();
         response.setFullName(profile.getFullName());
         response.setPhone(profile.getPhone());
@@ -115,7 +116,7 @@ public class AuthService {
         return getLogResponse(profile);
     }
 
-    public ProfileDTO getLogResponse(ProfileEntity profile){
+    public ProfileDTO getLogResponse(ProfileEntity profile) {
         ProfileDTO response = new ProfileDTO();
         response.setFullName(profile.getFullName());
         response.setPhone(profile.getPhone());
