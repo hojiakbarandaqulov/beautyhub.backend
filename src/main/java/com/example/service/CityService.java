@@ -93,6 +93,7 @@ public class CityService {
 
     private DistrictDTO mapToDistrictResponseDTO(DistrictEntity district) {
         DistrictDTO dto = new DistrictDTO();
+        dto.setId(district.getId());
         dto.setNameUz(district.getNameUz());
         dto.setNameRu(district.getNameRu());
         dto.setNameEn(district.getNameEn());
