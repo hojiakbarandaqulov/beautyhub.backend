@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -98,42 +99,47 @@ public class CityService {
         return dto;
     }
 
-    public ApiResult<List<CityResponseDTO>> citySearch(String query, String language) {
+    public ApiResult<SearchResultDTO> citySearch(String query, String language) {
         String normalizedQuery = query.trim().toLowerCase();
+        List<CityEntity> allCities = cityRepository.findAll();
+        List<DistrictEntity> allDistricts = districtRepository.findAll();
 
-        // 1. Shaharlarni qidirish (barcha mos keluvchilar)
-        List<CityResponseDTO> cities = cityRepository.findAll().stream()
-                .filter(city -> matchesLanguage(city, normalizedQuery, language))
-                .sorted(Comparator.comparing(city -> calculateRelevance(city, normalizedQuery, language)))
-                .map(city -> convertToCityResponseDTO(city)) // Qo'lda mapping
+        List<CityResponseDTO> cityDTOs = allCities.stream()
+                .map(city -> {
+                    boolean cityMatches = matchesLanguage(city, normalizedQuery, language);
+
+                    List<DistrictDTO> matchingDistrictsInCity = allDistricts.stream()
+                            .filter(district -> district.getCity() != null && district.getCity().getId().equals(city.getId())) // Faqat shu shaharning tumanlari
+                            .filter(district -> matchesLanguage(district, normalizedQuery, language)) // Tuman nomiga mos kelish
+                            .sorted(Comparator.comparing(district -> calculateRelevance(district, normalizedQuery, language)))
+                            .map(this::convertToDistrictResponseDTO)
+                            .collect(Collectors.toList());
+
+                    if (cityMatches || !matchingDistrictsInCity.isEmpty()) {
+                        return convertToCityResponseDTO(city, matchingDistrictsInCity);
+                    }
+                    return null;
+                })
+                .filter(java.util.Objects::nonNull) // null bo'lgan shaharlarni filtrlash
+                .sorted(Comparator.comparing(cityDto -> calculateCityRelevance(cityDto, normalizedQuery, language))) // Shaharlarni ham o'z moslik darajasi bo'yicha saralash
                 .collect(Collectors.toList());
 
-        List<DistrictResponseDTO> districts = districtRepository.findAll().stream()
-                .filter(district -> matchesLanguage(district, normalizedQuery, language))
-                .sorted(Comparator.comparing(district -> calculateRelevance(district, normalizedQuery, language)))
-                .map(this::convertToDistrictResponseDTO)
-                .collect(Collectors.toList());
-
-        return new ApiResult<>(new SearchResultDTO(cities, districts), true, messageService.getMessage("search.results.retrieved",language));
+        return new ApiResult<>(new SearchResultDTO(cityDTOs), true, messageService.getMessage("search.results.retrieved", language));
     }
 
-    // Qo'lda yozilgan mapping metodi
     private CityResponseDTO convertToCityResponseDTO(CityEntity city) {
         CityResponseDTO dto = new CityResponseDTO();
-
-        // Asosiy maydonlarni map qilish
         dto.setId(city.getId());
         dto.setNameUz(city.getNameUz());
         dto.setNameRu(city.getNameRu());
         dto.setNameEn(city.getNameEn());
-
         return dto;
     }
 
-    private DistrictResponseDTO convertToDistrictResponseDTO(DistrictEntity district) {
+    private DistrictDTO convertToDistrictResponseDTO(DistrictEntity district) {
         if (district == null) return null;
 
-        DistrictResponseDTO dto = new DistrictResponseDTO();
+        DistrictDTO dto = new DistrictDTO();
         dto.setId(district.getId());
         dto.setNameUz(district.getNameUz());
         dto.setNameRu(district.getNameRu());
@@ -161,28 +167,56 @@ public class CityService {
         return name.contains(query);
     }
 
-    private int calculateRelevance(CityEntity city, String query, String language) {
-        String name = switch (language.toLowerCase()) {
-            case "ru" -> city.getNameRu().toLowerCase();
-            case "en" -> city.getNameEn().toLowerCase();
-            default -> city.getNameUz().toLowerCase();
-        };
 
-        if (name.startsWith(query)) return 0;
-        if (name.contains(query)) return 1;
-        return 2+name.length();
+    private int calculateRelevance(Object entity, String normalizedQuery, String language) {
+        String name = "";
+        if (entity instanceof CityEntity) {
+            CityEntity city = (CityEntity) entity;
+            if ("uz".equalsIgnoreCase(language)) {
+                name = Optional.ofNullable(city.getNameUz()).orElse("");
+            } else if ("ru".equalsIgnoreCase(language)) {
+                name = Optional.ofNullable(city.getNameRu()).orElse("");
+            } else if ("en".equalsIgnoreCase(language)) {
+                name = Optional.ofNullable(city.getNameEn()).orElse("");
+            }
+        } else if (entity instanceof DistrictEntity) {
+            DistrictEntity district = (DistrictEntity) entity;
+            if ("uz".equalsIgnoreCase(language)) {
+                name = Optional.ofNullable(district.getNameUz()).orElse("");
+            } else if ("ru".equalsIgnoreCase(language)) {
+                name = Optional.ofNullable(district.getNameRu()).orElse("");
+            } else if ("en".equalsIgnoreCase(language)) {
+                name = Optional.ofNullable(district.getNameEn()).orElse("");
+            }
+        }
+
+        if (name.equals(normalizedQuery)) {
+            return 0;
+        } else if (name.startsWith(normalizedQuery)) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+    private int calculateCityRelevance(CityResponseDTO cityDto, String normalizedQuery, String language) {
+        int cityRelevance = calculateRelevance(new CityEntity(cityDto.getId(), cityDto.getNameUz(), cityDto.getNameRu(), cityDto.getNameEn()), normalizedQuery, language);
+
+        // Agar shaharning o'z nomi mos kelmasa, uning tumanlarining mosligini tekshiramiz
+        if (cityRelevance > 0 && !cityDto.getDistricts().isEmpty()) {
+            // Tumanlar orasidagi eng yaxshi moslikni topamiz
+            int minDistrictRelevance = cityDto.getDistricts().stream()
+                    .mapToInt(districtDto -> calculateRelevance(new DistrictEntity(districtDto.getId(), districtDto.getNameUz(), districtDto.getNameRu(), districtDto.getNameEn(), new CityEntity(districtDto.getId(), null, null, null)), normalizedQuery, language))
+                    .min()
+                    .orElse(Integer.MAX_VALUE);
+
+            return Math.min(cityRelevance, minDistrictRelevance);
+        }
+        return cityRelevance;
     }
 
-    private int calculateRelevance(DistrictEntity city, String query, String language) {
-        String name = switch (language.toLowerCase()) {
-            case "ru" -> city.getNameRu().toLowerCase();
-            case "en" -> city.getNameEn().toLowerCase();
-            default -> city.getNameUz().toLowerCase();
-        };
 
-        if (name.startsWith(query)) return 0;
-        if (name.contains(query)) return 1;
-        return 2+name.length();
+    private CityResponseDTO convertToCityResponseDTO(CityEntity city, List<DistrictDTO> districts) {
+        return new CityResponseDTO(city.getId(), city.getNameUz(), city.getNameRu(), city.getNameEn(), districts);
     }
 
 }

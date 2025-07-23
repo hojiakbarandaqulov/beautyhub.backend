@@ -1,8 +1,6 @@
 package com.example.controller;
 
-import com.example.dto.city.CityCreateDTO;
-import com.example.dto.city.CityResponseAllDTO;
-import com.example.dto.city.CityResponseDTO;
+import com.example.dto.city.*;
 import com.example.dto.base.ApiResult;
 import com.example.service.CityService;
 import jakarta.validation.Valid;
@@ -36,11 +34,11 @@ public class CityController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/search")
-    public ResponseEntity<ApiResult<List<CityResponseDTO>>> search(
+    public ResponseEntity<ApiResult<SearchResultDTO>> search(
             @RequestParam String query,
             @RequestHeader(value = "Accept-Language", defaultValue = "uz") String language) {
 
-        ApiResult<List<CityResponseDTO>> result = cityService.citySearch(query, language);
+        ApiResult<SearchResultDTO> result = cityService.citySearch(query, language);
         return ResponseEntity.ok(result);
     }
 

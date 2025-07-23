@@ -25,4 +25,7 @@ public class DistrictEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "city_id")
     private CityEntity city;
+
+    public DistrictEntity(Long id, String nameUz, String nameRu, String nameEn, CityEntity cityEntity) {
+    }
 }
