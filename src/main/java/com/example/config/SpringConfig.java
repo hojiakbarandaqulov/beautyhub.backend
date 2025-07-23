@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
@@ -56,8 +57,7 @@ public class SpringConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable);
+        http.csrf(AbstractHttpConfigurer::disable);
 
         http.cors(httpSecurityCorsConfigurer -> {
             CorsConfiguration configuration = new CorsConfiguration();
@@ -80,14 +80,14 @@ public class SpringConfig {
                             .requestMatchers("/api/profile/update/photo").permitAll()
                             .requestMatchers("/api/profile/update/password").permitAll()
                             .requestMatchers("/api/profile/update/phone",
-                                             "/api/profile/update/confirm",
-                                             "/api/profile/update/language/").permitAll()
+                                    "/api/profile/update/confirm",
+                                    "/api/profile/update/language/",
+                                    "/api/location").permitAll()
                             .requestMatchers("/api/city/create").hasRole("ADMIN")
                             .anyRequest()
                             .authenticated();
                 })
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 

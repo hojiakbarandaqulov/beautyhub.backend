@@ -53,5 +53,4 @@ public class ProfileController {
         ApiResult<String> apiResponse = profileService.updateLanguage(dto);
         return ResponseEntity.ok(apiResponse);
     }
-
 }
