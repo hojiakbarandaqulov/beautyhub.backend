@@ -78,16 +78,12 @@ public class JwtUtil {
                 .withSubject(phone)
                 .withExpiresAt(new Date(System.currentTimeMillis() + tokenLiveTime)) // 30 kun
                 .withClaim("id", profileId)
-                .sign(getSignRefreshToken());
+                .sign(Algorithm.HMAC512(secretKey));
     }
 
     private static SecretKey getSignInKey() {
         byte[] keyBytes = Base64.getUrlDecoder().decode(secretKey);
         return  Keys.hmacShaKeyFor(keyBytes);
-    }
-    private static Algorithm getSignRefreshToken() {
-        byte[] keyBytes = Base64.getUrlDecoder().decode(secretKey);
-        return (Algorithm) Keys.hmacShaKeyFor(keyBytes);
     }
 }
 
