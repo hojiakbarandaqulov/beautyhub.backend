@@ -41,6 +41,4 @@ public class CityController {
         ApiResult<SearchResultDTO> result = cityService.citySearch(query, language);
         return ResponseEntity.ok(result);
     }
-
-
 }
