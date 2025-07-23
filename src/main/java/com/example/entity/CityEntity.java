@@ -31,7 +31,7 @@ public class CityEntity {
     private String nameEn;
 
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DistrictEntity> districts = new ArrayList<>();
+    private List<DistrictEntity> districts;
 
     @Column(name = "order_number")
     private Integer orderNumber;
@@ -42,4 +42,6 @@ public class CityEntity {
     @Column(name = "created_date")
     private LocalDateTime createdDate = LocalDateTime.now();
 
+    public CityEntity(Long id, String nameUz, String nameRu, String nameEn) {
+    }
 }

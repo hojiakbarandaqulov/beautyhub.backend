@@ -3,12 +3,11 @@ package com.example.dto.city;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.apache.catalina.LifecycleState;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class CityResponseDTO {
     private Long id;

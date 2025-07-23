@@ -9,5 +9,4 @@ import java.util.List;
 @AllArgsConstructor
 public class SearchResultDTO {
     private List<CityResponseDTO> cities;
-    private List<DistrictResponseDTO> districts;
 }

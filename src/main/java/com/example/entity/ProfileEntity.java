@@ -55,6 +55,10 @@ public class ProfileEntity {
     @Column(name = "language")
     private LanguageEnum language=LanguageEnum.ru;
 
+    @ManyToOne(fetch =FetchType.LAZY)
+    @JoinColumn(name = "city_id",insertable=false,updatable=false)
+    private CityEntity city;
+    
    /* @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CardEntity> cards;*/
 

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DistrictDTO {
+    private Long id;
     private String nameUz;
     private String nameRu;
     private String nameEn;
