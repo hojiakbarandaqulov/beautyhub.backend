@@ -5,6 +5,8 @@ import com.example.exp.AppBadException;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
+import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -27,6 +29,12 @@ public class HandleController {
     public ResponseEntity<String> handler(RuntimeException e) {
         e.printStackTrace();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+    }
+
+    @MessageExceptionHandler
+    @SendToUser("/queue/errors")
+    public String handleException(Exception ex) {
+        return ex.getMessage();
     }
 
 }

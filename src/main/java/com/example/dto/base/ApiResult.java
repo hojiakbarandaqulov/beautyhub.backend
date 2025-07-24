@@ -1,6 +1,7 @@
 package com.example.dto.base;
 
 import com.example.dto.city.SearchResultDTO;
+import com.example.entity.ChatMessageEntity;
 import com.example.enums.LanguageEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;

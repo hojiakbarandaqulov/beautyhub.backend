@@ -42,6 +42,8 @@ public interface ProfileRepository extends JpaRepository<ProfileEntity, Long> {
     @Query("update ProfileEntity  set phone=?2 where id=?1")
     void updatePhone(Long profileId, String tempPhone);
 
+    @Query(value = "from ProfileEntity p where p.id=?1")
+    Optional<ProfileEntity> findByRecipientId(Long recipientId);
 }
 
 

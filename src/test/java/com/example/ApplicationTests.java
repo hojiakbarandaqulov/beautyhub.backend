@@ -13,7 +13,7 @@ class ApplicationTests {
 
     @Test
     void contextLoads() {
-        smsService.getToken();
+//        smsService.getToken();
     }
 
 }

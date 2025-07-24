@@ -1,0 +1,27 @@
+POST http://localhost:8080/api/chat/send
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzI5ODQ4OCwiZXhwIjoxNzUzMzg0ODg4fQ.j9fBoh4qpH8gD44CHQx0pmPCh3NqIqvUuiVJsyOPLCM
+
+{
+  "recipientId": 2,
+  "content": "Mzgimisiz?"
+}
+
+###
+GET http://localhost:8080/api/chat/history/2?page=1&size=20
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzI5ODQ4OCwiZXhwIjoxNzUzMzg0ODg4fQ.j9fBoh4qpH8gD44CHQx0pmPCh3NqIqvUuiVJsyOPLCM
+
+###
+PUT http://localhost:8080/api/chat/mark-as-read/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzI5ODQ4OCwiZXhwIjoxNzUzMzg0ODg4fQ.j9fBoh4qpH8gD44CHQx0pmPCh3NqIqvUuiVJsyOPLCM
+
+
+#### 2. REST orqali xabar yuborish
+#POST http://localhost:8080/api/chat/send
+#Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+#
+#{
+#  "recipientId": 2,
+#  "content": "HTTP fayl orqali yuborilgan xabar"
+#}
