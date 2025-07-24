@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -44,12 +45,15 @@ public class ChatMessageService {
 
     @Transactional
     public ApiResponse<Boolean> markAsRead(Long messageId) {
-        chatMessageRepository.findById(messageId).ifPresent(message -> {
+        Optional<ChatMessageEntity> byMessageId = chatMessageRepository.getByMessageId(messageId);
+        if (byMessageId.isPresent()) {
+            ChatMessageEntity message = byMessageId.get();
             message.setIsRead(true);
             message.setStatus(MessageStatus.READ);
             chatMessageRepository.save(message);
-        });
-        return ApiResponse.success(true);
+            return ApiResponse.success(true);
+        }
+        return ApiResponse.success(false);
     }
 
     @Transactional

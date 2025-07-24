@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ChatMessageRepository extends JpaRepository<ChatMessageEntity, Long> {
 
@@ -36,4 +37,7 @@ public interface ChatMessageRepository extends JpaRepository<ChatMessageEntity, 
             "WHERE m.sender.id = :profileId OR m.recipient.id = :profileId " +
             "ORDER BY m.sentTime DESC")
     List<ProfileEntity> findRecentChatPartners(@Param("profileId") Long profileId);
+
+    @Query("SELECT cm FROM ChatMessageEntity cm where cm.id=:messageId")
+    Optional<ChatMessageEntity> getByMessageId(@Param("messageId")Long messageId);
 }
