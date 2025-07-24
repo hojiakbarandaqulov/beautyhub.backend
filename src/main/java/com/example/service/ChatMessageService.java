@@ -43,12 +43,13 @@ public class ChatMessageService {
     }
 
     @Transactional
-    public void markAsRead(Long messageId) {
+    public ApiResponse<Boolean> markAsRead(Long messageId) {
         chatMessageRepository.findById(messageId).ifPresent(message -> {
             message.setIsRead(true);
             message.setStatus(MessageStatus.READ);
             chatMessageRepository.save(message);
         });
+        return ApiResponse.success(true);
     }
 
     @Transactional

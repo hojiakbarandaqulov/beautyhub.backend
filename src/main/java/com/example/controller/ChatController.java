@@ -1,7 +1,6 @@
 package com.example.controller;
 
 import com.example.dto.base.ApiResponse;
-import com.example.dto.base.ApiResult;
 import com.example.dto.chat.ChatMessageDTO;
 import com.example.dto.chat.ChatMessageSend;
 import com.example.entity.ChatMessageEntity;
@@ -9,13 +8,9 @@ import com.example.entity.ProfileEntity;
 import com.example.mapper.ChatMessageMapper;
 import com.example.service.ChatMessageService;
 import com.example.service.ProfileService;
-import com.example.util.SpringSecurityUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -24,8 +19,6 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/chat")
@@ -84,9 +77,9 @@ public class ChatController {
     }
 
     @PutMapping("/mark-as-read/{messageId}")
-    public ResponseEntity<Void> markAsRead(@PathVariable Long messageId) {
-        chatMessageService.markAsRead(messageId);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<ApiResponse<Boolean>> markAsRead(@PathVariable Long messageId) {
+        ApiResponse<Boolean> booleanApiResponse = chatMessageService.markAsRead(messageId);
+        return ResponseEntity.ok(booleanApiResponse);
     }
 
     private ChatMessageDTO convertToDto(ChatMessageEntity message) {
