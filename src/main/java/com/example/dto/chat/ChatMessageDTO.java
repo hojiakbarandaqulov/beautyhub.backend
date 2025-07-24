@@ -1,5 +1,6 @@
 package com.example.dto.chat;
 
+import com.example.enums.MessageStatus;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -12,4 +13,5 @@ public class ChatMessageDTO {
     private Long recipientId;
     private LocalDateTime sentTime;
     private boolean read;
+    private MessageStatus status;
 }

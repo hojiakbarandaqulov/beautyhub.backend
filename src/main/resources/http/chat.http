@@ -3,9 +3,17 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzI5ODQ4OCwiZXhwIjoxNzUzMzg0ODg4fQ.j9fBoh4qpH8gD44CHQx0pmPCh3NqIqvUuiVJsyOPLCM
 
 {
-  "recipientId": 1,
-  "content": "Salom, qalaysiz?"
+  "recipientId": 2,
+  "content": "Mzgimisiz?"
 }
+
+###
+GET http://localhost:8080/api/chat/history/2?page=1&size=20
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzI5ODQ4OCwiZXhwIjoxNzUzMzg0ODg4fQ.j9fBoh4qpH8gD44CHQx0pmPCh3NqIqvUuiVJsyOPLCM
+
+###
+PUT http://localhost:8080/api/chat/mark-as-read/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzI5ODQ4OCwiZXhwIjoxNzUzMzg0ODg4fQ.j9fBoh4qpH8gD44CHQx0pmPCh3NqIqvUuiVJsyOPLCM
 
 
 #### 2. REST orqali xabar yuborish

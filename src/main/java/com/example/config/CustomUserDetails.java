@@ -4,6 +4,7 @@ import com.example.entity.ProfileEntity;
 import com.example.entity.ProfileRoleEntity;
 import com.example.enums.GeneralStatus;
 import com.example.enums.ProfileRole;
+import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -15,8 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-@Getter
-@Setter
+@Data
 @RequiredArgsConstructor
 public class CustomUserDetails implements UserDetails {
     private Long id;
@@ -67,5 +67,45 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
+    public GeneralStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(GeneralStatus status) {
+        this.status = status;
     }
 }

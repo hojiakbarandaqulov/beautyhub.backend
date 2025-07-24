@@ -2,12 +2,14 @@ package com.example.entity;
 
 import com.example.enums.MessageStatus;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Data
 @Entity
+@Builder
+@AllArgsConstructor
 @Table(name = "chat_message")
 public class ChatMessageEntity {
     @Id
@@ -21,7 +23,7 @@ public class ChatMessageEntity {
     @JoinColumn(name = "sender_id", nullable = false)
     private ProfileEntity sender;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "recipient_id", nullable = false)
     private ProfileEntity recipient;
 
@@ -33,4 +35,8 @@ public class ChatMessageEntity {
 
     @Enumerated(EnumType.STRING)
     private MessageStatus status = MessageStatus.SENT;
+
+    public ChatMessageEntity() {
+
+    }
 }

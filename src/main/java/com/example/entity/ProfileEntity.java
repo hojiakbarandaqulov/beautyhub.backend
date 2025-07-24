@@ -5,6 +5,8 @@ import com.example.enums.LanguageEnum;
 import com.example.enums.ProfileRole;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,8 +17,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "profile")
-public class ProfileEntity {
-
+public class ProfileEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,7 +40,7 @@ public class ProfileEntity {
     @Column(name = "photo_id")
     private String photoId;
 
-    @ManyToOne(fetch =FetchType.LAZY)
+    @ManyToOne(fetch =FetchType.EAGER)
     @JoinColumn(name = "photo_id",insertable=false,updatable=false)
     private AttachEntity photo;
 
@@ -58,7 +59,7 @@ public class ProfileEntity {
     @Column(name = "language")
     private LanguageEnum language=LanguageEnum.ru;
 
-    @ManyToOne(fetch =FetchType.LAZY)
+    @ManyToOne(fetch =FetchType.EAGER)
     @JoinColumn(name = "city_id",insertable=false,updatable=false)
     private CityEntity city;
 

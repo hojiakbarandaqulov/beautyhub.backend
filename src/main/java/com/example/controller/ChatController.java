@@ -19,6 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,12 +36,11 @@ public class ChatController {
     private final ChatMessageService chatMessageService;
     private final ProfileService profileService;
     private final ChatMessageMapper chatMessageMapper;
-    // WebSocket orqali xabar yuborish
+
     @MessageMapping("/send")
-    @PostMapping("/send")
-    public ResponseEntity<ApiResponse<?>> sendMessage(@RequestBody @Valid ChatMessageSend chatMessageDTO, Principal principal) {
+    @SendTo("/queue/chat/messages")
+    public ResponseEntity<ApiResponse<?>> sendMessage(@Payload @RequestBody @Valid ChatMessageSend chatMessageDTO, Principal principal) {
         ProfileEntity sender = profileService.findByPhone(principal.getName());
-//        Long profileId = SpringSecurityUtil.getProfileId();
         ProfileEntity recipient = profileService.findById(chatMessageDTO.getRecipientId());
 
         ChatMessageEntity message = new ChatMessageEntity();
@@ -49,49 +49,40 @@ public class ChatController {
         message.setRecipient(recipient);
 
         ChatMessageEntity savedMessage = chatMessageService.save(message);
-//        ChatMessageDTO dto = ChatMessageMapper.toDto(savedMessage);
+        ChatMessageDTO dto = chatMessageMapper.toDto(savedMessage);
 
-        // Yuboruvchiga tasdiq
         messagingTemplate.convertAndSendToUser(
                 sender.getPhone(),
                 "/queue/messages",
-                savedMessage
+                dto
         );
 
-        // Qabul qiluvchiga xabar
         messagingTemplate.convertAndSendToUser(
                 recipient.getPhone(),
                 "/queue/messages",
-                savedMessage
+                dto
         );
         return ResponseEntity.ok(new ApiResponse<>(true,"success",savedMessage.getId()));
     }
 
-    // REST orqali chat tarixi
+    @PostMapping("/send")
+    public ResponseEntity<ApiResponse<?>> sendMessageRest(@RequestBody @Valid ChatMessageSend messageDTO,
+                                                          Principal principal) {
+        Long id = handleSendMessage(messageDTO, principal);
+        return ResponseEntity.ok(new ApiResponse<>(true, "success", id));
+    }
+
     @GetMapping("/history/{recipientId}")
-    public ResponseEntity<List<ChatMessageDTO>> getChatHistory(
+    public ResponseEntity<ApiResponse<Page<ChatMessageDTO>>> getChatHistory(
             @PathVariable Long recipientId,
             Principal principal,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
 
-        ProfileEntity sender = profileService.findByPhone(principal.getName());
-        ProfileEntity recipient = profileService.findById(recipientId);
-
-        Page<ChatMessageEntity> messages = chatMessageService.getChatHistory(
-                sender.getId(),
-                recipient.getId(),
-                PageRequest.of(page, size, Sort.by("sentTime").descending())
-        );
-
-        List<ChatMessageDTO> dtos = messages.stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(dtos);
+        ApiResponse<Page<ChatMessageDTO>> response = chatMessageService.getChatHistory(recipientId,principal, page-1, size);
+        return ResponseEntity.ok(response);
     }
 
-    // Xabarlarni "o'qildi" deb belgilash
     @PutMapping("/mark-as-read/{messageId}")
     public ResponseEntity<Void> markAsRead(@PathVariable Long messageId) {
         chatMessageService.markAsRead(messageId);
@@ -107,5 +98,22 @@ public class ChatController {
         dto.setSentTime(message.getSentTime());
         dto.setRead(message.getIsRead());
         return dto;
+    }
+    private Long handleSendMessage(ChatMessageSend chatMessageDTO, Principal principal) {
+        ProfileEntity sender = profileService.findByPhone(principal.getName());
+        ProfileEntity recipient = profileService.findById(chatMessageDTO.getRecipientId());
+
+        ChatMessageEntity message = new ChatMessageEntity();
+        message.setContent(chatMessageDTO.getContent());
+        message.setSender(sender);
+        message.setRecipient(recipient);
+
+        ChatMessageEntity savedMessage = chatMessageService.save(message);
+        ChatMessageDTO dto = chatMessageMapper.toDto(savedMessage);
+
+        messagingTemplate.convertAndSendToUser(sender.getPhone(), "/queue/messages", dto);
+        messagingTemplate.convertAndSendToUser(recipient.getPhone(), "/queue/messages", dto);
+
+        return savedMessage.getId();
     }
 }
