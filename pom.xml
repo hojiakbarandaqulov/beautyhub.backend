@@ -171,9 +171,6 @@
                         <exclude>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-compiler-plugin</artifactId>
                             <annotationProcessorPaths>
                                 <path>
                                     <groupId>org.mapstruct</groupId>
