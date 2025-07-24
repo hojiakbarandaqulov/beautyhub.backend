@@ -174,8 +174,6 @@
 
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-compiler-plugin</artifactId>
-                            <version>3.8.1</version>
-
                             <annotationProcessorPaths>
                                 <path>
                                     <groupId>org.mapstruct</groupId>
@@ -203,5 +201,4 @@
         </plugins>
         <finalName>api.beautyhub.uz</finalName>
     </build>
-
 </project>

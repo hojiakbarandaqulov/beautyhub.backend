@@ -24,8 +24,6 @@ public class ChatMessageService {
     private final ProfileService profileService;
     private final ChatMessageMapper chatMessageMapper;
 
-
-
     @Transactional
     public ChatMessageEntity save(ChatMessageEntity message) {
         return chatMessageRepository.save(message);
