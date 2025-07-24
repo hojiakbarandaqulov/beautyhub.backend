@@ -41,7 +41,7 @@ public class ProfileService {
 
     public ApiResult<String> updatePhoto(String photoId, LanguageEnum language) {
         Long profileId = SpringSecurityUtil.getProfileId();
-        ProfileEntity profile = getById(profileId,language);
+        ProfileEntity profile = getById(profileId, language);
         if (profile.getPhotoId() != null && profile.getPhotoId().equals(photoId)) {
             attachService.delete(profile.getPhotoId());
         }
@@ -94,7 +94,7 @@ public class ProfileService {
 
     public ApiResult<String> updatePhoneConfirm(CodeConfirmDTO dto, LanguageEnum language) {
         Long profileId = SpringSecurityUtil.getProfileId();
-        ProfileEntity profile = getById(profileId,language);
+        ProfileEntity profile = getById(profileId, language);
         String tempPhone = profile.getTempPhone();
         if (PhoneUtil.isPhone(tempPhone)) {
             smsHistoryService.checkSmsCode(tempPhone, dto.getCode());
@@ -111,13 +111,13 @@ public class ProfileService {
         return new ApiResult<>(response).getData();
     }
 
-    public ProfileEntity getById(Long id,LanguageEnum language) {
-        return profileRepository.findByIdAndVisibleTrue(id).orElseThrow(() -> new AppBadException(messageService.getMessage("profile.not.found",language)));
+    public ProfileEntity getById(Long id, LanguageEnum language) {
+        return profileRepository.findByIdAndVisibleTrue(id).orElseThrow(() -> new AppBadException(messageService.getMessage("profile.not.found", language)));
     }
 
     public ApiResult<String> updateLanguage(LanguageUpdateDto dto) {
         Long profileId = SpringSecurityUtil.getProfileId();
-        ProfileEntity profile = getById(profileId,dto.getLanguageCode());
+        ProfileEntity profile = getById(profileId, dto.getLanguageCode());
         profile.setLanguage(dto.getLanguageCode());
         profileRepository.save(profile);
 
@@ -127,5 +127,21 @@ public class ProfileService {
         messages.put(LanguageEnum.en, messageService.getMessage("profile.update.language", LanguageEnum.en));
         ApiResult<String> response = new ApiResult<>("Success", messages);
         return new ApiResult<>(response).getData();
+    }
+
+    public ProfileEntity findByPhone(String name) {
+        Optional<ProfileEntity> byPhoneAndVisibleTrue = profileRepository.findByPhoneAndVisibleTrue(name);
+        if (byPhoneAndVisibleTrue.isPresent()) {
+            return byPhoneAndVisibleTrue.get();
+        }
+        throw new AppBadException(messageService.getMessage("profile.not.found", LanguageEnum.uz));
+    }
+
+    public ProfileEntity findById(Long recipientId) {
+        Optional<ProfileEntity> byId = profileRepository.findByRecipientId(recipientId);
+        if (byId.isPresent()) {
+            return byId.get();
+        }
+        throw new AppBadException(messageService.getMessage("profile.not.found", LanguageEnum.en));
     }
 }
