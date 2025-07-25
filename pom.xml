@@ -189,9 +189,14 @@
                     <source>17</source>
                     <target>17</target>
                 </configuration>
-
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
-        <finalName>api.beautyhub.uz</finalName>
     </build>
 </project>
