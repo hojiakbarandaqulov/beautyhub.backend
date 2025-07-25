@@ -71,19 +71,5 @@ public class AuthController {
         return ResponseEntity.ok(ok);
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletResponse response) {
-        // 1. Cookie ni tozalash
-        Cookie cookie = new Cookie("JWT", null);
-        cookie.setMaxAge(0);
-        cookie.setPath("/");
-        response.addCookie(cookie);
-
-        // 2. Frontendga yaroqsizlanish haqida ma'lumot
-        return ResponseEntity.ok()
-                .header("Clear-Token", "true")
-                .body(true);
-    }
-
 }
 
