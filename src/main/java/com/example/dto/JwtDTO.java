@@ -2,23 +2,21 @@ package com.example.dto;
 
 import com.example.enums.ProfileRole;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class JwtDTO {
-    private Integer id;
+    private Long id;
     private String username;
     private List<ProfileRole> roleList;
 
-    public JwtDTO(Integer id) {
+    public JwtDTO(Long id, String username, List<ProfileRole> roleList, String token, Object o) {
         this.id = id;
     }
 }

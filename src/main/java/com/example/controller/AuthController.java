@@ -3,14 +3,20 @@ package com.example.controller;
 import com.example.dto.auth.RegistrationDTO;
 import com.example.dto.auth.SmsVerificationDTO;
 import com.example.dto.auth.LoginDTO;
+import com.example.dto.base.ApiResponse;
 import com.example.dto.base.ApiResult;
 import com.example.dto.profile.ProfileDTO;
 import com.example.dto.reset.ResetPasswordConfirmDTO;
 import com.example.dto.reset.ResetPasswordDTO;
 import com.example.enums.LanguageEnum;
 import com.example.service.AuthService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -57,6 +63,28 @@ public class AuthController {
                                                             @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
         ApiResult<String> ok = authService.resetPasswordConfirm(dto, language);
         return ResponseEntity.ok(ok);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<ApiResponse<?>> logout(HttpServletRequest request, HttpServletResponse response) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            authService.logout(authentication.getName());
+
+            SecurityContextHolder.clearContext();
+
+            Cookie jwtCookie = new Cookie("jwt_token", null);
+            jwtCookie.setMaxAge(0);
+            jwtCookie.setPath("/");
+            jwtCookie.setHttpOnly(true);
+            jwtCookie.setSecure(true);
+            response.addCookie(jwtCookie);
+        } else {
+            return ResponseEntity.badRequest().body(new ApiResponse<>(false, "User is not authenticated or already logged out"));
+        }
+
+        return ResponseEntity.ok(new ApiResponse<>(true, "Logged out successfully"));
     }
 
 }

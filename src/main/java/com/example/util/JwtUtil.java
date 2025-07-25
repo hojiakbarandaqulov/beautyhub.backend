@@ -54,7 +54,7 @@ public class JwtUtil {
                 .parseSignedClaims(token)
                 .getPayload();
         String username = claims.getSubject();
-        Integer id = Integer.valueOf((String) claims.get("id"));
+        Long id = Long.valueOf((String) claims.get("id"));
         String strRoles = (String) claims.get("roles");
         List<ProfileRole> roleLis = Arrays.stream(strRoles.split(","))
                 .map(ProfileRole::valueOf)
@@ -76,7 +76,7 @@ public class JwtUtil {
         // Refresh token uchun alohida expiration time (30 kun)
         return JWT.create()
                 .withSubject(phone)
-                .withExpiresAt(new Date(System.currentTimeMillis() + tokenLiveTime)) // 30 kun
+                .withExpiresAt(new Date(System.currentTimeMillis() + tokenLiveTime))
                 .withClaim("id", profileId)
                 .sign(Algorithm.HMAC512(secretKey));
     }

@@ -25,8 +25,6 @@ public class ProfileRoleService {
         profileRoleRepository.save(profileRoleEntity);
     }
 
-
-
     public void deleteRoles(Long profileId) {
         profileRoleRepository.deleteByProfileId(profileId);
     }

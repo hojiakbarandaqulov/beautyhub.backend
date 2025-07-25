@@ -14,6 +14,7 @@ import com.example.enums.ProfileRole;
 import com.example.exp.AppBadException;
 import com.example.repository.ProfileRepository;
 import com.example.repository.ProfileRoleRepository;
+import com.example.service.jwt.JwtService;
 import com.example.service.sms.SmsHistoryService;
 import com.example.service.sms.SmsService;
 import com.example.util.JwtUtil;
@@ -40,6 +41,7 @@ public class AuthService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final SmsService smsService;
     private final SmsHistoryService smsHistoryService;
+    private final JwtService jwtService;
 
     @Transactional
     public ApiResult<String> registration(RegistrationDTO registrationDTO, LanguageEnum language) {
@@ -154,6 +156,11 @@ public class AuthService {
         }
         profileRepository.updatePassword(profile.getId(), bCryptPasswordEncoder.encode(dto.getPassword()));
         return new ApiResult<String>(messageSource.getMessage("reset.password.success", language));
+    }
+
+    @Transactional
+    public void logout(String userPhone) {
+        jwtService.invalidateToken(userPhone);
     }
 }
 

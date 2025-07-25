@@ -54,7 +54,6 @@ public class ProfileService {
         return new ApiResult<>(response).getData();
     }
 
-
     public ApiResult<String> updatePassword(ProfileUpdatePasswordDTO profileDTO, LanguageEnum language) {
         Long profileId = SpringSecurityUtil.getProfileId();
         ProfileEntity profile = getById(profileId, language);
@@ -69,9 +68,7 @@ public class ProfileService {
         messages.put(LanguageEnum.en, messageService.getMessage("profile.password.update.success", LanguageEnum.en));
         ApiResult<String> response = new ApiResult<>("Success", messages);
         return new ApiResult<>(response).getData();
-//        return new ApiResult<String>(messageService.getMessage("profile.password.update.success", language));
     }
-
 
     public ApiResult<String> updatePhone(ProfileUpdatePhoneDTO profileDTO, LanguageEnum language) {
         Optional<ProfileEntity> optional = profileRepository.findByPhoneAndVisibleTrue(profileDTO.getPhone());
@@ -111,10 +108,6 @@ public class ProfileService {
         return new ApiResult<>(response).getData();
     }
 
-    public ProfileEntity getById(Long id, LanguageEnum language) {
-        return profileRepository.findByIdAndVisibleTrue(id).orElseThrow(() -> new AppBadException(messageService.getMessage("profile.not.found", language)));
-    }
-
     public ApiResult<String> updateLanguage(LanguageUpdateDto dto) {
         Long profileId = SpringSecurityUtil.getProfileId();
         ProfileEntity profile = getById(profileId, dto.getLanguageCode());
@@ -135,6 +128,10 @@ public class ProfileService {
             return byPhoneAndVisibleTrue.get();
         }
         throw new AppBadException(messageService.getMessage("profile.not.found", LanguageEnum.uz));
+    }
+
+    public ProfileEntity getById(Long id, LanguageEnum language) {
+        return profileRepository.findByIdAndVisibleTrue(id).orElseThrow(() -> new AppBadException(messageService.getMessage("profile.not.found", language)));
     }
 
     public ProfileEntity findById(Long recipientId) {

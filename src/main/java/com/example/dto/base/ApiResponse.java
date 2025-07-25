@@ -28,6 +28,9 @@ public class ApiResponse<T> {
         this.messageId = messageId;
     }
 
+    public ApiResponse(boolean b, String loggedOutSuccessfully) {
+    }
+
     public static <T> ApiResponse<T> success(T data) {
         ApiResponse<T> res = new ApiResponse<>();
         res.setSuccess(true);
