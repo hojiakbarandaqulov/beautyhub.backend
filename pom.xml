@@ -171,6 +171,7 @@
                 <version>3.8.1</version>
                 <configuration>
                     <annotationProcessorPaths>
+                        <mainClass>com.example.Application</mainClass>
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
