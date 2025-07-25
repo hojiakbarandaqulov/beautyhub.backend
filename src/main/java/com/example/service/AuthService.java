@@ -1,19 +1,23 @@
 package com.example.service;
 
+import com.example.dto.auth.LoginResponseDTO;
 import com.example.dto.auth.RegistrationDTO;
 import com.example.dto.auth.LoginDTO;
 import com.example.dto.auth.SmsVerificationDTO;
+import com.example.dto.base.ApiResponse;
 import com.example.dto.base.ApiResult;
 import com.example.dto.profile.ProfileDTO;
 import com.example.dto.reset.ResetPasswordConfirmDTO;
 import com.example.dto.reset.ResetPasswordDTO;
 import com.example.entity.ProfileEntity;
+import com.example.entity.TokenEntity;
 import com.example.enums.GeneralStatus;
 import com.example.enums.LanguageEnum;
 import com.example.enums.ProfileRole;
 import com.example.exp.AppBadException;
 import com.example.repository.ProfileRepository;
 import com.example.repository.ProfileRoleRepository;
+import com.example.repository.TokenRepository;
 import com.example.service.jwt.JwtService;
 import com.example.service.sms.SmsHistoryService;
 import com.example.service.sms.SmsService;
@@ -23,6 +27,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +47,7 @@ public class AuthService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final SmsService smsService;
     private final SmsHistoryService smsHistoryService;
-    private final JwtService jwtService;
+    private final TokenRepository tokenRepository;
 
     @Transactional
     public ApiResult<String> registration(RegistrationDTO registrationDTO, LanguageEnum language) {
@@ -75,7 +81,7 @@ public class AuthService {
         return new ApiResult<>(messageSource.getMessage("phone.sms.send", language));
     }
 
-    public ApiResult<ProfileDTO> login(LoginDTO loginDTO, LanguageEnum language) {
+    public ApiResult<LoginResponseDTO> login(LoginDTO loginDTO, LanguageEnum language) {
         Optional<ProfileEntity> optional = profileRepository.findByPhoneAndVisibleTrue(loginDTO.getPhone());
         if (optional.isEmpty()) {
             throw new AppBadException(messageSource.getMessage("phone.not.found", language));
@@ -87,12 +93,16 @@ public class AuthService {
         if (!profile.getStatus().equals(GeneralStatus.ACTIVE)) {
             throw new AppBadException(messageSource.getMessage("wrong.status", language));
         }
-        ProfileDTO response = new ProfileDTO();
-        response.setFullName(profile.getFullName());
-        response.setPhone(profile.getPhone());
+
+        LoginResponseDTO response = new LoginResponseDTO();
         response.setRole(profileRoleRepository.getAllRolesListByProfileId(profile.getId()));
         response.setJwt(JwtUtil.encode(profile.getPhone(), profile.getId(), response.getRole()));
         response.setRefreshToken(JwtUtil.generateRefreshToken(profile.getPhone(), profile.getId()));
+        TokenEntity token = new TokenEntity();
+        token.setToken(response.getRefreshToken());
+        token.setLoggedOut(false);
+        token.setProfile(profile);
+        tokenRepository.save(token);
         return new ApiResult<>(response);
     }
 
@@ -157,10 +167,29 @@ public class AuthService {
         profileRepository.updatePassword(profile.getId(), bCryptPasswordEncoder.encode(dto.getPassword()));
         return new ApiResult<String>(messageSource.getMessage("reset.password.success", language));
     }
+/*
+    public String getAuthenticatedUsername() {
+        return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
+                .filter(Authentication::isAuthenticated)
+                .map(Authentication::getName)
+                .orElseThrow(() -> new AppBadException("Foydalanuvchi avtorizatsiyadan o'tmagan"));
+    }
 
     @Transactional
-    public void logout(String userPhone) {
-        jwtService.invalidateToken(userPhone);
-    }
+    public Boolean logout(String username, String token) {
+        if (token != null) {
+            jwtService.invalidateToken(token);
+            System.out.println("JWT token bekor qilindi: " + token);
+        } else {
+            System.out.println("Logout so'rovi keldi, lekin token topilmadi. Faqat foydalanuvchi konteksti tozalandi.");
+        }
+        profileRepository.findByPhoneAndVisibleTrue(username).ifPresent(user -> {
+            user.setVisible(false); // Foydalanuvchini "ko'rinmas" yoki "offline" deb belgilash
+            profileRepository.save(user); // O'zgarishlarni saqlash
+            System.out.println("Foydalanuvchi " + username + " statusi 'ko'rinmas' deb yangilandi.");
+        });
+        System.out.println("Foydalanuvchi " + username + " tizimdan chiqish mantig'i bajarildi.");
+        return true;
+    }*/
 }
 

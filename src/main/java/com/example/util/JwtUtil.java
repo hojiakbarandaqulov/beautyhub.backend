@@ -73,7 +73,6 @@ public class JwtUtil {
     }
 
     public static String generateRefreshToken(String phone, Long profileId) {
-        // Refresh token uchun alohida expiration time (30 kun)
         return JWT.create()
                 .withSubject(phone)
                 .withExpiresAt(new Date(System.currentTimeMillis() + tokenLiveTime))

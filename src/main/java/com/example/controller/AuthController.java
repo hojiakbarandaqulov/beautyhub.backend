@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.dto.auth.LoginResponseDTO;
 import com.example.dto.auth.RegistrationDTO;
 import com.example.dto.auth.SmsVerificationDTO;
 import com.example.dto.auth.LoginDTO;
@@ -10,10 +11,12 @@ import com.example.dto.reset.ResetPasswordConfirmDTO;
 import com.example.dto.reset.ResetPasswordDTO;
 import com.example.enums.LanguageEnum;
 import com.example.service.AuthService;
+import com.example.service.jwt.JwtService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,10 +28,13 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
+    private final JwtService jwtService;
 
-    public AuthController(AuthService profileService) {
-        this.authService = profileService;
+    public AuthController(AuthService authService, JwtService jwtService) {
+        this.authService = authService;
+        this.jwtService = jwtService;
     }
+
 
     @PostMapping("/registration")
     public ResponseEntity<ApiResult<String>> registration(@RequestBody @Valid RegistrationDTO registrationDTO,
@@ -38,9 +44,9 @@ public class AuthController {
     }
 
     @PostMapping("/registration/login")
-    public ResponseEntity<ApiResult<ProfileDTO>> login(@Valid @RequestBody LoginDTO dto,
+    public ResponseEntity<ApiResult<LoginResponseDTO>> login(@Valid @RequestBody LoginDTO dto,
                                                        @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
-        ApiResult<ProfileDTO> ok = authService.login(dto, language);
+        ApiResult<LoginResponseDTO> ok = authService.login(dto, language);
         return ResponseEntity.ok(ok);
     }
 
@@ -66,25 +72,17 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<ApiResponse<?>> logout(HttpServletRequest request, HttpServletResponse response) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    public ResponseEntity<?> logout(HttpServletResponse response) {
+        // 1. Cookie ni tozalash
+        Cookie cookie = new Cookie("JWT", null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        response.addCookie(cookie);
 
-        if (authentication != null && authentication.isAuthenticated()) {
-            authService.logout(authentication.getName());
-
-            SecurityContextHolder.clearContext();
-
-            Cookie jwtCookie = new Cookie("jwt_token", null);
-            jwtCookie.setMaxAge(0);
-            jwtCookie.setPath("/");
-            jwtCookie.setHttpOnly(true);
-            jwtCookie.setSecure(true);
-            response.addCookie(jwtCookie);
-        } else {
-            return ResponseEntity.badRequest().body(new ApiResponse<>(false, "User is not authenticated or already logged out"));
-        }
-
-        return ResponseEntity.ok(new ApiResponse<>(true, "Logged out successfully"));
+        // 2. Frontendga yaroqsizlanish haqida ma'lumot
+        return ResponseEntity.ok()
+                .header("Clear-Token", "true")
+                .body(true);
     }
 
 }
