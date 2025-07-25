@@ -2,9 +2,7 @@ package com.example.service;
 
 import com.example.dto.base.ApiResult;
 import com.example.dto.language.LanguageUpdateDto;
-import com.example.dto.profile.CodeConfirmDTO;
-import com.example.dto.profile.ProfileUpdatePasswordDTO;
-import com.example.dto.profile.ProfileUpdatePhoneDTO;
+import com.example.dto.profile.*;
 import com.example.entity.ProfileEntity;
 import com.example.enums.LanguageEnum;
 import com.example.enums.ProfileRole;
@@ -56,8 +54,7 @@ public class ProfileService {
 
     public ApiResult<String> updatePassword(ProfileUpdatePasswordDTO profileDTO, LanguageEnum language) {
         Long profileId = SpringSecurityUtil.getProfileId();
-        ProfileEntity profile = getById(profileId, language);
-        if (!bCryptPasswordEncoder.matches(profileDTO.getCurrentPassword(), profile.getPassword())) {
+        if (!profileDTO.getNewPassword().equals(profileDTO.getConfirmPassword())) {
             throw new AppBadException(messageService.getMessage("wrong.password", language));
         }
         profileRepository.updatePassword(profileId, bCryptPasswordEncoder.encode(profileDTO.getNewPassword()));
@@ -140,5 +137,15 @@ public class ProfileService {
             return byId.get();
         }
         throw new AppBadException(messageService.getMessage("profile.not.found", LanguageEnum.en));
+    }
+
+    public ApiResult<ProfileDetailDTO> getProfileDetail(LanguageEnum language) {
+        Long profileId = SpringSecurityUtil.getProfileId();
+        ProfileEntity profile = getById(profileId, language);
+        ProfileDetailDTO dto = new ProfileDetailDTO();
+        dto.setFullName(profile.getFullName());
+        dto.setPhone(profile.getPhone());
+        dto.setRole(profileRoleRepository.getAllRolesListByProfileId(profile.getId()));
+        return ApiResult.successResponse(dto);
     }
 }

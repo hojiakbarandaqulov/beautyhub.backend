@@ -2,10 +2,7 @@ package com.example.controller;
 
 import com.example.dto.base.ApiResult;
 import com.example.dto.language.LanguageUpdateDto;
-import com.example.dto.profile.CodeConfirmDTO;
-import com.example.dto.profile.ProfileSavePhoto;
-import com.example.dto.profile.ProfileUpdatePasswordDTO;
-import com.example.dto.profile.ProfileUpdatePhoneDTO;
+import com.example.dto.profile.*;
 import com.example.enums.LanguageEnum;
 import com.example.service.ProfileService;
 import jakarta.validation.Valid;
@@ -52,5 +49,11 @@ public class ProfileController {
     public ResponseEntity<ApiResult<String>> updateLanguage(@Valid @RequestBody LanguageUpdateDto dto) {
         ApiResult<String> apiResponse = profileService.updateLanguage(dto);
         return ResponseEntity.ok(apiResponse);
+    }
+
+    @GetMapping("/all/detail")
+    public ResponseEntity<ApiResult<ProfileDetailDTO>>profileDetail(@RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
+       ApiResult<ProfileDetailDTO>apiResult= profileService.getProfileDetail(language);
+        return ResponseEntity.ok(apiResult);
     }
 }

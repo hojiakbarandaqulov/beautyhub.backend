@@ -11,11 +11,11 @@ Accept-Language: uz
 ### profile update password
 PUT http://localhost:8080/api/profile/update/password
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MjkyMDU1MSwiZXhwIjoxNzUzMjY2MTUxfQ.jO8GctYJJXiUQGtfOUzhlyt4ax254lMi8ZyjAT5ygG8
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzQ0NDQwNCwiZXhwIjoxNzUzNTMwODA0fQ.YqjIGb4GuAilV685Pci-pjb5pXn8yPpOgqJWDKATI_Y
 
 {
-  "currentPassword": "123456789",
-  "newPassword": "12345678"
+  "newPassword": "12345678",
+  "confirmPassword": "12345678"
 }
 
 ### Profile update
@@ -45,4 +45,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZ
 {
   "languageCode": "en"
 }
+
+###
+GET http://localhost:8080/api/profile/all/detail
+Accept-Language: uz
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzQ0NDQwNCwiZXhwIjoxNzUzNTMwODA0fQ.YqjIGb4GuAilV685Pci-pjb5pXn8yPpOgqJWDKATI_Y
+
 
