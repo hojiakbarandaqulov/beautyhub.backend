@@ -31,6 +31,8 @@ public class HandleController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
 
+
+
     @MessageExceptionHandler
     @SendToUser("/queue/errors")
     public String handleException(Exception ex) {

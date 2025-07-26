@@ -55,9 +55,6 @@ public class ProfileEntity{
     @Column(name = "created_date")
     private LocalDateTime createdDate=LocalDateTime.now();
 
-    @OneToMany(mappedBy = "profile")
-    private List<TokenEntity> tokens;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "language")
     private LanguageEnum language=LanguageEnum.ru;

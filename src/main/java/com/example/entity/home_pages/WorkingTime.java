@@ -30,5 +30,4 @@ public class WorkingTime {
     @JoinColumn(name = "salon_id", nullable = false)
     private Salon salon;
 
-    // Getters, Setters, Constructors
 }

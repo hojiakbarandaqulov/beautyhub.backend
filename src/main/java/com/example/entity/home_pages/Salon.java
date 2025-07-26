@@ -29,6 +29,12 @@ public class Salon {
     private String description;
 
     @Column(nullable = false)
+    private Double latitude;
+
+    @Column(nullable = false)
+    private Double longitude;
+
+    @Column(nullable = false)
     private Double rating;
 
     @Column(name = "main_image_url")
