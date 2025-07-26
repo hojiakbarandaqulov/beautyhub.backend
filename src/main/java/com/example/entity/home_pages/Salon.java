@@ -1,11 +1,17 @@
-/*
-package com.example.entity;
+package com.example.entity.home_pages;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "salons")
 public class Salon {
@@ -45,5 +51,4 @@ public class Salon {
     @OneToMany(mappedBy = "salon", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Master> masters = new ArrayList<>();
 
-    // Getters, Setters, Constructors
-}*/
+}
