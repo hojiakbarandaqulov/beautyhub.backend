@@ -46,9 +46,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZ
   "languageCode": "en"
 }
 
-###
+### profile detail
 GET http://localhost:8080/api/profile/all/detail
 Accept-Language: uz
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzQ0NDQwNCwiZXhwIjoxNzUzNTMwODA0fQ.YqjIGb4GuAilV685Pci-pjb5pXn8yPpOgqJWDKATI_Y
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzQ1ODQ5OSwiZXhwIjoxNzUzNTQ0ODk5fQ.JI2EGq7urAH1brOunVsTWVopSESB8EYbWjiA25PxWgQ
 
 
