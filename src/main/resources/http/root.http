@@ -1,0 +1,40 @@
+###
+POST http://localhost:8080/api/roots/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzQ2NTk0OSwiZXhwIjoxNzUzNTUyMzQ5fQ.Y9ELsdUSEkdB6wT0gJARKStEZAqIkgc8YeF_uy4BRn8
+
+{
+  "name": "roomName",
+  "width": 4,
+  "height": 8,
+  "description": "nice room"
+}
+
+### get roots detail
+GET http://localhost:8080/api/roots/all/detail
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzQ2NTk0OSwiZXhwIjoxNzUzNTUyMzQ5fQ.Y9ELsdUSEkdB6wT0gJARKStEZAqIkgc8YeF_uy4BRn8
+
+
+### getByRoots
+GET http://localhost:8080/api/roots/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzQ2NTk0OSwiZXhwIjoxNzUzNTUyMzQ5fQ.Y9ELsdUSEkdB6wT0gJARKStEZAqIkgc8YeF_uy4BRn8
+
+
+###
+PUT http://localhost:8080/api/roots/update/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzQ2NTk0OSwiZXhwIjoxNzUzNTUyMzQ5fQ.Y9ELsdUSEkdB6wT0gJARKStEZAqIkgc8YeF_uy4BRn8
+
+{
+  "name": "roomName",
+  "width": 4,
+  "height": 8,
+  "description": "nice room"
+}
+
+### delete roots
+DELETE http://localhost:8080/api/roots/delete/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzQ2NTk0OSwiZXhwIjoxNzUzNTUyMzQ5fQ.Y9ELsdUSEkdB6wT0gJARKStEZAqIkgc8YeF_uy4BRn8
+
+
+
