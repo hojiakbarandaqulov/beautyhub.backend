@@ -37,7 +37,6 @@ public class AttachService {
 
     private final AttachRepository attachRepository;
 
-
     private static final Map<String, Object> imageExtensionMap = new HashMap<>();
 
     static {
@@ -196,5 +195,12 @@ public class AttachService {
         return  attachUrl + "/" + entity.getPath() + "/" + entity.getId() + "." + entity.getExtension();
     }
 
+    public Optional<AttachEntity> getImage(String imageId) {
+        Optional<AttachEntity> byId = attachRepository.findById(imageId);
+        if (byId.isEmpty()){
+            throw new AppBadException("File not found");
+        }
+        return byId;
+    }
 }
 

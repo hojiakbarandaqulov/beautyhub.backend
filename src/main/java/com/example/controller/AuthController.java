@@ -30,7 +30,6 @@ public class AuthController {
 
     private final AuthService authService;
 
-
     @PostMapping("/registration")
     public ResponseEntity<ApiResult<String>> registration(@RequestBody @Valid RegistrationDTO registrationDTO,
                                                           @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
@@ -65,7 +64,5 @@ public class AuthController {
         ApiResult<String> ok = authService.resetPasswordConfirm(dto, language);
         return ResponseEntity.ok(ok);
     }
-
-
 }
 
