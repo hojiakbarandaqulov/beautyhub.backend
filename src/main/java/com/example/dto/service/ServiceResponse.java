@@ -19,4 +19,6 @@ public class ServiceResponse {
     private Long salonId;
     @NotNull(message = "categoryId required")
     private Long categoryId;
+    @NotBlank(message = "categoryName required")
+    private String categoryName;
 }

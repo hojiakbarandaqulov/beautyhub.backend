@@ -85,10 +85,6 @@ public class SpringConfig {
                                     "/api/location",
                                     "/api/profile/all/detail").permitAll()
                             .requestMatchers("/api/city/create").hasRole("ADMIN")
-                            .requestMatchers("/api/roots/all/detail").hasRole("ADMIN")
-                            .requestMatchers("/api/roots/{id}").hasAnyRole("ADMIN", "USER")
-                            .requestMatchers("/api/roots").hasRole("ADMIN")
-                            .requestMatchers("/api/roots/{id}").hasRole("ADMIN")
                             .anyRequest()
                             .authenticated();
                 })

@@ -6,6 +6,7 @@ import lombok.Data;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
+
 @Data
 @Entity
 @Table(name = "working_times")

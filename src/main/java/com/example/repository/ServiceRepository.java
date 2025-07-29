@@ -15,3 +15,4 @@ public interface ServiceRepository extends JpaRepository<ServiceEntity, Long> {
 
     boolean existsBySalonIdAndNameIgnoreCase(Long salonId, String name);
 }
+

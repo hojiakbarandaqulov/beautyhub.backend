@@ -17,4 +17,5 @@ public class NotificationDto {
     private boolean isRead;
     private Long relatedId;
     private String relatedType;
+
 }

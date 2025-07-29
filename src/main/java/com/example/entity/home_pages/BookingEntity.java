@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+
 @Entity
 @Table(name = "bookings")
 @Data

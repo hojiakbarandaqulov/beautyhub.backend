@@ -14,6 +14,7 @@ import com.example.service.impl.ServiceService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -24,10 +25,14 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/services")
 public class ServiceController {
+
     private final ServiceService serviceService;
 
+    @PostMapping(
+            value = "/create",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAnyRole('ADMIN', 'SALON_MANAGER')")
-    @PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<ApiResult<ServiceResponse>> createService(
             @Valid @RequestBody ServiceCreateRequest request,
             @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
@@ -71,4 +76,5 @@ public class ServiceController {
         ApiResult<String> apiResult = serviceService.delete(id, language);
         return ResponseEntity.ok(apiResult);
     }
+
 }

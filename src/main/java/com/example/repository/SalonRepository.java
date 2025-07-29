@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import java.util.List;
 
+
 public interface SalonRepository extends JpaRepository<SalonEntity, Long> {
 
     @Query(value = "SELECT * FROM salons s " +

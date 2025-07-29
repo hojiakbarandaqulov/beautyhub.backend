@@ -10,12 +10,15 @@ import com.example.dto.profile.ProfileDTO;
 import com.example.dto.reset.ResetPasswordConfirmDTO;
 import com.example.dto.reset.ResetPasswordDTO;
 import com.example.entity.ProfileEntity;
+import com.example.entity.TokenEntity;
 import com.example.enums.GeneralStatus;
 import com.example.enums.LanguageEnum;
 import com.example.enums.ProfileRole;
 import com.example.exp.AppBadException;
 import com.example.repository.ProfileRepository;
 import com.example.repository.ProfileRoleRepository;
+import com.example.repository.TokenRepository;
+import com.example.service.jwt.JwtService;
 import com.example.service.sms.SmsHistoryService;
 import com.example.service.sms.SmsService;
 import com.example.util.JwtUtil;
@@ -44,6 +47,7 @@ public class AuthService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final SmsService smsService;
     private final SmsHistoryService smsHistoryService;
+    private final TokenRepository tokenRepository;
 
     @Transactional
     public ApiResult<String> registration(RegistrationDTO registrationDTO, LanguageEnum language) {

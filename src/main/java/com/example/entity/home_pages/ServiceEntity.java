@@ -1,5 +1,6 @@
 package com.example.entity.home_pages;
 
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -26,12 +27,8 @@ public class ServiceEntity {
     @Column(name = "salon_id")
     private Long salonId;
 
-    private String description;
-
     @ManyToOne
-    @JoinColumn(name = "category_id",insertable = false,updatable = false, nullable = false)
+    @JoinColumn(name = "category_id")
     private Category category;
-    @Column(name = "category_id")
-    private Long categoryId;
 
 }
