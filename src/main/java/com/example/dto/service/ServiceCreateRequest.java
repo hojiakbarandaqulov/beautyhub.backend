@@ -1,12 +1,14 @@
 package com.example.dto.service;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ServiceCreateRequest {
     @NotNull(message = "Salon ID bo'sh bo'lishi mumkin emas")
-    private Long salonId;
+    private long salonId;
 
     @NotBlank(message = "Xizmat nomi bo'sh bo'lishi mumkin emas")
     @Size(min = 3, max = 100, message = "Xizmat nomi 3-100 belgidan iborat bo'lishi kerak")
@@ -17,8 +19,8 @@ public class ServiceCreateRequest {
 
     @Min(value = 5, message = "Davomiyligi kamida 5 daqiqa bo'lishi kerak")
     @Max(value = 300, message = "Davomiyligi ko'pi bilan 300 daqiqa bo'lishi kerak")
-    private int durationMinutes;
+    private Integer durationMinutes;
 
     @DecimalMin(value = "0.0", message = "Narx manfiy bo'lishi mumkin emas")
-    private double price;
+    private Double price;
 }

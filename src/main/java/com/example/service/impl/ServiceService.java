@@ -23,6 +23,7 @@ public class ServiceService {
 
     public ApiResult<ServiceResponse> create(ServiceCreateRequest request, LanguageEnum language) {
         ServiceEntity entity = serviceMapper.toEntity(request);
+        entity.setSalonId(request.getSalonId());
         ServiceEntity saved = serviceRepository.save(entity);
         return ApiResult.successResponse(serviceMapper.toDto(saved));
     }

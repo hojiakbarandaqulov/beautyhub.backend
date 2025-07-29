@@ -62,7 +62,7 @@ public class ProfileController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/roles/add/{profileId}")
+    @PostMapping("/role/add/{profileId}")
     public ResponseEntity<ApiResult<String>> addRole(
             @PathVariable Long profileId,
             @RequestParam ProfileRole role,

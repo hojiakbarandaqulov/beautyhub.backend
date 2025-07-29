@@ -21,8 +21,10 @@ public class ServiceEntity {
     private Integer duration; // in minutes
 
     @ManyToOne
-    @JoinColumn(name = "salon_id", nullable = false)
+    @JoinColumn(name = "salon_id",insertable = false,updatable = false, nullable = false)
     private SalonEntity salon;
+    @Column(name = "salon_id")
+    private Long salonId;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
