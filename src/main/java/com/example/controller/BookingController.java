@@ -1,4 +1,3 @@
-/*
 package com.example.controller;
 
 import com.example.dto.base.ApiResponse;
@@ -64,4 +63,4 @@ public class BookingController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return ResponseEntity.ok(bookingService.getAvailableSlots(salonId, serviceId, masterId, date));
     }
-}*/
+}

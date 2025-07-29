@@ -9,6 +9,7 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface ServiceMapper {
+
     ServiceEntity toEntity(ServiceCreateRequest request);
     ServiceResponse toDto(ServiceEntity entity);
     void updateFromDto(ServiceUpdateRequest request, @MappingTarget ServiceEntity entity);

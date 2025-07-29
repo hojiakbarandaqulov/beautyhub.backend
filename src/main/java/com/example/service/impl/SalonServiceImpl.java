@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class SalonServiceImpl implements SalonService {
 
     private final SalonRepository salonRepository;
+
     private final ModelMapper modelMapper;
     private final ResourceBundleService messageService;
 
