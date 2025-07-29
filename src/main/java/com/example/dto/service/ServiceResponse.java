@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ServiceResponse {
+
     @NotNull
     private Long id;
     @NotBlank(message = "name required")

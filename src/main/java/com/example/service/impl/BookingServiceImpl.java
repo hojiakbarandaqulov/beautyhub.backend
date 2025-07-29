@@ -108,4 +108,5 @@ public class BookingServiceImpl implements BookingService {
                 new TimeSlotDto("11:00", "12:00", false) // band
         ));
     }
-}*/
+}
+*/

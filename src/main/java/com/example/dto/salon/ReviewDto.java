@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class ReviewDto {
+
     private Long id;
     private String clientName;
     private Double rating;
