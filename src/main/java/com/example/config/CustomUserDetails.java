@@ -16,6 +16,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+
+@Setter
+@Getter
 @Data
 @RequiredArgsConstructor
 public class CustomUserDetails implements UserDetails {
@@ -69,43 +72,4 @@ public class CustomUserDetails implements UserDetails {
         return true;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
-        this.authorities = authorities;
-    }
-
-    public GeneralStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(GeneralStatus status) {
-        this.status = status;
-    }
 }
