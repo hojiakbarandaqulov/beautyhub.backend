@@ -19,5 +19,3 @@ public interface TokenRepository extends JpaRepository<TokenEntity, Long> {
 
 
 }
-
-

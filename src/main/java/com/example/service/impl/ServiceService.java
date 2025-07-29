@@ -10,7 +10,6 @@ import com.example.exp.AppBadException;
 import com.example.mapper.ServiceMapper;
 import com.example.repository.ServiceRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,12 +19,11 @@ import java.util.List;
 public class ServiceService {
 
     private final ServiceRepository serviceRepository;
-    private final ModelMapper modelMapper;
     private final ServiceMapper serviceMapper;
 
 
     public ApiResult<ServiceResponse> create(ServiceCreateRequest request, LanguageEnum language) {
-        ServiceEntity entity = modelMapper.map(request, ServiceEntity.class);
+        ServiceEntity entity = serviceMapper.toEntity(request);
         entity.setSalonId(request.getSalonId());
         ServiceEntity saved = serviceRepository.save(entity);
         return ApiResult.successResponse(serviceMapper.toDto(saved));

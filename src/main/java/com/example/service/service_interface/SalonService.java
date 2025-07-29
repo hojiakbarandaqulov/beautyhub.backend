@@ -7,7 +7,6 @@ import com.example.enums.LanguageEnum;
 import java.util.List;
 
 public interface SalonService {
-
     ApiResult<SalonCreateResponseDto> create(SalonCreateDto dto, LanguageEnum languageEnum);
 
     ApiResult<SalonCreateResponseDto> update(Long id, SalonUpdateDto dto, LanguageEnum languageEnum);
