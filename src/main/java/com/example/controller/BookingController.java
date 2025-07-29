@@ -1,3 +1,4 @@
+/*
 package com.example.controller;
 
 import com.example.dto.base.ApiResponse;
@@ -64,3 +65,4 @@ public class BookingController {
         return ResponseEntity.ok(bookingService.getAvailableSlots(salonId, serviceId, masterId, date));
     }
 }
+*/
