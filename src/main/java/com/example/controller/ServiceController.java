@@ -14,6 +14,7 @@ import com.example.service.impl.ServiceService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -27,10 +28,13 @@ public class ServiceController {
 
     private final ServiceService serviceService;
 
-    @PostMapping("/create")
+    @PostMapping(
+            value = "/create",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAnyRole('ADMIN', 'SALON_MANAGER')")
     public ResponseEntity<ApiResult<ServiceResponse>> createService(
-           @Valid @RequestBody ServiceCreateRequest request,
+            @Valid @RequestBody ServiceCreateRequest request,
             @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
         ApiResult<ServiceResponse> apiResult = serviceService.create(request, language);
         return ResponseEntity.ok(apiResult);
