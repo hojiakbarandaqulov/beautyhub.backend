@@ -1,6 +1,9 @@
 package com.example.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -29,9 +32,5 @@ public class AttachEntity {
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chat_message_id")
-    private ChatMessageEntity chatMessage;
 
 }
