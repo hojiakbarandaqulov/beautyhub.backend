@@ -11,11 +11,11 @@ import com.example.dto.reset.ResetPasswordConfirmDTO;
 import com.example.dto.reset.ResetPasswordDTO;
 import com.example.enums.LanguageEnum;
 import com.example.service.AuthService;
+import com.example.service.jwt.JwtService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -24,11 +24,17 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@AllArgsConstructor
 @RequestMapping("/api/auth")
 public class AuthController {
 
     private final AuthService authService;
+    private final JwtService jwtService;
+
+    public AuthController(AuthService authService, JwtService jwtService) {
+        this.authService = authService;
+        this.jwtService = jwtService;
+    }
+
 
     @PostMapping("/registration")
     public ResponseEntity<ApiResult<String>> registration(@RequestBody @Valid RegistrationDTO registrationDTO,
@@ -64,5 +70,6 @@ public class AuthController {
         ApiResult<String> ok = authService.resetPasswordConfirm(dto, language);
         return ResponseEntity.ok(ok);
     }
+
 }
 
