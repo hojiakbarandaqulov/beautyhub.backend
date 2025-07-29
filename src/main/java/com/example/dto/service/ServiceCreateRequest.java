@@ -7,7 +7,6 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ServiceCreateRequest {
-
     @NotNull(message = "Salon ID bo'sh bo'lishi mumkin emas")
     private long salonId;
 
