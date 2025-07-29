@@ -19,5 +19,6 @@ public class SalonCreateDto {
 
     @NotNull
     private Double longitude;
+
     private String description;
 }

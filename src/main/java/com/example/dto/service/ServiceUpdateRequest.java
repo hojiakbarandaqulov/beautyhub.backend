@@ -8,6 +8,7 @@ import lombok.Data;
 
 @Data
 public class ServiceUpdateRequest {
+
     @Size(min = 3, max = 100, message = "Xizmat nomi 3-100 belgidan iborat bo'lishi kerak")
     private String name;
 
