@@ -98,11 +98,6 @@ public class AuthService {
         response.setRole(profileRoleRepository.getAllRolesListByProfileId(profile.getId()));
         response.setJwt(JwtUtil.encode(profile.getPhone(), profile.getId(), response.getRole()));
         response.setRefreshToken(JwtUtil.generateRefreshToken(profile.getPhone(), profile.getId()));
-        TokenEntity token = new TokenEntity();
-        token.setToken(response.getRefreshToken());
-        token.setLoggedOut(false);
-        token.setProfile(profile);
-        tokenRepository.save(token);
         return new ApiResult<>(response);
     }
 

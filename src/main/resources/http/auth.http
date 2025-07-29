@@ -15,8 +15,8 @@ POST http://localhost:8080/api/auth/registration/login
 Content-Type: application/json
 
 {
-  "phone": "+998995092376",
-  "password": "12345678"
+  "phone": "+998992431068",
+  "password": "123456"
 }
 
 ###
@@ -45,10 +45,4 @@ Content-Type: application/json
   "password": "123456789",
   "confirmPassword": "123456789"
 }
-
-
-
-###Api log-out
-POST http://localhost:8080/api/auth/logout
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzQxNjk5OCwiZXhwIjoxNzUzNTAzMzk4fQ.XNC7BcZsY99brfOOldF0SPsUe7m7zN7ovnah_aITvE4
 
