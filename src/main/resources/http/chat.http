@@ -9,32 +9,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZ
 
 ###
 GET http://localhost:8080/api/chat/history/2?page=1&size=20
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzY4MjAxNCwiZXhwIjoxNzUzNzY4NDE0fQ._FsWCqO95ySTGJ-hSjacuoocIHGeLJkVBBOPvIrj5Cw
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzQxNjk5OCwiZXhwIjoxNzUzNTAzMzk4fQ.XNC7BcZsY99brfOOldF0SPsUe7m7zN7ovnah_aITvE4
 
 ###
-PUT http://localhost:8080/api/chat/mark-as-read/11
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzY4MjAxNCwiZXhwIjoxNzUzNzY4NDE0fQ._FsWCqO95ySTGJ-hSjacuoocIHGeLJkVBBOPvIrj5Cw
-
-####
-WEBSOCKET ws://localhost:8080/ws
-Content-Type: application/json
-
-{
-  "recipientId": 2,
-  "content": "Salom, test xabari! ",
-  "type": "CHAT",
-  "imageId": "15fc9050-a8a1-437e-8e20-9cc8ecf14632.jpg"
-}
-
-###
-POST http://localhost:8080/api/chat/send
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzY4MjAxNCwiZXhwIjoxNzUzNzY4NDE0fQ._FsWCqO95ySTGJ-hSjacuoocIHGeLJkVBBOPvIrj5Cw
-
-
-{
-  "recipientId": 2,
-  "content": "Salom, test xabari! ",
-  "type": "CHAT",
-  "imageId": "15fc9050-a8a1-437e-8e20-9cc8ecf14632.jpg"
-}
+PUT http://localhost:8080/api/chat/mark-as-read/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzI5ODQ4OCwiZXhwIjoxNzUzMzg0ODg4fQ.j9fBoh4qpH8gD44CHQx0pmPCh3NqIqvUuiVJsyOPLCM
