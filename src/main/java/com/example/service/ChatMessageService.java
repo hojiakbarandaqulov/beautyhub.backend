@@ -9,6 +9,7 @@ import com.example.mapper.ChatMessageMapper;
 import com.example.repository.ChatMessageRepository;
 import com.example.repository.ProfileRepository;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ChatMessageService {
 
     private final ChatMessageRepository chatMessageRepository;

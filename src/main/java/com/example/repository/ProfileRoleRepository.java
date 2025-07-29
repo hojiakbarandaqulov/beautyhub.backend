@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProfileRoleRepository extends JpaRepository<ProfileRoleEntity, Long> {
 
@@ -21,4 +22,5 @@ public interface ProfileRoleRepository extends JpaRepository<ProfileRoleEntity, 
     @Query("DELETE from ProfileRoleEntity p where p.profileId=:profileId")
     void deleteByProfileId(@Param("profileId") Long profileId);
 
+    Optional<ProfileRoleEntity> findByProfileIdAndRoles(Long profileId, ProfileRole role);
 }
