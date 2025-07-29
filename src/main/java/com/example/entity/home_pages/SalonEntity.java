@@ -1,7 +1,6 @@
 package com.example.entity.home_pages;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "salons")
-public class Salon {
+public class SalonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -46,7 +45,7 @@ public class Salon {
     private List<String> imageUrls = new ArrayList<>();
 
     @OneToMany(mappedBy = "salon", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Service> services = new ArrayList<>();
+    private List<ServiceEntity> services;
 
     @OneToMany(mappedBy = "salon", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WorkingTime> workingTimes = new ArrayList<>();

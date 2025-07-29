@@ -28,6 +28,6 @@ public class WorkingTime {
 
     @ManyToOne
     @JoinColumn(name = "salon_id", nullable = false)
-    private Salon salon;
+    private SalonEntity salon;
 
 }

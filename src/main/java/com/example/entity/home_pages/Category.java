@@ -25,6 +25,6 @@ public class Category {
     private String iconUrl;
 
     @OneToMany(mappedBy = "category")
-    private List<Service> services = new ArrayList<>();
+    private List<ServiceEntity> services;
 
 }

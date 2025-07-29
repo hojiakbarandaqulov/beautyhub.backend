@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "services")
-public class Service {
+public class ServiceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,12 +21,17 @@ public class Service {
     private Integer duration; // in minutes
 
     @ManyToOne
-    @JoinColumn(name = "salon_id", nullable = false)
-    private Salon salon;
+    @JoinColumn(name = "salon_id",insertable = false,updatable = false, nullable = false)
+    private SalonEntity salon;
+    @Column(name = "salon_id")
+    private Long salonId;
+
+    private String description;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id",insertable = false,updatable = false, nullable = false)
     private Category category;
+    @Column(name = "category_id")
+    private Long categoryId;
 
-    // Getters, Setters, Constructors
 }
