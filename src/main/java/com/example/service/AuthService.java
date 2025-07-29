@@ -158,29 +158,5 @@ public class AuthService {
         profileRepository.updatePassword(profile.getId(), bCryptPasswordEncoder.encode(dto.getPassword()));
         return new ApiResult<String>(messageSource.getMessage("reset.password.success", language));
     }
-/*
-    public String getAuthenticatedUsername() {
-        return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
-                .filter(Authentication::isAuthenticated)
-                .map(Authentication::getName)
-                .orElseThrow(() -> new AppBadException("Foydalanuvchi avtorizatsiyadan o'tmagan"));
-    }
-
-    @Transactional
-    public Boolean logout(String username, String token) {
-        if (token != null) {
-            jwtService.invalidateToken(token);
-            System.out.println("JWT token bekor qilindi: " + token);
-        } else {
-            System.out.println("Logout so'rovi keldi, lekin token topilmadi. Faqat foydalanuvchi konteksti tozalandi.");
-        }
-        profileRepository.findByPhoneAndVisibleTrue(username).ifPresent(user -> {
-            user.setVisible(false); // Foydalanuvchini "ko'rinmas" yoki "offline" deb belgilash
-            profileRepository.save(user); // O'zgarishlarni saqlash
-            System.out.println("Foydalanuvchi " + username + " statusi 'ko'rinmas' deb yangilandi.");
-        });
-        System.out.println("Foydalanuvchi " + username + " tizimdan chiqish mantig'i bajarildi.");
-        return true;
-    }*/
 }
 
