@@ -9,7 +9,9 @@ import com.example.enums.LanguageEnum;
 import com.example.exp.AppBadException;
 import com.example.mapper.ServiceMapper;
 import com.example.repository.ServiceRepository;
+import com.example.service.ResourceBundleService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,13 +21,20 @@ import java.util.List;
 public class ServiceService {
 
     private final ServiceRepository serviceRepository;
+    private final ModelMapper modelMapper;
     private final ServiceMapper serviceMapper;
+    private final ResourceBundleService messageService;
 
     public ApiResult<ServiceResponse> create(ServiceCreateRequest request, LanguageEnum language) {
-        ServiceEntity entity = serviceMapper.toEntity(request);
+        ServiceEntity entity = new ServiceEntity();
         entity.setSalonId(request.getSalonId());
+        entity.setName(request.getName()); // Bo'sh joylarni olib tashlash
+        entity.setPrice(request.getPrice());
+        entity.setDuration(request.getDurationMinutes());
+        entity.setDescription(request.getDescription());
+        modelMapper.map(entity, request);
         ServiceEntity saved = serviceRepository.save(entity);
-        return ApiResult.successResponse(serviceMapper.toDto(saved));
+        return ApiResult.successResponse(toDto(saved));
     }
 
     public ApiResult<ServiceResponse> getById(Long id, LanguageEnum language) {
@@ -73,5 +82,17 @@ public class ServiceService {
                             defaultMessage;
         };
     }
+
+
+    private ServiceResponse toDto(ServiceEntity entity) {
+        ServiceResponse response = new ServiceResponse();
+        response.setId(entity.getId());
+        response.setName(entity.getName());
+        response.setPrice(entity.getPrice());
+        response.setSalonId(entity.getSalonId());
+        response.setCategoryId(entity.getCategoryId());
+        return response;
+    }
+
 }
 

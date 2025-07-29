@@ -3,15 +3,18 @@ package com.example.dto.service;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ServiceCreateRequest {
-    @NotNull(message = "Salon ID bo'sh bo'lishi mumkin emas")
+    @NotNull
     private long salonId;
 
     @NotBlank(message = "Xizmat nomi bo'sh bo'lishi mumkin emas")
-    @Size(min = 3, max = 100, message = "Xizmat nomi 3-100 belgidan iborat bo'lishi kerak")
+    @Size(min = 3, max = 100)
     private String name;
 
     @Size(max = 500, message = "Tavsif 500 belgidan oshmasligi kerak")

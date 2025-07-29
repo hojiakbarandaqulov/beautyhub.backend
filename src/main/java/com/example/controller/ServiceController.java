@@ -26,10 +26,10 @@ import java.util.List;
 public class ServiceController {
     private final ServiceService serviceService;
 
-    @PostMapping("/create")
     @PreAuthorize("hasAnyRole('ADMIN', 'SALON_MANAGER')")
+    @PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<ApiResult<ServiceResponse>> createService(
-           @Valid @RequestBody ServiceCreateRequest request,
+            @Valid @RequestBody ServiceCreateRequest request,
             @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
         ApiResult<ServiceResponse> apiResult = serviceService.create(request, language);
         return ResponseEntity.ok(apiResult);
@@ -71,5 +71,4 @@ public class ServiceController {
         ApiResult<String> apiResult = serviceService.delete(id, language);
         return ResponseEntity.ok(apiResult);
     }
-
 }
