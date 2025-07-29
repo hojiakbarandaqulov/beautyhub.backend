@@ -29,7 +29,6 @@ public class CorsConfig {
                                 "https://beautyhubuz-3d777984d358.herokuapp.com",
                                 "http://localhost:3000",
                                 "http://localhost:8080",
-                                "http://192.168.1.11:8080",
                                 "*"
                         )
                         .maxAge(3600)
