@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "services")
-public class Service {
+public class ServiceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,11 +22,10 @@ public class Service {
 
     @ManyToOne
     @JoinColumn(name = "salon_id", nullable = false)
-    private Salon salon;
+    private SalonEntity salon;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
-    // Getters, Setters, Constructors
 }

@@ -31,7 +31,7 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "salon_id", nullable = false)
-    private Salon salon;
+    private SalonEntity salon;
 
     // Getters, Setters, Constructors
 }

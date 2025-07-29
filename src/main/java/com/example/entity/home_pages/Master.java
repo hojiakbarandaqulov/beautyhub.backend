@@ -28,13 +28,13 @@ public class Master {
 
     @ManyToOne
     @JoinColumn(name = "salon_id", nullable = false)
-    private Salon salon;
+    private SalonEntity salon;
 
     @ManyToMany
     @JoinTable(
             name = "master_services",
             joinColumns = @JoinColumn(name = "master_id"),
             inverseJoinColumns = @JoinColumn(name = "service_id"))
-    private Set<Service> services = new HashSet<>();
+    private Set<ServiceEntity> services = new HashSet<>();
 
 }
