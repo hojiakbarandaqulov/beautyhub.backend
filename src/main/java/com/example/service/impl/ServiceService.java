@@ -10,6 +10,7 @@ import com.example.exp.AppBadException;
 import com.example.mapper.ServiceMapper;
 import com.example.repository.ServiceRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,13 +21,19 @@ public class ServiceService {
 
     private final ServiceRepository serviceRepository;
     private final ServiceMapper serviceMapper;
+    private final ModelMapper modelMapper;
 
 
     public ApiResult<ServiceResponse> create(ServiceCreateRequest request, LanguageEnum language) {
-        ServiceEntity entity = serviceMapper.toEntity(request);
-        entity.setSalonId(request.getSalonId());
-        ServiceEntity saved = serviceRepository.save(entity);
-        return ApiResult.successResponse(serviceMapper.toDto(saved));
+        ServiceEntity service = new ServiceEntity();
+        service.setName(request.getName());
+        service.setSalonId(request.getSalonId());
+        service.setDescription(request.getDescription());
+        service.setDuration(request.getDurationMinutes());
+        service.setPrice(request.getPrice());
+        ServiceEntity saved = serviceRepository.save(service);
+        ServiceResponse response=modelMapper.map(saved, ServiceResponse.class);
+        return ApiResult.successResponse(response);
     }
 
     public ApiResult<ServiceResponse> getById(Long id, LanguageEnum language) {
@@ -48,7 +55,7 @@ public class ServiceService {
 
     public ApiResult<ServiceResponse> update(Long id, ServiceUpdateRequest request, LanguageEnum language) {
         ServiceEntity service = serviceRepository.findById(id)
-                .orElseThrow(() -> new AppBadException(getMessage("Service not found", language)));
+                .orElseThrow(() -> new AppBadException(getMessage("service.not.found", language)));
 
         serviceMapper.updateFromDto(request, service);
         ServiceEntity updated = serviceRepository.save(service);

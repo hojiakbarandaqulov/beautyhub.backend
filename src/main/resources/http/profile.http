@@ -46,9 +46,26 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZ
   "languageCode": "en"
 }
 
-###
+### profile detail
 GET http://localhost:8080/api/profile/all/detail
 Accept-Language: uz
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzQ0NDQwNCwiZXhwIjoxNzUzNTMwODA0fQ.YqjIGb4GuAilV685Pci-pjb5pXn8yPpOgqJWDKATI_Y
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1Mzc3ODc1OSwiZXhwIjoxNzUzODY1MTU5fQ.KeJvwH3WSwAYta_DNt-damxWkqi5U9RRJXUk7gQ2njQ
+
+
+### add role
+POST http://localhost:8080/api/profile/role/add/10?
+    role=ROLE_SALON_MANAGER
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1Mzc3ODc1OSwiZXhwIjoxNzUzODY1MTU5fQ.KeJvwH3WSwAYta_DNt-damxWkqi5U9RRJXUk7gQ2njQ
+
+
+### delete role
+POST http://localhost:8080/api/profile/roles/remove/10?
+    role=ROLE_MASTER
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1Mzc3ODc1OSwiZXhwIjoxNzUzODY1MTU5fQ.KeJvwH3WSwAYta_DNt-damxWkqi5U9RRJXUk7gQ2njQ
+
+### Get role list
+GET http://localhost:8080/api/profile/roles/10
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1Mzc3ODc1OSwiZXhwIjoxNzUzODY1MTU5fQ.KeJvwH3WSwAYta_DNt-damxWkqi5U9RRJXUk7gQ2njQ
+
 
 

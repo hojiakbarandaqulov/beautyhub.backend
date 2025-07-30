@@ -11,7 +11,6 @@ import com.example.exp.AppBadException;
 import com.example.mapper.ServiceMapper;
 import com.example.repository.ServiceRepository;
 import com.example.service.impl.ServiceService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -28,13 +27,10 @@ public class ServiceController {
 
     private final ServiceService serviceService;
 
-    @PostMapping(
-            value = "/create",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping("/create")
     @PreAuthorize("hasAnyRole('ADMIN', 'SALON_MANAGER')")
     public ResponseEntity<ApiResult<ServiceResponse>> createService(
-            @Valid @RequestBody ServiceCreateRequest request,
+            @RequestBody ServiceCreateRequest request,
             @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
         ApiResult<ServiceResponse> apiResult = serviceService.create(request, language);
         return ResponseEntity.ok(apiResult);
@@ -58,7 +54,7 @@ public class ServiceController {
         return ResponseEntity.ok(apiResult);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'SALON_MANAGER')")
     public ResponseEntity<ApiResult<ServiceResponse>> updateService(
             @PathVariable Long id,
@@ -68,7 +64,7 @@ public class ServiceController {
         return ResponseEntity.ok(apiResult);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'SALON_MANAGER')")
     public ResponseEntity<ApiResult<String>> deleteService(
             @PathVariable Long id,
