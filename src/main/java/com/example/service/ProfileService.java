@@ -4,6 +4,7 @@ import com.example.dto.base.ApiResult;
 import com.example.dto.language.LanguageUpdateDto;
 import com.example.dto.profile.*;
 import com.example.entity.ProfileEntity;
+import com.example.entity.ProfileRoleEntity;
 import com.example.enums.LanguageEnum;
 import com.example.enums.ProfileRole;
 import com.example.exp.AppBadException;
@@ -19,10 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -147,5 +146,55 @@ public class ProfileService {
         dto.setPhone(profile.getPhone());
         dto.setRole(profileRoleRepository.getAllRolesListByProfileId(profile.getId()));
         return ApiResult.successResponse(dto);
+    }
+
+    public ApiResult<String> addRole(Long profileId, ProfileRole role, LanguageEnum language) {
+        ProfileEntity profile = profileRepository.findById(profileId)
+                .orElseThrow(() -> new AppBadException(messageService.getMessage("profile.not.found", language)));
+
+        // Agar role allaqachon mavjud bo'lsa, qayta qo'shmaymiz
+        List<ProfileRole> existingRoles = profileRoleRepository.getAllRolesListByProfileId(profileId);
+        if (existingRoles.contains(role)) {
+            throw new AppBadException(messageService.getMessage("role.already.exists", language));
+        }
+
+        // Yangi role qo‘shish
+        ProfileRoleEntity profileRoleEntity = new ProfileRoleEntity();
+        profileRoleEntity.setProfileId(profile.getId());
+        profileRoleEntity.setRoles(role);
+        profileRoleEntity.setCreatedDate(LocalDateTime.now());
+        profileRoleRepository.save(profileRoleEntity);
+        Map<LanguageEnum, String> messages = new HashMap<>();
+        messages.put(LanguageEnum.uz, messageService.getMessage("role.successfully.create", LanguageEnum.uz));
+        messages.put(LanguageEnum.ru, messageService.getMessage("role.successfully.create", LanguageEnum.ru));
+        messages.put(LanguageEnum.en, messageService.getMessage("role.successfully.create", LanguageEnum.en));
+        ApiResult<String> response = new ApiResult<>("Success", messages);
+        return new ApiResult<>(response).getData();
+    }
+
+    public ApiResult<String> removeRole(Long profileId, ProfileRole role, LanguageEnum language) {
+        ProfileEntity profile = profileRepository.findById(profileId)
+                .orElseThrow(() -> new AppBadException(messageService.getMessage("profile.not.found", language)));
+
+        // Role mavjudligini tekshirish
+        Optional<ProfileRoleEntity> roleEntityOpt = profileRoleRepository.findByProfileIdAndRoles(profileId, role);
+        if (roleEntityOpt.isEmpty()) {
+            throw new AppBadException(messageService.getMessage("profile.role.not.found", language));
+        }
+
+        // Role’ni o‘chirish
+        profileRoleRepository.delete(roleEntityOpt.get());
+        Map<LanguageEnum, String> messages = new HashMap<>();
+        messages.put(LanguageEnum.uz, messageService.getMessage("role.successfully.clear", LanguageEnum.uz));
+        messages.put(LanguageEnum.ru, messageService.getMessage("role.successfully.clear", LanguageEnum.ru));
+        messages.put(LanguageEnum.en, messageService.getMessage("role.successfully.clear", LanguageEnum.en));
+        ApiResult<String> response = new ApiResult<>("Success", messages);
+        return new ApiResult<>(response).getData();
+    }
+
+    public List<ProfileRole> getRoles(Long profileId, LanguageEnum language) {
+        profileRepository.findById(profileId)
+                .orElseThrow(() -> new AppBadException(messageService.getMessage("profile.not.found", language)));
+        return profileRoleRepository.getAllRolesListByProfileId(profileId);
     }
 }

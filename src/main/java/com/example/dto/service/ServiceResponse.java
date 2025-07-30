@@ -7,7 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ServiceResponse {
-
     @NotNull
     private Long id;
     @NotBlank(message = "name required")
@@ -20,6 +19,5 @@ public class ServiceResponse {
     private Long salonId;
     @NotNull(message = "categoryId required")
     private Long categoryId;
-    @NotBlank(message = "categoryName required")
-    private String categoryName;
+
 }

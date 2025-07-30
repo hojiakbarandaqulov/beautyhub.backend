@@ -18,8 +18,11 @@ public class ServiceEntity {
     @Column(nullable = false)
     private Double price;
 
-    @Column
-    private Integer duration; // in minutes
+    @Column(name = "duration")
+    private Integer duration;
+
+    @Column(name = "description")
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "salon_id",insertable = false,updatable = false, nullable = false)

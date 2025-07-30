@@ -7,7 +7,6 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-
 @Entity
 @Table(name = "bookings")
 @Data
@@ -28,10 +27,12 @@ public class BookingEntity {
     @ManyToOne
     private Master master;
 
+    @Enumerated(EnumType.STRING)
+    private BookingStatus status;
+
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private String specialRequests;
-    private BookingStatus status;
     private Integer earnedPoints;
     private Double paidAmount;
     private String paymentMethod;

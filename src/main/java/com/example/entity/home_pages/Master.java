@@ -1,5 +1,6 @@
 package com.example.entity.home_pages;
 
+import com.example.entity.AttachEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -21,11 +22,14 @@ public class Master {
     @Column
     private String specialization;
 
-    @Column
-    private String photoUrl;
+    @ManyToOne
+    @JoinColumn(name = "photo_id", insertable = false, updatable = false)
+    private AttachEntity photo;
+    @Column(name = "photo_id")
+    private String photoId;
 
     @Column(nullable = false)
-    private Double rating;
+    private Double rating = 0.0;
 
     @ManyToOne
     @JoinColumn(name = "salon_id", nullable = false)

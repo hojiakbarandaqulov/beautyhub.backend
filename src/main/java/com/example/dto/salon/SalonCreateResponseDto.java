@@ -7,7 +7,6 @@ import lombok.Data;
 
 @Data
 public class SalonCreateResponseDto {
-
     @NotBlank
     private String name;
 
