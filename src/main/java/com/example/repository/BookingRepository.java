@@ -9,11 +9,12 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface BookingRepository extends JpaRepository<BookingEntity, Long> {
     Page<BookingEntity> findByProfileId(Long userId, Pageable pageable);
 
-    BookingEntity findByIdAndProfileId(Long id, Long userId);
+    Optional<BookingEntity> findByIdAndProfileId(Long id, Long userId);
 
 
     @Query("SELECT b FROM BookingEntity b WHERE " +

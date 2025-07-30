@@ -1,4 +1,3 @@
-/*
 package com.example.controller;
 
 import com.example.dto.base.ApiResponse;
@@ -36,7 +35,7 @@ public class BookingController {
         return ResponseEntity.ok(bookingService.createBooking(userId, request));
     }
 
-    @GetMapping
+    @GetMapping("/bron")
     @Operation(summary = "Foydalanuvchi bronlari")
     public ResponseEntity<ApiResponse<Page<BookingDto>>> getUserBookings(
             @AuthenticationPrincipal UserDetails user,
@@ -64,4 +63,4 @@ public class BookingController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return ResponseEntity.ok(bookingService.getAvailableSlots(salonId, serviceId, masterId, date));
     }
-}*/
+}

@@ -1,4 +1,3 @@
-/*
 package com.example.service.impl;
 
 
@@ -38,7 +37,6 @@ public class BookingServiceImpl implements BookingService {
     @Override
     @Transactional
     public ApiResponse<BookingResponse> createBooking(Long userId, BookingRequest request) {
-        // Validatsiyalar
         ProfileEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> new AppBadException("Foydalanuvchi topilmadi"));
         SalonEntity salon = salonRepository.findById(request.getSalonId())
@@ -48,17 +46,15 @@ public class BookingServiceImpl implements BookingService {
         Master master = masterRepository.findById(request.getMasterId())
                 .orElseThrow(() -> new AppBadException("Usta topilmadi"));
 
-        // Vaqtni tekshirish
-        checkTimeAvailability(master, request.getStartTime(), service.getDurationMinutes());
+        checkTimeAvailability(master, request.getStartTime(), service.getDuration());
 
-        // Bronni yaratish
         BookingEntity booking = new BookingEntity();
         booking.setProfile(user);
         booking.setSalon(salon);
         booking.setService(service);
         booking.setMaster(master);
         booking.setStartTime(request.getStartTime());
-        booking.setEndTime(request.getStartTime().plusMinutes(service.getDurationMinutes()));
+        booking.setEndTime(request.getStartTime().plusMinutes(service.getDuration()));
         booking.setStatus(BookingStatus.CONFIRMED); // Avtomatik tasdiqlangan
         booking.setSpecialRequests(request.getSpecialRequests());
 
@@ -108,4 +104,4 @@ public class BookingServiceImpl implements BookingService {
                 new TimeSlotDto("11:00", "12:00", false) // band
         ));
     }
-}*/
+}

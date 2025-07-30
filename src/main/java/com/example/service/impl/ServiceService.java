@@ -9,6 +9,7 @@ import com.example.enums.LanguageEnum;
 import com.example.exp.AppBadException;
 import com.example.mapper.ServiceMapper;
 import com.example.repository.ServiceRepository;
+import com.example.service.ResourceBundleService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class ServiceService {
     private final ServiceRepository serviceRepository;
     private final ServiceMapper serviceMapper;
     private final ModelMapper modelMapper;
+    private final ResourceBundleService messageService;
 
 
     public ApiResult<ServiceResponse> create(ServiceCreateRequest request, LanguageEnum language) {
@@ -38,14 +40,14 @@ public class ServiceService {
 
     public ApiResult<ServiceResponse> getById(Long id, LanguageEnum language) {
         ServiceEntity service = serviceRepository.findById(id)
-                .orElseThrow(() -> new AppBadException(getMessage("Service not found", language)));
+                .orElseThrow(() -> new AppBadException(messageService.getMessage("Service not found", language)));
         return ApiResult.successResponse(serviceMapper.toDto(service));
     }
 
     public ApiResult<List<ServiceResponse>> getBySalonId(Long salonId, LanguageEnum language) {
         List<ServiceEntity> services = serviceRepository.findBySalonId(salonId);
         if (services.isEmpty()) {
-            throw new AppBadException(getMessage("Services not found", language));
+            throw new AppBadException(messageService.getMessage("Services not found", language));
         }
         List<ServiceResponse> dtos = services.stream()
                 .map(serviceMapper::toDto)
@@ -55,7 +57,7 @@ public class ServiceService {
 
     public ApiResult<ServiceResponse> update(Long id, ServiceUpdateRequest request, LanguageEnum language) {
         ServiceEntity service = serviceRepository.findById(id)
-                .orElseThrow(() -> new AppBadException(getMessage("service.not.found", language)));
+                .orElseThrow(() -> new AppBadException(messageService.getMessage("service.not.found", language)));
 
         serviceMapper.updateFromDto(request, service);
         ServiceEntity updated = serviceRepository.save(service);
@@ -65,21 +67,9 @@ public class ServiceService {
 
     public ApiResult<String> delete(Long id, LanguageEnum language) {
         ServiceEntity service = serviceRepository.findById(id)
-                .orElseThrow(() -> new AppBadException(getMessage("Service not found", language)));
+                .orElseThrow(() -> new AppBadException(messageService.getMessage("Service not found", language)));
         serviceRepository.delete(service);
-        return ApiResult.successResponse(getMessage("Service successfully deleted", language));
-    }
-
-    private String getMessage(String defaultMessage, LanguageEnum language) {
-        return switch (language) {
-            case uz -> defaultMessage.equals("Service not found") ? "Xizmat topilmadi" :
-                    defaultMessage.equals("Service successfully deleted") ? "Xizmat o‘chirildi" :
-                            defaultMessage;
-            case en -> defaultMessage; // default English
-            case ru -> defaultMessage.equals("Service not found") ? "Услуга не найдена" :
-                    defaultMessage.equals("Service successfully deleted") ? "Услуга удалена" :
-                            defaultMessage;
-        };
+        return ApiResult.successResponse(messageService.getMessage("Service successfully deleted", language));
     }
 }
 

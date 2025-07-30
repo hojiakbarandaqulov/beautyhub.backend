@@ -11,7 +11,6 @@ import com.example.dto.reset.ResetPasswordConfirmDTO;
 import com.example.dto.reset.ResetPasswordDTO;
 import com.example.enums.LanguageEnum;
 import com.example.service.AuthService;
-import com.example.service.jwt.JwtService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,11 +27,9 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
-    private final JwtService jwtService;
 
-    public AuthController(AuthService authService, JwtService jwtService) {
+    public AuthController(AuthService authService) {
         this.authService = authService;
-        this.jwtService = jwtService;
     }
 
 

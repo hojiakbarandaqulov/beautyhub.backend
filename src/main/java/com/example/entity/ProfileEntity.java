@@ -55,9 +55,6 @@ public class ProfileEntity{
     @Column(name = "created_date")
     private LocalDateTime createdDate=LocalDateTime.now();
 
-    @OneToMany(mappedBy = "profile")
-    private List<TokenEntity> tokens;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "language")
     private LanguageEnum language=LanguageEnum.ru;
@@ -65,45 +62,5 @@ public class ProfileEntity{
     @ManyToOne(fetch =FetchType.EAGER)
     @JoinColumn(name = "city_id",insertable=false,updatable=false)
     private CityEntity city;
-
-   /* @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
-    }
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream()
-                .map(SimpleGrantedAuthority::new) // Agar "ROLE_" prefixi bazada saqlangan bo'lsa, shunday qoldiring.
-                // Aks holda, "ROLE_" + role.name() kabi qo'shing.
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public String getUsername() {
-        return phone;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return visible;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return status != GeneralStatus.BLOCK;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return status == GeneralStatus.ACTIVE;
-    }*/
-    
-   /* @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<CardEntity> cards;*/
 
 }
