@@ -1,0 +1,44 @@
+###
+POST http://localhost:8080/api/masters
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1Mzg4ODE2MCwiZXhwIjoxNzUzOTc0NTYwfQ.ygzZ2c75s98YX482j6iBkrelBDmOwOYpNps64Ls1Nkk
+
+{
+  "name": "Ali",
+  "specialization": "sartarosh",
+  "salonId": 2,
+  "photoId": "15fc9050-a8a1-437e-8e20-9cc8ecf14632.jpg",
+  "serviceId": 21
+}
+
+### master update api
+PUT http://localhost:8080/api/masters/update/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1Mzg4ODE2MCwiZXhwIjoxNzUzOTc0NTYwfQ.ygzZ2c75s98YX482j6iBkrelBDmOwOYpNps64Ls1Nkk
+
+
+{
+  "name": "Ali",
+  "specialization": "sartarosh",
+  "photoId": "15fc9050-a8a1-437e-8e20-9cc8ecf14632.jpg",
+  "serviceId": 21
+}
+
+### master delete
+DELETE http://localhost:8080/api/masters/delete/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1Mzg4ODE2MCwiZXhwIjoxNzUzOTc0NTYwfQ.ygzZ2c75s98YX482j6iBkrelBDmOwOYpNps64Ls1Nkk
+
+
+### master getbyId
+GET http://localhost:8080/api/masters/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1Mzg4ODE2MCwiZXhwIjoxNzUzOTc0NTYwfQ.ygzZ2c75s98YX482j6iBkrelBDmOwOYpNps64Ls1Nkk
+
+
+### get all
+GET http://localhost:8080/api/masters/getAll
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1Mzg4ODE2MCwiZXhwIjoxNzUzOTc0NTYwfQ.ygzZ2c75s98YX482j6iBkrelBDmOwOYpNps64Ls1Nkk
+
+
+### getBy salonId
+GET http://localhost:8080/api/masters/salon/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1Mzg4ODE2MCwiZXhwIjoxNzUzOTc0NTYwfQ.ygzZ2c75s98YX482j6iBkrelBDmOwOYpNps64Ls1Nkk

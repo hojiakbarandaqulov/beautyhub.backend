@@ -6,6 +6,7 @@ import com.example.dto.master.MasterResponseDto;
 import com.example.dto.master.MasterUpdateDto;
 import com.example.enums.LanguageEnum;
 import com.example.service.MasterService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,24 +24,24 @@ public class MasterController {
     @PreAuthorize("hasAnyRole('ADMIN', 'SALON_MANAGER')")
     @PostMapping
     public ResponseEntity<ApiResult<MasterResponseDto>> create(
-            @RequestBody MasterCreateDto dto,
+            @RequestBody @Valid MasterCreateDto dto,
             @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum lang) {
         ApiResult<MasterResponseDto> response = masterService.create(dto, lang);
         return ResponseEntity.ok(response);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'SALON_MANAGER')")
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<ApiResult<MasterResponseDto>> update(
             @PathVariable Long id,
-            @RequestBody MasterUpdateDto dto,
+            @RequestBody @Valid MasterUpdateDto dto,
             @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum lang) {
-        ApiResult<MasterResponseDto> response = masterService.update(id, dto,lang);
+        ApiResult<MasterResponseDto> response = masterService.update(id, dto, lang);
         return ResponseEntity.ok(response);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'SALON_MANAGER')")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<ApiResult<Boolean>> delete(
             @PathVariable Long id,
             @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum lang) {
@@ -53,12 +54,12 @@ public class MasterController {
     public ResponseEntity<ApiResult<MasterResponseDto>> getById(
             @PathVariable Long id,
             @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum lang) {
-        ApiResult<MasterResponseDto> response = masterService.getById(id,lang);
+        ApiResult<MasterResponseDto> response = masterService.getById(id, lang);
         return ResponseEntity.ok(response);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'SALON_MANAGER', 'USER', 'MASTER')")
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<ApiResult<List<MasterResponseDto>>> getAll() {
         ApiResult<List<MasterResponseDto>> response = masterService.getAll();
         return ResponseEntity.ok(response);

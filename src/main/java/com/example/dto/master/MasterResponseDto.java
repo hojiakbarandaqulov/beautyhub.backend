@@ -11,7 +11,7 @@ public class MasterResponseDto {
     private String name;
     private String specialization;
     private Double rating;
-    private AttachEntity photoId;
+    private String photoId;
     private Long salonId;
-    private Set<Long> serviceIds;
+    private Set<Long> serviceId;
 }

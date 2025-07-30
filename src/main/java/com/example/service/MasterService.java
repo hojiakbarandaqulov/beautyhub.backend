@@ -30,15 +30,14 @@ public class MasterService {
         Master master = new Master();
         master.setName(dto.getName());
         master.setSpecialization(dto.getSpecialization());
-        master.setRating(dto.getRating());
-        master.setPhoto(dto.getPhotoId());
+        master.setPhotoId(dto.getPhotoId());
 
         SalonEntity salon = salonRepository.findById(dto.getSalonId())
                 .orElseThrow(() -> new AppBadException(messageService.getMessage("salon.not.found", languageEnum)));
         master.setSalon(salon);
 
         if (dto.getServiceId() != null) {
-            Set<ServiceEntity> services = new HashSet<>(serviceRepository.findAllById(dto.getServiceId()));
+            Set<ServiceEntity> services = new HashSet<>(serviceRepository.findAllById(Collections.singleton(dto.getServiceId())));
             master.setServices(services);
         }
 
@@ -52,11 +51,9 @@ public class MasterService {
 
         master.setName(dto.getName());
         master.setSpecialization(dto.getSpecialization());
-        master.setRating(dto.getRating());
-        master.setPhoto(dto.getPhotoId());
-
+        master.setPhotoId(dto.getPhotoId());
         if (dto.getServiceId() != null) {
-            Set<ServiceEntity> services = new HashSet<>(serviceRepository.findAllById(dto.getServiceId()));
+            Set<ServiceEntity> services = new HashSet<>(serviceRepository.findAllById(Collections.singleton(dto.getServiceId())));
             master.setServices(services);
         }
 
@@ -106,9 +103,9 @@ public class MasterService {
         dto.setName(master.getName());
         dto.setSpecialization(master.getSpecialization());
         dto.setRating(master.getRating());
-        dto.setPhotoId(master.getPhoto());
+        dto.setPhotoId(master.getPhotoId());
         dto.setSalonId(master.getSalon() != null ? master.getSalon().getId() : null);
-        dto.setServiceIds(
+        dto.setServiceId(
                 master.getServices() != null
                         ? master.getServices().stream().map(ServiceEntity::getId).collect(Collectors.toSet())
                         : Collections.emptySet()

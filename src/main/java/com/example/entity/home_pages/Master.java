@@ -23,13 +23,13 @@ public class Master {
     private String specialization;
 
     @ManyToOne
-    @JoinColumn(name = "photo_id",insertable = false, updatable = false)
+    @JoinColumn(name = "photo_id", insertable = false, updatable = false)
     private AttachEntity photo;
     @Column(name = "photo_id")
     private String photoId;
 
     @Column(nullable = false)
-    private Double rating;
+    private Double rating = 0.0;
 
     @ManyToOne
     @JoinColumn(name = "salon_id", nullable = false)
