@@ -19,7 +19,7 @@ public class SalonController {
 
     private final SalonService salonService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SALON_MANAGER')")
     @PostMapping("/create")
     public ResponseEntity<ApiResult<SalonCreateResponseDto>> create(@RequestBody SalonCreateDto dto,
                                                                     @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
@@ -27,7 +27,7 @@ public class SalonController {
         return ResponseEntity.ok(result);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SALON_MANAGER')")
     @PutMapping("/update/{id}")
     public ResponseEntity<ApiResult<SalonCreateResponseDto>> update(
             @PathVariable Long id,
@@ -37,7 +37,7 @@ public class SalonController {
         return ResponseEntity.ok(result);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SALON_MANAGER')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ApiResult<Boolean>> delete(@PathVariable Long id,
                                                      @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
@@ -45,7 +45,7 @@ public class SalonController {
         return ResponseEntity.ok(delete);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'MASTER', 'SALON_MANAGER')")
     @GetMapping("/get/{id}")
     public ResponseEntity<ApiResult<SalonCreateResponseDto>> getById(@PathVariable Long id,
                                                                      @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
@@ -53,14 +53,14 @@ public class SalonController {
         return ResponseEntity.ok(result);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'MASTER', 'SALON_MANAGER')")
     @GetMapping("/getAll")
     public ResponseEntity<ApiResult<List<SalonListDto>>> getAll() {
         ApiResult<List<SalonListDto>> result = salonService.getAll();
         return ResponseEntity.ok(result);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'MASTER', 'SALON_MANAGER')")
     @GetMapping("/nearby")
     public ResponseEntity<ApiResult<List<SalonListDto>>> findNearby(
             @RequestParam Double latitude,
@@ -71,7 +71,7 @@ public class SalonController {
         return ResponseEntity.ok(result);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'MASTER', 'SALON_MANAGER')")
     @GetMapping("/search")
     public ResponseEntity<ApiResult<List<SalonListDto>>> search(
             @RequestParam String query,

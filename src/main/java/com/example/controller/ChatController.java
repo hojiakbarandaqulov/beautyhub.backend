@@ -20,12 +20,9 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,10 +57,10 @@ public class ChatController {
                     message.setAttaches(List.of(attachOpt.get()));
                     message.setContent(chatMessageDTO.getContent());
                 } else {
-                    return ResponseEntity.badRequest().body(new ApiResponse<>(false, "Image not found", null));
+                    return ResponseEntity.badRequest().body(new ApiResponse<>(false, "Image not found"));
                 }
             } else {
-                return ResponseEntity.badRequest().body(new ApiResponse<>(false, "Image ID is missing", null));
+                return ResponseEntity.badRequest().body(new ApiResponse<>(false, "Image ID is missing"));
             }
         } else {
             message.setContent(chatMessageDTO.getContent());
@@ -73,7 +70,7 @@ public class ChatController {
         messagingTemplate.convertAndSendToUser(sender.getPhone(), "/queue/messages", dto);
         messagingTemplate.convertAndSendToUser(recipient.getPhone(), "/queue/messages", dto);
 
-        return ResponseEntity.ok(new ApiResponse<>(true, "success", savedMessage.getId()));
+        return ResponseEntity.ok(new ApiResponse<>(true, "success"));
     }
 
     @PostMapping("/send")
@@ -96,10 +93,10 @@ public class ChatController {
                     message.setAttaches(List.of(attachOpt.get()));
                     message.setContent(messageDTO.getContent());
                 } else {
-                    return ResponseEntity.badRequest().body(new ApiResponse<>(false, "Image not found", null));
+                    return ResponseEntity.badRequest().body(new ApiResponse<>(false, "Image not found"));
                 }
             } else {
-                return ResponseEntity.badRequest().body(new ApiResponse<>(false, "Image ID is missing", null));
+                return ResponseEntity.badRequest().body(new ApiResponse<>(false, "Image ID is missing"));
             }
         } else {
             message.setContent(messageDTO.getContent());
@@ -109,7 +106,7 @@ public class ChatController {
         messagingTemplate.convertAndSendToUser(sender.getPhone(), "/queue/messages", dto);
         messagingTemplate.convertAndSendToUser(recipient.getPhone(), "/queue/messages", dto);
 
-        return ResponseEntity.ok(new ApiResponse<>(true, "success", savedMessage.getId()));
+        return ResponseEntity.ok(new ApiResponse<>(true, "success"));
     }
 
     @GetMapping("/history/{recipientId}")

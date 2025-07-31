@@ -17,9 +17,9 @@ public class TimeSlotDto {
 
     private boolean available;
 
-    public TimeSlotDto(String startTime, String endTime, boolean available) {
+    public TimeSlotDto(String startTime, String endTime) {
         this.startTime = startTime;
         this.endTime = endTime;
-        this.available = available;
+        this.available = true;
     }
 }
