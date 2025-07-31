@@ -1,14 +1,11 @@
 package com.example.service.impl;
 
 import com.example.dto.base.ApiResponse;
-import com.example.dto.base.ApiResult;
 import com.example.dto.booking.*;
 import com.example.entity.home_pages.BookingEntity;
 import com.example.enums.BookingStatus;
-import com.example.enums.LanguageEnum;
 import com.example.exp.AppBadException;
 import com.example.repository.BookingRepository;
-import com.example.service.ResourceBundleService;
 import com.example.service.service_interface.BookingService;
 import com.example.util.SpringSecurityUtil;
 import lombok.RequiredArgsConstructor;
@@ -16,16 +13,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.swing.*;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
-    private final ResourceBundleService messageService;
 
     @Override
     public ApiResponse<BookingResponse> createBooking( BookingRequest request) {
@@ -41,6 +37,7 @@ public class BookingServiceImpl implements BookingService {
         entity.setStatus(BookingStatus.CONFIRMED);
 
         BookingEntity saved = bookingRepository.save(entity);
+
         BookingResponse resp = new BookingResponse();
         resp.setId(saved.getId());
         resp.setSalonId(saved.getSalonId());
@@ -52,7 +49,8 @@ public class BookingServiceImpl implements BookingService {
         resp.setSpecialRequests(saved.getSpecialRequests());
         resp.setPaidAmount(saved.getPaidAmount());
         resp.setPaymentMethod(saved.getPaymentMethod());
-        return ApiResponse.success(resp);
+
+        return new ApiResponse<>(true,resp, "Booking created successfully!");
     }
 
     @Override
@@ -74,24 +72,16 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public ApiResult<String> cancelBooking(Long bookingId, LanguageEnum language) {
+    public ApiResponse<Boolean> cancelBooking( Long bookingId) {
         Long profileId = SpringSecurityUtil.getProfileId();
         BookingEntity entity = bookingRepository.findById(bookingId)
-                .orElseThrow(() -> new AppBadException(messageService.getMessage("booking.not.found",language)));
+                .orElseThrow(() -> new AppBadException("Booking not found"));
         if (!entity.getProfileId().equals(profileId)) {
-           throw new AppBadException(messageService.getMessage("profile.not_found",language));
+            return new ApiResponse<>(false, "Not allowed!");
         }
         entity.setStatus(BookingStatus.CANCELLED);
         bookingRepository.save(entity);
-
-        Map<LanguageEnum, String> messages = new HashMap<>();
-        messages.put(LanguageEnum.uz, messageService.getMessage("booking.cancelled", LanguageEnum.uz));
-        messages.put(LanguageEnum.ru, messageService.getMessage("booking.cancelled", LanguageEnum.ru));
-        messages.put(LanguageEnum.en, messageService.getMessage("booking.cancelled", LanguageEnum.en));
-        ApiResult<String> response = new ApiResult<String>("Success",messages);
-        return new ApiResult<String>(response.getData());
-
-
+        return new ApiResponse<>(true, "Booking cancelled!");
     }
 
     @Override

@@ -1,9 +1,7 @@
 package com.example.controller;
 
 import com.example.dto.base.ApiResponse;
-import com.example.dto.base.ApiResult;
 import com.example.dto.booking.*;
-import com.example.enums.LanguageEnum;
 import com.example.service.service_interface.BookingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -43,17 +41,16 @@ public class BookingController {
             @AuthenticationPrincipal UserDetails user,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
-        return ResponseEntity.ok(bookingService.getUserBookings(page - 1, size));
+        return ResponseEntity.ok(bookingService.getUserBookings(page-1, size));
     }
 
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/cancel/{id}")
     @Operation(summary = "Bronni bekor qilish")
-    public ResponseEntity<ApiResult<String>> cancelBooking(
-            @PathVariable Long id,
-            @RequestHeader(value = "Accept-Language") LanguageEnum language) {
-        return ResponseEntity.ok(bookingService.cancelBooking(id, language));
+    public ResponseEntity<ApiResponse<Boolean>> cancelBooking(
+            @PathVariable Long id) {
+        return ResponseEntity.ok(bookingService.cancelBooking(id));
     }
 
     @PreAuthorize("hasAnyRole('USER', 'SALON_MANAGER', 'MASTER')")

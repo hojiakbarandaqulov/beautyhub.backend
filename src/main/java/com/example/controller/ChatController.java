@@ -57,10 +57,10 @@ public class ChatController {
                     message.setAttaches(List.of(attachOpt.get()));
                     message.setContent(chatMessageDTO.getContent());
                 } else {
-                    return ResponseEntity.badRequest().body(new ApiResponse<>(false));
+                    return ResponseEntity.badRequest().body(new ApiResponse<>(false, "Image not found"));
                 }
             } else {
-                return ResponseEntity.badRequest().body(new ApiResponse<>(false));
+                return ResponseEntity.badRequest().body(new ApiResponse<>(false, "Image ID is missing"));
             }
         } else {
             message.setContent(chatMessageDTO.getContent());
@@ -70,7 +70,7 @@ public class ChatController {
         messagingTemplate.convertAndSendToUser(sender.getPhone(), "/queue/messages", dto);
         messagingTemplate.convertAndSendToUser(recipient.getPhone(), "/queue/messages", dto);
 
-        return ResponseEntity.ok(new ApiResponse<>(true));
+        return ResponseEntity.ok(new ApiResponse<>(true, "success"));
     }
 
     @PostMapping("/send")
@@ -93,10 +93,10 @@ public class ChatController {
                     message.setAttaches(List.of(attachOpt.get()));
                     message.setContent(messageDTO.getContent());
                 } else {
-                    return ResponseEntity.badRequest().body(new ApiResponse<>(false));
+                    return ResponseEntity.badRequest().body(new ApiResponse<>(false, "Image not found"));
                 }
             } else {
-                return ResponseEntity.badRequest().body(new ApiResponse<>(false));
+                return ResponseEntity.badRequest().body(new ApiResponse<>(false, "Image ID is missing"));
             }
         } else {
             message.setContent(messageDTO.getContent());
@@ -106,7 +106,7 @@ public class ChatController {
         messagingTemplate.convertAndSendToUser(sender.getPhone(), "/queue/messages", dto);
         messagingTemplate.convertAndSendToUser(recipient.getPhone(), "/queue/messages", dto);
 
-        return ResponseEntity.ok(new ApiResponse<>(true));
+        return ResponseEntity.ok(new ApiResponse<>(true, "success"));
     }
 
     @GetMapping("/history/{recipientId}")
