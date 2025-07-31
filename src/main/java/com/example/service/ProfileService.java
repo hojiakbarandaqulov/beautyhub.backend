@@ -142,6 +142,7 @@ public class ProfileService {
         Long profileId = SpringSecurityUtil.getProfileId();
         ProfileEntity profile = getById(profileId, language);
         ProfileDetailDTO dto = new ProfileDetailDTO();
+        dto.setId(profile.getId());
         dto.setFullName(profile.getFullName());
         dto.setPhone(profile.getPhone());
         dto.setRole(profileRoleRepository.getAllRolesListByProfileId(profile.getId()));

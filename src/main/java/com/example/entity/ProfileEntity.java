@@ -45,7 +45,7 @@ public class ProfileEntity{
     private AttachEntity photo;
 
     @Column(name = "notifications_enabled")
-    private Boolean notificationsEnabled = Boolean.TRUE; // "Уведомления"
+    private Boolean notificationsEnabled = Boolean.TRUE;
     @Column(name = "dark_theme_enabled")
     private Boolean darkThemeEnabled = Boolean.FALSE;
 

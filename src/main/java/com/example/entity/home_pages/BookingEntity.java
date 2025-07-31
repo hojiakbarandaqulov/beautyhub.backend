@@ -15,19 +15,32 @@ public class BookingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "profile_id", insertable = false, updatable = false)
     private ProfileEntity profile;
+    @Column(name = "profile_id")
+    private Long profileId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "salon_id", insertable = false, updatable = false)
     private SalonEntity salon;
+    @Column(name = "salon_id")
+    private Long salonId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_id", insertable = false, updatable = false)
     private ServiceEntity service;
+    @Column(name = "service_id")
+    private Long serviceId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "master_id", insertable = false, updatable = false)
     private Master master;
+    @Column(name = "master_id")
+    private Long masterId;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     private BookingStatus status;
 
     private LocalDateTime startTime;

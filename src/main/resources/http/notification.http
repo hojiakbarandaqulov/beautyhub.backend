@@ -1,0 +1,23 @@
+### create notification
+POST http://localhost:8080/api/notifications/profile/10
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1Mzk0NDkxNSwiZXhwIjoxNzU0MDMxMzE1fQ.kyCkOtDJbwwxcrICYPrxsC1A5RuJ4-Az4NOmGH4YJ-E
+
+{
+  "title": "Hello",
+  "content": "Hello Java"
+}
+
+### notification read
+PUT http://localhost:8080/api/notifications/read/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1Mzk0NDkxNSwiZXhwIjoxNzU0MDMxMzE1fQ.kyCkOtDJbwwxcrICYPrxsC1A5RuJ4-Az4NOmGH4YJ-E
+Accept-Language: uz
+
+### notification not read get list
+GET http://localhost:8080/api/notifications/me/unread-count
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1Mzk0NDkxNSwiZXhwIjoxNzU0MDMxMzE1fQ.kyCkOtDJbwwxcrICYPrxsC1A5RuJ4-Az4NOmGH4YJ-E
+
+
+### notification list
+GET http://localhost:8080/api/notifications/list
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1Mzk0NDkxNSwiZXhwIjoxNzU0MDMxMzE1fQ.kyCkOtDJbwwxcrICYPrxsC1A5RuJ4-Az4NOmGH4YJ-E

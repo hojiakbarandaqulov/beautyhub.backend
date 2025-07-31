@@ -1,16 +1,9 @@
 package com.example.dto.base;
 
-import com.example.entity.ChatMessageEntity;
-import com.example.enums.LanguageEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import java.io.Serializable;
-import java.util.Locale;
-import java.util.Map;
 
 @Data
 @ToString
@@ -22,14 +15,16 @@ public class ApiResponse<T> {
     private Long messageId;
     private T data;
 
-    public ApiResponse(boolean success, String message, Long messageId) {
+    public ApiResponse(Boolean success,T data, String message) {
         this.success = success;
+        this.data = data;
         this.message = message;
-        this.messageId = messageId;
     }
 
-    public ApiResponse(boolean b, String loggedOutSuccessfully) {
+    public ApiResponse(boolean b) {
+        this.success = b;
     }
+
 
     public static <T> ApiResponse<T> success(T data) {
         ApiResponse<T> res = new ApiResponse<>();
@@ -37,4 +32,5 @@ public class ApiResponse<T> {
         res.setData(data);
         return res;
     }
+
 }
