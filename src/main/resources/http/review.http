@@ -1,0 +1,48 @@
+### create review
+POST http://localhost:8080/api/reviews/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1NDA0NTk4MSwiZXhwIjoxNzU0MTMyMzgxfQ.9rqEVb5Lo-vZlpBSbEGQDCZeRhSM8v-UAfsBuy7kNrU
+
+{
+  "author": "Foydalanuvchi Ismi",
+  "rating": 4.5,
+  "comment": "Ajoyib salon, juda yaxshi xizmat!",
+  "salonId": 3
+}
+
+### get List
+GET http://localhost:8080/api/reviews/getList
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1NDA0NTk4MSwiZXhwIjoxNzU0MTMyMzgxfQ.9rqEVb5Lo-vZlpBSbEGQDCZeRhSM8v-UAfsBuy7kNrU
+
+
+###getBy Id
+GET http://localhost:8080/api/reviews/getBy/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1NDA0NTk4MSwiZXhwIjoxNzU0MTMyMzgxfQ.9rqEVb5Lo-vZlpBSbEGQDCZeRhSM8v-UAfsBuy7kNrU
+
+
+### getBy Salon
+GET http://localhost:8080/api/reviews/salon/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1NDA0NTk4MSwiZXhwIjoxNzU0MTMyMzgxfQ.9rqEVb5Lo-vZlpBSbEGQDCZeRhSM8v-UAfsBuy7kNrU
+
+
+### update review
+PUT http://localhost:8080/api/reviews/update/3
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1NDA0NTk4MSwiZXhwIjoxNzU0MTMyMzgxfQ.9rqEVb5Lo-vZlpBSbEGQDCZeRhSM8v-UAfsBuy7kNrU
+
+{
+  "author": "Ali",
+  "rating": 5,
+  "comment": " Perfect salon",
+  "salonId": 3
+}
+
+
+### delete review
+DELETE http://localhost:8080/api/reviews/delete/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1NDA0NTk4MSwiZXhwIjoxNzU0MTMyMzgxfQ.9rqEVb5Lo-vZlpBSbEGQDCZeRhSM8v-UAfsBuy7kNrU
+
+
+### get review
+GET http://localhost:8080/api/reviews/salon/average-rating/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1NDA0NTk4MSwiZXhwIjoxNzU0MTMyMzgxfQ.9rqEVb5Lo-vZlpBSbEGQDCZeRhSM8v-UAfsBuy7kNrU
