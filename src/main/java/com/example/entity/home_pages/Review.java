@@ -31,8 +31,8 @@ public class Review {
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @ManyToOne
-    @JoinColumn(name = "salon_id", nullable = false)
+    @JoinColumn(name = "salon_id",insertable = false,updatable = false, nullable = false)
     private SalonEntity salon;
-
-    // Getters, Setters, Constructors
+    @Column(name = "salon_id")
+    private Long salonId;
 }

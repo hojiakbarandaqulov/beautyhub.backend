@@ -1,0 +1,38 @@
+### create Category
+POST http://localhost:8080/api/categories/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1NDAyNjkzMiwiZXhwIjoxNzU0MTEzMzMyfQ.u5sT8xvxUfM1PeShpGN7YMhpMhZ4x6_-kyRCkvFzn88
+
+{
+  "nameUz": "Pedikyur",
+  "nameEn": "Pedicure",
+  "nameRu": "Педикюр",
+  "iconUrl": "http://localhost:8080/attach/upload/c2256bbf-9f84-4f87-8109-38aa41f12a88.jpg"
+}
+
+### update Category
+PUT http://localhost:8080/api/categories/update/3
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1NDAyNjkzMiwiZXhwIjoxNzU0MTEzMzMyfQ.u5sT8xvxUfM1PeShpGN7YMhpMhZ4x6_-kyRCkvFzn88
+
+{
+  "nameUz": "Pedikyur",
+  "nameEn": "Pedicure",
+  "nameRu": "Педикюр",
+  "iconUrl": "http://localhost:8080/attach/upload/c2256bbf-9f84-4f87-8109-38aa41f12a88.jpg"
+}
+
+### getById
+GET http://localhost:8080/api/categories/get/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1NDAyNjkzMiwiZXhwIjoxNzU0MTEzMzMyfQ.u5sT8xvxUfM1PeShpGN7YMhpMhZ4x6_-kyRCkvFzn88
+
+
+### get all
+GET http://localhost:8080/api/categories/getAll
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1NDAyNjkzMiwiZXhwIjoxNzU0MTEzMzMyfQ.u5sT8xvxUfM1PeShpGN7YMhpMhZ4x6_-kyRCkvFzn88
+
+### delete category
+DELETE http://localhost:8080/api/categories/delete/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1NDAyNjkzMiwiZXhwIjoxNzU0MTEzMzMyfQ.u5sT8xvxUfM1PeShpGN7YMhpMhZ4x6_-kyRCkvFzn88
+
+

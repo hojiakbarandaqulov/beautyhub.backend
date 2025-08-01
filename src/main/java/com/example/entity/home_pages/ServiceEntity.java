@@ -31,7 +31,10 @@ public class ServiceEntity {
     private Long salonId;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id",insertable = false,updatable = false)
     private Category category;
+    @Column(name = "category_id")
+    private Long categoryId;
+
 
 }
