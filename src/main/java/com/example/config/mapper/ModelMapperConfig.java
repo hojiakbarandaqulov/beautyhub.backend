@@ -16,10 +16,6 @@ public class ModelMapperConfig {
                 .setSkipNullEnabled(true)
                 .setFieldMatchingEnabled(true)
                 .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE);
-
-        // Qo'shimcha mappinglar kerak bo'lsa
-        // modelMapper.addConverter(...);
-
         return modelMapper;
     }
 }

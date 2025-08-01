@@ -7,10 +7,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface BookingService {
-
-    ApiResponse<BookingResponse> createBooking(Long userId, BookingRequest request);
-    ApiResponse<Page<BookingDto>> getUserBookings(Long userId, int page, int size);
-    ApiResponse<Boolean> cancelBooking(Long userId, Long bookingId);
+    ApiResponse<BookingResponse> createBooking(BookingRequest request);
+    ApiResponse<Page<BookingDto>> getUserBookings(int page, int size);
+    ApiResponse<Boolean> cancelBooking(Long bookingId);
     ApiResponse<List<TimeSlotDto>> getAvailableSlots(Long salonId, Long serviceId, Long masterId, LocalDate date);
-
 }

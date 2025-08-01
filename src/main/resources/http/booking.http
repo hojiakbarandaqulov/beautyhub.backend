@@ -1,0 +1,30 @@
+###
+POST http://localhost:8080/api/v1/bookings/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1Mzk0NDkxNSwiZXhwIjoxNzU0MDMxMzE1fQ.kyCkOtDJbwwxcrICYPrxsC1A5RuJ4-Az4NOmGH4YJ-E
+
+{
+  "salonId": 1,
+  "serviceId": 21,
+  "masterId": 3,
+  "startTime": "2025-08-01T09:00:00",
+  "endTime": "2025-08-01T10:00:00",
+  "specialRequests": "Qo'shimcha massaj"
+}
+### getBy Brons
+GET http://localhost:8080/api/v1/bookings/bron?page=1&size=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1Mzk0NDkxNSwiZXhwIjoxNzU0MDMxMzE1fQ.kyCkOtDJbwwxcrICYPrxsC1A5RuJ4-Az4NOmGH4YJ-E
+
+
+### booking cancel
+POST http://localhost:8080/api/v1/bookings/cancel/4
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1Mzk0NDkxNSwiZXhwIjoxNzU0MDMxMzE1fQ.kyCkOtDJbwwxcrICYPrxsC1A5RuJ4-Az4NOmGH4YJ-E
+
+
+### available-solts
+GET http://localhost:8080/api/v1/bookings/available-slots?
+    salonId=3&
+    serviceId=21&
+    masterId=3&
+    date=2025-07-31
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1Mzk0NDkxNSwiZXhwIjoxNzU0MDMxMzE1fQ.kyCkOtDJbwwxcrICYPrxsC1A5RuJ4-Az4NOmGH4YJ-E

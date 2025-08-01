@@ -7,10 +7,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -26,34 +26,34 @@ public class BookingController {
 
     private final BookingService bookingService;
 
-    @PostMapping
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/create")
     @Operation(summary = "Yangi bron yaratish")
     public ResponseEntity<ApiResponse<BookingResponse>> createBooking(
-            @Valid @RequestBody BookingRequest request,
-            @AuthenticationPrincipal UserDetails user) {
-        Long userId = Long.parseLong(user.getUsername());
-        return ResponseEntity.ok(bookingService.createBooking(userId, request));
+            @Valid @RequestBody BookingRequest request) {
+        return ResponseEntity.ok(bookingService.createBooking(request));
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/bron")
     @Operation(summary = "Foydalanuvchi bronlari")
     public ResponseEntity<ApiResponse<Page<BookingDto>>> getUserBookings(
             @AuthenticationPrincipal UserDetails user,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
-        Long userId = Long.parseLong(user.getUsername());
-        return ResponseEntity.ok(bookingService.getUserBookings(userId, page, size));
+        return ResponseEntity.ok(bookingService.getUserBookings(page-1, size));
     }
 
-    @PostMapping("/{id}/cancel")
+
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/cancel/{id}")
     @Operation(summary = "Bronni bekor qilish")
     public ResponseEntity<ApiResponse<Boolean>> cancelBooking(
-            @PathVariable Long id,
-            @AuthenticationPrincipal UserDetails user) {
-        Long userId = Long.parseLong(user.getUsername());
-        return ResponseEntity.ok(bookingService.cancelBooking(userId, id));
+            @PathVariable Long id) {
+        return ResponseEntity.ok(bookingService.cancelBooking(id));
     }
 
+    @PreAuthorize("hasAnyRole('USER', 'SALON_MANAGER', 'MASTER')")
     @GetMapping("/available-slots")
     @Operation(summary = "Bo'sh vaqtlarni olish")
     public ResponseEntity<ApiResponse<List<TimeSlotDto>>> getAvailableSlots(

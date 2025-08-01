@@ -9,41 +9,15 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-@Builder
 public class BookingResponse {
-    @NotNull(message = "id required")
     private Long id;
-
-    @NotBlank(message = "salonName required")
-    private String salonName;
-
-    @NotBlank(message = "serviceName required")
-    private String serviceName;
-
-    @NotBlank(message = "masterName required")
-    private String masterName;
-
-    @NotNull(message = "startTime required")
-    private LocalDateTime startTime;
-
-    @NotNull(message = "endTime required")
-    private LocalDateTime endTime;
-
-    @NotNull(message = "price required")
-    private Double price;
-
-    @NotNull(message = "earnedPoints required")
-    private Integer earnedPoints;
-
-    @NotNull(message = "status required")
-    private BookingStatus status;
-
-    @NotBlank(message = "qrCodeUrl required")
-    private String qrCodeUrl;
-
-    @NotNull(message = "paymentRequired required")
-    private Boolean paymentRequired;
-
-    @NotNull(message = "paymentAmount required")
-    private Double paymentAmount;
+    private Long salonId;
+    private Long serviceId;
+    private Long masterId;
+    private String status;
+    private String startTime;
+    private String endTime;
+    private String specialRequests;
+    private Double paidAmount;
+    private String paymentMethod;
 }

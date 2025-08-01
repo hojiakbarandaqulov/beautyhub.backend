@@ -1,107 +1,96 @@
 package com.example.service.impl;
 
-
-import com.example.Application;
 import com.example.dto.base.ApiResponse;
 import com.example.dto.booking.*;
-import com.example.entity.ProfileEntity;
 import com.example.entity.home_pages.BookingEntity;
-import com.example.entity.home_pages.Master;
-import com.example.entity.home_pages.SalonEntity;
-import com.example.entity.home_pages.ServiceEntity;
 import com.example.enums.BookingStatus;
 import com.example.exp.AppBadException;
-import com.example.mapper.BookingMapper;
-import com.example.repository.*;
+import com.example.repository.BookingRepository;
 import com.example.service.service_interface.BookingService;
+import com.example.util.SpringSecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
-    private final SalonRepository salonRepository;
-    private final ServiceRepository serviceRepository;
-    private final MasterRepository masterRepository;
-    private final ProfileRepository userRepository;
-    private final BookingMapper bookingMapper;
 
     @Override
-    @Transactional
-    public ApiResponse<BookingResponse> createBooking(Long userId, BookingRequest request) {
-        ProfileEntity user = userRepository.findById(userId)
-                .orElseThrow(() -> new AppBadException("Foydalanuvchi topilmadi"));
-        SalonEntity salon = salonRepository.findById(request.getSalonId())
-                .orElseThrow(() -> new AppBadException("Salon topilmadi"));
-        ServiceEntity service = serviceRepository.findById(request.getServiceId())
-                .orElseThrow(() -> new AppBadException("Xizmat topilmadi"));
-        Master master = masterRepository.findById(request.getMasterId())
-                .orElseThrow(() -> new AppBadException("Usta topilmadi"));
+    public ApiResponse<BookingResponse> createBooking( BookingRequest request) {
+        Long profileId = SpringSecurityUtil.getProfileId();
+        BookingEntity entity = new BookingEntity();
+        entity.setProfileId(profileId);
+        entity.setSalonId(request.getSalonId());
+        entity.setServiceId(request.getServiceId());
+        entity.setMasterId(request.getMasterId());
+        entity.setStartTime(request.getStartTime());
+        entity.setEndTime(request.getEndTime());
+        entity.setSpecialRequests(request.getSpecialRequests());
+        entity.setStatus(BookingStatus.CONFIRMED);
 
-        checkTimeAvailability(master, request.getStartTime(), service.getDuration());
+        BookingEntity saved = bookingRepository.save(entity);
 
-        BookingEntity booking = new BookingEntity();
-        booking.setProfile(user);
-        booking.setSalon(salon);
-        booking.setService(service);
-        booking.setMaster(master);
-        booking.setStartTime(request.getStartTime());
-        booking.setEndTime(request.getStartTime().plusMinutes(service.getDuration()));
-        booking.setStatus(BookingStatus.CONFIRMED); // Avtomatik tasdiqlangan
-        booking.setSpecialRequests(request.getSpecialRequests());
+        BookingResponse resp = new BookingResponse();
+        resp.setId(saved.getId());
+        resp.setSalonId(saved.getSalonId());
+        resp.setServiceId(saved.getServiceId());
+        resp.setMasterId(saved.getMasterId());
+        resp.setStatus(saved.getStatus().name());
+        resp.setStartTime(saved.getStartTime().toString());
+        resp.setEndTime(saved.getEndTime().toString());
+        resp.setSpecialRequests(saved.getSpecialRequests());
+        resp.setPaidAmount(saved.getPaidAmount());
+        resp.setPaymentMethod(saved.getPaymentMethod());
 
-        BookingEntity savedBooking = bookingRepository.save(booking);
-        return ApiResponse.success(bookingMapper.toResponse(savedBooking));
+        return new ApiResponse<>(true,resp, "Booking created successfully!");
     }
 
-    private void checkTimeAvailability(Master master, LocalDateTime startTime, int duration) {
-        boolean isAvailable = bookingRepository
-                .findByMasterAndTimeRange(master.getId(), startTime, startTime.plusMinutes(duration))
-                .isEmpty();
+    @Override
+    public ApiResponse<Page<BookingDto>> getUserBookings(int page, int size) {
+        Long profileId = SpringSecurityUtil.getProfileId();
+        Page<BookingEntity> entityPage = bookingRepository.findByProfileId(profileId, PageRequest.of(page, size));
+        Page<BookingDto> dtoPage = entityPage.map(entity -> {
+            BookingDto dto = new BookingDto();
+            dto.setId(entity.getId());
+            dto.setSalonId(entity.getSalonId());
+            dto.setServiceId(entity.getServiceId());
+            dto.setMasterId(entity.getMasterId());
+            dto.setStatus(entity.getStatus().name());
+            dto.setStartTime(entity.getStartTime().toString());
+            dto.setEndTime(entity.getEndTime().toString());
+            return dto;
+        });
+        return ApiResponse.success(dtoPage);
+    }
 
-        if (!isAvailable) {
-            throw new AppBadException("Tanlangan vaqt band");
+    @Override
+    public ApiResponse<Boolean> cancelBooking( Long bookingId) {
+        Long profileId = SpringSecurityUtil.getProfileId();
+        BookingEntity entity = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new AppBadException("Booking not found"));
+        if (!entity.getProfileId().equals(profileId)) {
+            return new ApiResponse<>(false, "Not allowed!");
         }
-    }
-
-    @Override
-    public ApiResponse<Page<BookingDto>> getUserBookings(Long userId, int page, int size) {
-        Page<BookingEntity> bookings = bookingRepository.findByProfileId(userId, PageRequest.of(page, size));
-        return ApiResponse.success(bookings.map(bookingMapper::toDto));
-    }
-
-    @Override
-    @Transactional
-    public ApiResponse<Boolean> cancelBooking(Long userId, Long bookingId) {
-        BookingEntity booking = bookingRepository.findByIdAndProfileId(bookingId, userId)
-                .orElseThrow(() -> new AppBadException("Bron topilmadi"));
-
-        // Faqat kelajakdagi bronlarni bekor qilish mumkin
-        if (booking.getStartTime().isBefore(LocalDateTime.now())) {
-            throw new AppBadException("O'tgan bronni bekor qilib bo'lmaydi");
-        }
-
-        booking.setStatus(BookingStatus.CANCELLED);
-        bookingRepository.save(booking);
-        return ApiResponse.success(true);
+        entity.setStatus(BookingStatus.CANCELLED);
+        bookingRepository.save(entity);
+        return new ApiResponse<>(true, "Booking cancelled!");
     }
 
     @Override
     public ApiResponse<List<TimeSlotDto>> getAvailableSlots(Long salonId, Long serviceId, Long masterId, LocalDate date) {
-        // 9:00 dan 18:00 gacha bo'lgan vaqt oralig'ida bo'sh vaqtlarni hisoblash
-        // Bu oddiy misol, haqiqiy loyihada salon ish vaqtlariga qarab hisoblash kerak
-        return ApiResponse.success(List.of(
-                new TimeSlotDto("09:00", "10:00", true),
-                new TimeSlotDto("10:00", "11:00", true),
-                new TimeSlotDto("11:00", "12:00", false) // band
-        ));
+        List<TimeSlotDto> slots = List.of(
+                new TimeSlotDto("09:00", "10:00"),
+                new TimeSlotDto("10:00", "11:00"),
+                new TimeSlotDto("11:00", "12:00")
+        );
+        return ApiResponse.success(slots);
     }
 }

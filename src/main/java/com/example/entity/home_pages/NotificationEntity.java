@@ -18,13 +18,13 @@ public class NotificationEntity {
     private Long id;
 
     @ManyToOne
-    private ProfileEntity user;
+    @JoinColumn(name = "profile_id",insertable = false, updatable = false)
+    private ProfileEntity profile;
+    @Column(name = "profile_id")
+    private Long profileId;
 
     private String title;
-    private String message;
-    private NotificationType type;
-    private boolean isRead;
+    private String content;
+    private Boolean read; // o‘qilgan/o‘qilmagan
     private LocalDateTime createdAt;
-    private Long relatedId;
-    private String relatedType;
 }

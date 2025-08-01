@@ -57,7 +57,7 @@ public class LocationController {
 
             return ResponseEntity.ok(coords);
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Xatolik: " + e.getMessage());
+            return ResponseEntity.status(500).body("error: " + e.getMessage());
         }
     }
 }

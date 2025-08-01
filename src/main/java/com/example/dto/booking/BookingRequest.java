@@ -8,21 +8,10 @@ import java.time.LocalDateTime;
 
 @Data
 public class BookingRequest {
-    @NotNull(message = "salonId required")
     private Long salonId;
-
-    @NotNull(message = "serviceId required")
     private Long serviceId;
-
-    @NotNull(message = "masterId required")
     private Long masterId;
-
-    @NotNull(message = "startTime required")
-    @Future
     private LocalDateTime startTime;
-
-    private boolean payNow;
-//    private PaymentMethod paymentMethod;
-    private String promoCode;
+    private LocalDateTime endTime;
     private String specialRequests;
 }

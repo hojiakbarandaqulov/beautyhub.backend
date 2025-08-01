@@ -9,6 +9,7 @@ import java.util.List;
 
 @Data
 public class ProfileDetailDTO {
+    private Long id;
     @NotBlank(message = "fullName required")
     private String fullName;
     @NotBlank(message = "phone required")

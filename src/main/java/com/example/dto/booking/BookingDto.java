@@ -10,24 +10,11 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class BookingDto {
-    @NotNull(message = "id required")
     private Long id;
-
-    @NotBlank(message = "salonName required")
-    private String salonName;
-
-    @NotBlank(message = "serviceName required")
-    private String serviceName;
-
-    @NotBlank(message = "masterName required")
-    private String masterName;
-
-    @NotNull(message = "bookingTime required")
-    private LocalDateTime bookingTime;
-
-    @NotBlank(message = "status required")
+    private Long salonId;
+    private Long serviceId;
+    private Long masterId;
     private String status;
-
-    @NotNull(message = "price required")
-    private Double price;
+    private String startTime;
+    private String endTime;
 }
