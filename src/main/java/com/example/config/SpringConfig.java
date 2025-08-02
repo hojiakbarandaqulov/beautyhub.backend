@@ -83,7 +83,8 @@ public class SpringConfig {
                                     "/api/profile/update/confirm",
                                     "/api/profile/update/language/",
                                     "/api/location",
-                                    "/api/profile/all/detail").permitAll()
+                                    "/api/profile/all/detail",
+                                    "/api/profile/update").permitAll()
                             .requestMatchers("/api/city/create").hasRole("ADMIN")
                             .requestMatchers("/api/roots/all/detail").hasRole("ADMIN")
                             .requestMatchers("/api/roots/{id}").hasAnyRole("ADMIN", "USER")

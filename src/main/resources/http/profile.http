@@ -49,7 +49,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZ
 ### profile detail
 GET http://localhost:8080/api/profile/all/detail
 Accept-Language: uz
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1Mzc3ODc1OSwiZXhwIjoxNzUzODY1MTU5fQ.KeJvwH3WSwAYta_DNt-damxWkqi5U9RRJXUk7gQ2njQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1NDEyNzUyOSwiZXhwIjoxNzU0MjEzOTI5fQ.ddGk8yIrPJL6k56sKTjJ-cAJSL-Q9jR0PzRc_BJ76gw
 
 
 ### add role
@@ -67,5 +67,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZ
 GET http://localhost:8080/api/profile/roles/10
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1Mzc3ODc1OSwiZXhwIjoxNzUzODY1MTU5fQ.KeJvwH3WSwAYta_DNt-damxWkqi5U9RRJXUk7gQ2njQ
 
+### profile update detail
+PUT http://localhost:8080/api/profile/update
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1NDEyNjY0MywiZXhwIjoxNzU0MjEzMDQzfQ.g0WaPgAFDGz5MfraalJfz5U6MPSt5E52P25n_4w4aYs
 
+{
+  "fullName": "Ali Aliyev",
+  "phone": "+998995092376",
+  "cityId": 15,
+  "notificationsEnabled": false,
+  "photoId": "a0238ad8-a591-435c-a3b1-32fcbd930cbb.jpg"
+}
 

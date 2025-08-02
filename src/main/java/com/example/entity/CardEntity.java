@@ -1,9 +1,7 @@
 package com.example.entity;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -13,12 +11,19 @@ import java.time.LocalDateTime;
 @Entity
 public class CardEntity {
     @Id
-    private String token;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private String maskedNumber;
-    private String expire;
-    private Long userId;
-    private Boolean verified = false;
-    private LocalDateTime created = LocalDateTime.now();
+    @Column(nullable = false, unique = true, length = 16)
+    private String number;
+
+    @Column(nullable = false)
+    private String holder;
+
+    @Column(nullable = false)
+    private Double balance = 0.0;
+
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
 
 }

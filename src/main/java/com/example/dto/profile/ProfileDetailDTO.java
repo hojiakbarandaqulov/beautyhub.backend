@@ -1,5 +1,6 @@
 package com.example.dto.profile;
 
+import com.example.dto.city.CityResponseDTO;
 import com.example.enums.ProfileRole;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -16,5 +17,8 @@ public class ProfileDetailDTO {
     @Size(min = 9, max = 13, message = "phoneNumber not valid")
     private String phone;
     private List<ProfileRole> role;
+    private String photoUrl;
+    private String city;
+    private Boolean notification;
 
 }

@@ -69,6 +69,7 @@ public class AuthService {
         profileEntity.setPassword(bCryptPasswordEncoder.encode(registrationDTO.getPassword()));
         profileEntity.setStatus(GeneralStatus.IN_REGISTRATION);
         profileEntity.setVisible(true);
+        profileEntity.setLanguage(language);
         profileEntity.setCreatedDate(LocalDateTime.now());
         profileRepository.save(profileEntity);
         profileRoleService.create(profileEntity.getId(), ProfileRole.ROLE_USER);
