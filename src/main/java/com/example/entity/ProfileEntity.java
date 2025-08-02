@@ -25,7 +25,7 @@ public class ProfileEntity{
     @Column(name = "full_name")
     private String fullName;
 
-    @Column(name = "phone")
+    @Column(name = "phone",unique = true)
     private String phone;
     @Column(name = "temp_phone")
     private String tempPhone;
@@ -62,5 +62,7 @@ public class ProfileEntity{
     @ManyToOne(fetch =FetchType.EAGER)
     @JoinColumn(name = "city_id",insertable=false,updatable=false)
     private CityEntity city;
+    @Column(name = "city_id")
+    private Long cityId;
 
 }

@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.dto.base.ApiResult;
 import com.example.dto.language.LanguageUpdateDto;
 import com.example.dto.profile.*;
+import com.example.entity.CityEntity;
 import com.example.entity.ProfileEntity;
 import com.example.entity.ProfileRoleEntity;
 import com.example.enums.LanguageEnum;
@@ -17,6 +18,7 @@ import com.example.util.PhoneUtil;
 import com.example.util.SpringSecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +36,13 @@ public class ProfileService {
     private final ResourceBundleService messageService;
     private final SmsService smsService;
     private final SmsHistoryService smsHistoryService;
+    private final CityService cityService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Value("${attach.upload.url}")
+    public String attachUrl;
+    @Value("${server.url}")
+    private String serverUrl;
 
     public ApiResult<String> updatePhoto(String photoId, LanguageEnum language) {
         Long profileId = SpringSecurityUtil.getProfileId();
@@ -64,6 +72,43 @@ public class ProfileService {
         messages.put(LanguageEnum.en, messageService.getMessage("profile.password.update.success", LanguageEnum.en));
         ApiResult<String> response = new ApiResult<>("Success", messages);
         return new ApiResult<>(response).getData();
+    }
+
+    public ApiResult<ProfileDetailDTO> updateProfile(ProfileUpdateDto dto, LanguageEnum lang) {
+        Long profileId = SpringSecurityUtil.getProfileId();
+        ProfileEntity profile = profileRepository.findById(profileId)
+                .orElseThrow(() -> new AppBadException("profile.not.found"));
+
+        // City ni bazadan topish
+        CityEntity city = cityService.getById(dto.getCityId(),lang);
+        // Maydonlarni yangilash
+        profile.setFullName(dto.getFullName());
+        profile.setPhone(dto.getPhone());
+        profile.setCityId(city.getId());
+        profile.setNotificationsEnabled(dto.getNotificationsEnabled());
+        profile.setPhotoId(dto.getPhotoId());
+
+        profileRepository.save(profile);
+
+        ProfileDetailDTO responseDto = new ProfileDetailDTO();
+        responseDto.setId(profile.getId());
+        responseDto.setFullName(profile.getFullName());
+        responseDto.setPhone(profile.getPhone());
+        responseDto.setNotification(profile.getNotificationsEnabled());
+        responseDto.setPhotoUrl(serverUrl + "/attach/upload/" + profile.getPhotoId());
+
+        // Language asosida city name
+        responseDto.setCity(
+                switch (lang) {
+                    case uz -> city.getNameUz();
+                    case ru -> city.getNameRu();
+                    case en -> city.getNameEn();
+                }
+        );
+
+        responseDto.setRole(profileRoleRepository.getAllRolesListByProfileId(profile.getId()));
+
+        return ApiResult.successResponse(responseDto);
     }
 
     public ApiResult<String> updatePhone(ProfileUpdatePhoneDTO profileDTO, LanguageEnum language) {
@@ -141,12 +186,26 @@ public class ProfileService {
     public ApiResult<ProfileDetailDTO> getProfileDetail(LanguageEnum language) {
         Long profileId = SpringSecurityUtil.getProfileId();
         ProfileEntity profile = getById(profileId, language);
-        ProfileDetailDTO dto = new ProfileDetailDTO();
-        dto.setId(profile.getId());
-        dto.setFullName(profile.getFullName());
-        dto.setPhone(profile.getPhone());
-        dto.setRole(profileRoleRepository.getAllRolesListByProfileId(profile.getId()));
-        return ApiResult.successResponse(dto);
+        ProfileDetailDTO responseDto = new ProfileDetailDTO();
+        responseDto.setId(profile.getId());
+        responseDto.setFullName(profile.getFullName());
+        responseDto.setPhone(profile.getPhone());
+        CityEntity city = cityService.getById(profile.getCityId(),language);
+        responseDto.setNotification(profile.getNotificationsEnabled());
+        responseDto.setPhotoUrl(serverUrl + "/attach/upload/" + profile.getPhotoId());
+
+        // Language asosida city name
+        responseDto.setCity(
+                switch (language) {
+                    case uz -> city.getNameUz();
+                    case ru -> city.getNameRu();
+                    case en -> city.getNameEn();
+                }
+        );
+
+        responseDto.setRole(profileRoleRepository.getAllRolesListByProfileId(profile.getId()));
+
+        return ApiResult.successResponse(responseDto);
     }
 
     public ApiResult<String> addRole(Long profileId, ProfileRole role, LanguageEnum language) {

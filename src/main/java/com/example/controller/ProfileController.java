@@ -49,6 +49,13 @@ public class ProfileController {
         return ResponseEntity.ok(apiResponse);
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<ApiResult<ProfileDetailDTO>> updateProfile(
+            @RequestBody ProfileUpdateDto dto,
+            @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
+        return ResponseEntity.ok(profileService.updateProfile(dto, language));
+    }
+
     @PostMapping("/update/language/confirm")
     public ResponseEntity<ApiResult<String>> updateLanguage(@Valid @RequestBody LanguageUpdateDto dto) {
         ApiResult<String> apiResponse = profileService.updateLanguage(dto);
