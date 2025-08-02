@@ -4,6 +4,9 @@ import com.example.dto.base.ApiResult;
 import com.example.dto.city.*;
 import com.example.entity.CityEntity;
 import com.example.entity.DistrictEntity;
+import com.example.entity.ProfileEntity;
+import com.example.enums.LanguageEnum;
+import com.example.exp.AppBadException;
 import com.example.repository.CityRepository;
 import com.example.repository.DistrictRepository;
 import lombok.RequiredArgsConstructor;
@@ -215,10 +218,12 @@ public class CityService {
         return cityRelevance;
     }
 
-
     private CityResponseDTO convertToCityResponseDTO(CityEntity city, List<DistrictDTO> districts) {
         return new CityResponseDTO(city.getId(), city.getNameUz(), city.getNameRu(), city.getNameEn(), districts);
     }
 
+    public CityEntity getById(Long id, LanguageEnum language) {
+        return cityRepository.findById(id).orElseThrow(() -> new AppBadException(messageService.getMessage("city.not.found", language)));
+    }
 }
 
