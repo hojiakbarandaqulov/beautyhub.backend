@@ -74,9 +74,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZ
 
 {
   "fullName": "Ali Aliyev",
-  "phone": "+998995092376",
   "cityId": 15,
-  "notificationsEnabled": false,
+  "notifications": false,
   "photoId": "a0238ad8-a591-435c-a3b1-32fcbd930cbb.jpg"
 }
 

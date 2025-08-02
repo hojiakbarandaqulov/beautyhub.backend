@@ -12,6 +12,7 @@ import com.example.service.AttachService;
 import com.example.service.ChatMessageService;
 import com.example.service.ProfileService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/chat")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ChatController {
 
     private final SimpMessagingTemplate messagingTemplate;

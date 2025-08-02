@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.dto.base.ApiResponse;
 import com.example.dto.base.ApiResult;
 import com.example.dto.city.*;
 import com.example.entity.CityEntity;
@@ -9,6 +10,7 @@ import com.example.enums.LanguageEnum;
 import com.example.exp.AppBadException;
 import com.example.repository.CityRepository;
 import com.example.repository.DistrictRepository;
+import com.example.util.SpringSecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -202,6 +204,7 @@ public class CityService {
             return 2;
         }
     }
+
     private int calculateCityRelevance(CityResponseDTO cityDto, String normalizedQuery, String language) {
         int cityRelevance = calculateRelevance(new CityEntity(cityDto.getId(), cityDto.getNameUz(), cityDto.getNameRu(), cityDto.getNameEn()), normalizedQuery, language);
 
@@ -224,6 +227,19 @@ public class CityService {
 
     public CityEntity getById(Long id, LanguageEnum language) {
         return cityRepository.findById(id).orElseThrow(() -> new AppBadException(messageService.getMessage("city.not.found", language)));
+    }
+
+   /* public void deleteCityId(Long profileId) {
+        cityRepository.deleteCityId(profileId);
+    }
+*/
+    public ApiResult<Boolean> updateCity(CityUpdateDTO region) {
+        Long profileId = SpringSecurityUtil.getProfileId();
+        if (region.getId() == null) {
+//            CityEntity cityEntity = cityRepository.deleteCityId(profileId);
+//            cityRepository.save(cityEntity);
+        }
+        return ApiResult.successResponse(true);
     }
 }
 

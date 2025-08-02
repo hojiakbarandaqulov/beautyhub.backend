@@ -16,7 +16,7 @@ public interface ProfileRepository extends JpaRepository<ProfileEntity, Long> {
     @Transactional
     @Modifying
     @Query("update ProfileEntity set status=?2 where id=?1")
-    void changeStatus(Long id , GeneralStatus visible);
+    void changeStatus(Long id, GeneralStatus visible);
 
     @Modifying
     @Transactional
@@ -44,6 +44,9 @@ public interface ProfileRepository extends JpaRepository<ProfileEntity, Long> {
 
     @Query(value = "from ProfileEntity p where p.id=?1")
     Optional<ProfileEntity> findByRecipientId(Long recipientId);
+
+    @Query(value = "update ProfileEntity set cityId=null where id=?1")
+    void deleteCityId(Long profileId);
 }
 
 

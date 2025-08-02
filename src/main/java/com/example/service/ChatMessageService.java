@@ -18,8 +18,8 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
-@AllArgsConstructor
 public class ChatMessageService {
 
     private final ChatMessageRepository chatMessageRepository;

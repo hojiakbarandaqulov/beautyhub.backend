@@ -74,27 +74,24 @@ public class ProfileService {
         return new ApiResult<>(response).getData();
     }
 
-    public ApiResult<ProfileDetailDTO> updateProfile(ProfileUpdateDto dto, LanguageEnum lang) {
+    public ApiResult<ProfileUpdateResponseDto> updateProfile(ProfileUpdateDto dto, LanguageEnum lang) {
         Long profileId = SpringSecurityUtil.getProfileId();
         ProfileEntity profile = profileRepository.findById(profileId)
                 .orElseThrow(() -> new AppBadException("profile.not.found"));
 
         // City ni bazadan topish
         CityEntity city = cityService.getById(dto.getCityId(),lang);
-        // Maydonlarni yangilash
         profile.setFullName(dto.getFullName());
-        profile.setPhone(dto.getPhone());
         profile.setCityId(city.getId());
-        profile.setNotificationsEnabled(dto.getNotificationsEnabled());
+        profile.setNotificationsEnabled(dto.getNotifications());
         profile.setPhotoId(dto.getPhotoId());
 
         profileRepository.save(profile);
 
-        ProfileDetailDTO responseDto = new ProfileDetailDTO();
+        ProfileUpdateResponseDto responseDto = new ProfileUpdateResponseDto();
         responseDto.setId(profile.getId());
         responseDto.setFullName(profile.getFullName());
-        responseDto.setPhone(profile.getPhone());
-        responseDto.setNotification(profile.getNotificationsEnabled());
+        responseDto.setNotifications(profile.getNotificationsEnabled());
         responseDto.setPhotoUrl(serverUrl + "/attach/upload/" + profile.getPhotoId());
 
         // Language asosida city name
@@ -183,15 +180,14 @@ public class ProfileService {
         throw new AppBadException(messageService.getMessage("profile.not.found", LanguageEnum.en));
     }
 
-    public ApiResult<ProfileDetailDTO> getProfileDetail(LanguageEnum language) {
+    public ApiResult<ProfileUpdateResponseDto> getProfileDetail(LanguageEnum language) {
         Long profileId = SpringSecurityUtil.getProfileId();
         ProfileEntity profile = getById(profileId, language);
-        ProfileDetailDTO responseDto = new ProfileDetailDTO();
+        ProfileUpdateResponseDto responseDto = new ProfileUpdateResponseDto();
         responseDto.setId(profile.getId());
         responseDto.setFullName(profile.getFullName());
-        responseDto.setPhone(profile.getPhone());
         CityEntity city = cityService.getById(profile.getCityId(),language);
-        responseDto.setNotification(profile.getNotificationsEnabled());
+        responseDto.setNotifications(profile.getNotificationsEnabled());
         responseDto.setPhotoUrl(serverUrl + "/attach/upload/" + profile.getPhotoId());
 
         // Language asosida city name

@@ -26,6 +26,12 @@ public class CityController {
         return ResponseEntity.ok().body(response);
     }
 
+    @PostMapping(value = "/update")
+    public ResponseEntity<ApiResult<Boolean>> updateCity(@Valid @RequestBody CityUpdateDTO region){
+        ApiResult<Boolean> response=cityService.updateCity(region);
+        return ResponseEntity.ok().body(response);
+    }
+
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/cityAll")
     public ResponseEntity<ApiResult<List<CityResponseAllDTO>>> all() {

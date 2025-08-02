@@ -1,14 +1,18 @@
 package com.example.dto.profile;
 
+import com.example.enums.ProfileRole;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
-public class ProfileUpdateDto {
+public class ProfileUpdateResponseDto {
+    private Long id;
     private String fullName;
     @NotBlank(message = "phone required")
-    private Long cityId;
+    private String city;
     private Boolean notifications;
-    private String photoId;
+    private String photoUrl;
+    private List<ProfileRole> role;
 }

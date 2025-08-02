@@ -50,7 +50,7 @@ public class ProfileController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<ApiResult<ProfileDetailDTO>> updateProfile(
+    public ResponseEntity<ApiResult<ProfileUpdateResponseDto>> updateProfile(
             @RequestBody ProfileUpdateDto dto,
             @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
         return ResponseEntity.ok(profileService.updateProfile(dto, language));
@@ -63,8 +63,8 @@ public class ProfileController {
     }
 
     @GetMapping("/all/detail")
-    public ResponseEntity<ApiResult<ProfileDetailDTO>>profileDetail(@RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
-       ApiResult<ProfileDetailDTO>apiResult= profileService.getProfileDetail(language);
+    public ResponseEntity<ApiResult<ProfileUpdateResponseDto>>profileDetail(@RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
+       ApiResult<ProfileUpdateResponseDto>apiResult= profileService.getProfileDetail(language);
         return ResponseEntity.ok(apiResult);
     }
 
