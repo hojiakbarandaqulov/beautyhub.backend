@@ -1,12 +1,16 @@
 package com.example.repository;
 
+import com.example.entity.CityEntity;
 import com.example.entity.ProfileEntity;
 import com.example.enums.GeneralStatus;
+import com.example.enums.LanguageEnum;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ProfileRepository extends JpaRepository<ProfileEntity, Long> {
@@ -47,6 +51,14 @@ public interface ProfileRepository extends JpaRepository<ProfileEntity, Long> {
 
     @Query(value = "update ProfileEntity set cityId=null where id=?1")
     void deleteCityId(Long profileId);
+
+    List<ProfileEntity> findByPhotoId(String attachId);
+
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE ProfileEntity p SET p.photoId = NULL WHERE p.photoId = :attachId")
+    void nullifyPhotoReferences(@Param("attachId") String attachId);
 }
 
 

@@ -16,7 +16,6 @@ import java.util.List;
 @RequestMapping("/api/salons")
 public class SalonController {
 
-
     private final SalonService salonService;
 
     @PreAuthorize("hasAnyRole('ADMIN', 'SALON_MANAGER')")

@@ -70,12 +70,22 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZ
 ### profile update detail
 PUT http://localhost:8080/api/profile/update
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1NDEyNjY0MywiZXhwIjoxNzU0MjEzMDQzfQ.g0WaPgAFDGz5MfraalJfz5U6MPSt5E52P25n_4w4aYs
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1NDIwODU4NiwiZXhwIjoxNzU0Mjk0OTg2fQ.g8aKNP68ZsGs83ocjInmNuChk7xHFj8VuNWyVk_lFp8
 
 {
   "fullName": "Ali Aliyev",
-  "cityId": 15,
-  "notifications": false,
+  "notifications": true,
   "photoId": "a0238ad8-a591-435c-a3b1-32fcbd930cbb.jpg"
+}
+
+
+###
+PUT http://localhost:8080/api/profile/update/city
+Content-Type: application/json
+Accept-Language: uz
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1NDE1NTI0NiwiZXhwIjoxNzU0MjQxNjQ2fQ.Wb4pCd9Hi_ozaOFUarDZXfhFx9Waff6B7hPptDxX74k
+
+{
+  "cityId": 15
 }
 

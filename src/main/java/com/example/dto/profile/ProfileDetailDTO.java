@@ -18,7 +18,6 @@ public class ProfileDetailDTO {
     private String phone;
     private List<ProfileRole> role;
     private String photoUrl;
-    private String city;
     private Boolean notification;
 
 }

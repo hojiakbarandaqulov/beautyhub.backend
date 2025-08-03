@@ -10,8 +10,6 @@ import java.util.List;
 public class ProfileUpdateResponseDto {
     private Long id;
     private String fullName;
-    @NotBlank(message = "phone required")
-    private String city;
     private Boolean notifications;
     private String photoUrl;
     private List<ProfileRole> role;

@@ -92,12 +92,3 @@ GET http://localhost:8080/api/city/search?
 Accept-Language: uz
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzEwOTUxMiwiZXhwIjoxNzUzNDU1MTEyfQ.73c3DhFqtG3HehDgPtZSsrhFxl97sE5AXX2PCaJQqwo
 
-
-###
-POST http://localhost:8080/api/city/update
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1NDEzNDE4OSwiZXhwIjoxNzU0MjIwNTg5fQ.OfVDDcyN81LApBIxPNc9WFlMSwvEktjMK7ADaT2sHwY
-
-{
-  "id": "null"
-}
