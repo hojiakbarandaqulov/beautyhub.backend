@@ -9,14 +9,17 @@ import com.example.enums.LanguageEnum;
 import com.example.exp.AppBadException;
 import com.example.repository.ReviewRepository;
 import com.example.repository.SalonRepository;
+import com.example.util.SpringSecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -121,5 +124,19 @@ public class ReviewService {
         ReviewResponseDTO dto = modelMapper.map(review, ReviewResponseDTO.class);
         dto.setSalonId(review.getSalon().getId());
         return dto;
+    }
+
+    public ApiResult<PageImpl<ReviewResponseDTO>> getReviews(int page, int size) {
+        Long profileId = SpringSecurityUtil.getProfileId();
+        Pageable pageable = PageRequest.of(page, size);
+        List<Review> all = reviewRepository.findAll();
+        List<ReviewResponseDTO> responseDTOs = new ArrayList<>();
+        for (Review review : all) {
+            ReviewResponseDTO dto = convertToDto(review);
+            dto.setSalonId(review.getSalon().getId());
+            responseDTOs.add(dto);
+        }
+        long totalReviews = reviewRepository.count();
+        return ApiResult.successResponse(new PageImpl<>(responseDTOs, pageable, totalReviews));
     }
 }

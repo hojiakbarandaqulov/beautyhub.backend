@@ -49,3 +49,8 @@ GET http://localhost:8080/api/salons/search?
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzUyNjk2MywiZXhwIjoxNzUzNjEzMzYzfQ.9-avr1eJhF-qD4ipEiBA0Ue-hYA3mNge0SXMvyVr5-I
 
 
+###
+GET http://localhost:8080/api/reviews/api/v1/reviews/top-salons/?
+    page=1&
+    size=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1NDIxMjQ1NywiZXhwIjoxNzU0Mjk4ODU3fQ.P0A3NsChQFhD1bTkngfaC7hwvephAvlbtVpNz5DvO6E
