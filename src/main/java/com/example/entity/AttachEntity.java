@@ -24,11 +24,14 @@ public class AttachEntity {
     @Column(name = "path")
     private String path;
 
-    @Column(name = "visible")
-    private Boolean visible = true;
-
     @Column(name = "created_date")
     private LocalDateTime createdDate;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "attach_id")
+    private AttachEntity attach;
+
+
 
     @ManyToOne
     @JoinColumn(name = "chat_message_id")

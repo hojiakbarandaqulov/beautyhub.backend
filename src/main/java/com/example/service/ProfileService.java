@@ -3,7 +3,6 @@ package com.example.service;
 import com.example.dto.base.ApiResult;
 import com.example.dto.language.LanguageUpdateDto;
 import com.example.dto.profile.*;
-import com.example.entity.CityEntity;
 import com.example.entity.ProfileEntity;
 import com.example.entity.ProfileRoleEntity;
 import com.example.enums.LanguageEnum;
@@ -48,7 +47,7 @@ public class ProfileService {
         Long profileId = SpringSecurityUtil.getProfileId();
         ProfileEntity profile = getById(profileId, language);
         if (profile.getPhotoId() != null && profile.getPhotoId().equals(photoId)) {
-            attachService.delete(profile.getPhotoId());
+            attachService.delete(profile.getPhotoId(),language);
         }
         profileRepository.updateProfilePhoto(profileId, photoId);
         Map<LanguageEnum, String> messages = new HashMap<>();
@@ -76,35 +75,22 @@ public class ProfileService {
 
     public ApiResult<ProfileUpdateResponseDto> updateProfile(ProfileUpdateDto dto, LanguageEnum lang) {
         Long profileId = SpringSecurityUtil.getProfileId();
-        ProfileEntity profile = profileRepository.findById(profileId)
-                .orElseThrow(() -> new AppBadException("profile.not.found"));
+        ProfileEntity profile=getById(profileId,lang);
 
-        // City ni bazadan topish
-        CityEntity city = cityService.getById(dto.getCityId(),lang);
+        if (profile.getPhotoId() != null && profile.getPhotoId().equals(dto.getPhotoId())) {
+            attachService.delete(profile.getPhotoId(),lang);
+        }
         profile.setFullName(dto.getFullName());
-        profile.setCityId(city.getId());
         profile.setNotificationsEnabled(dto.getNotifications());
         profile.setPhotoId(dto.getPhotoId());
-
         profileRepository.save(profile);
-
         ProfileUpdateResponseDto responseDto = new ProfileUpdateResponseDto();
         responseDto.setId(profile.getId());
         responseDto.setFullName(profile.getFullName());
         responseDto.setNotifications(profile.getNotificationsEnabled());
         responseDto.setPhotoUrl(serverUrl + "/attach/upload/" + profile.getPhotoId());
 
-        // Language asosida city name
-        responseDto.setCity(
-                switch (lang) {
-                    case uz -> city.getNameUz();
-                    case ru -> city.getNameRu();
-                    case en -> city.getNameEn();
-                }
-        );
-
         responseDto.setRole(profileRoleRepository.getAllRolesListByProfileId(profile.getId()));
-
         return ApiResult.successResponse(responseDto);
     }
 
@@ -186,18 +172,8 @@ public class ProfileService {
         ProfileUpdateResponseDto responseDto = new ProfileUpdateResponseDto();
         responseDto.setId(profile.getId());
         responseDto.setFullName(profile.getFullName());
-        CityEntity city = cityService.getById(profile.getCityId(),language);
         responseDto.setNotifications(profile.getNotificationsEnabled());
         responseDto.setPhotoUrl(serverUrl + "/attach/upload/" + profile.getPhotoId());
-
-        // Language asosida city name
-        responseDto.setCity(
-                switch (language) {
-                    case uz -> city.getNameUz();
-                    case ru -> city.getNameRu();
-                    case en -> city.getNameEn();
-                }
-        );
 
         responseDto.setRole(profileRoleRepository.getAllRolesListByProfileId(profile.getId()));
 
@@ -252,5 +228,16 @@ public class ProfileService {
         profileRepository.findById(profileId)
                 .orElseThrow(() -> new AppBadException(messageService.getMessage("profile.not.found", language)));
         return profileRoleRepository.getAllRolesListByProfileId(profileId);
+    }
+
+    public ApiResult<ProfileUpdateCity> updateProfileCity(ProfileUpdateCity dto, LanguageEnum language) {
+        Long profileId = SpringSecurityUtil.getProfileId();
+
+        ProfileEntity profileEntity = getById(profileId, language);
+        profileEntity.setCityId(dto.getCityId());
+        profileRepository.save(profileEntity);
+        ProfileUpdateCity responseDto = new ProfileUpdateCity();
+        responseDto.setCityId(dto.getCityId());
+        return ApiResult.successResponse(responseDto);
     }
 }

@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProfileSavePhoto {
-    @NotBlank(message = "photoId required")
-    private String photoId;
+public class ProfileUpdateCity {
+    @NotBlank(message = "cityId required")
+    private Long cityId;
 }

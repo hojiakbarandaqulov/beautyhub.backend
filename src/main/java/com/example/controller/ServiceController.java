@@ -72,5 +72,4 @@ public class ServiceController {
         ApiResult<String> apiResult = serviceService.delete(id, language);
         return ResponseEntity.ok(apiResult);
     }
-
 }

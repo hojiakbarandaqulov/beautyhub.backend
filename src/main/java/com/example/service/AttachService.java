@@ -2,8 +2,12 @@ package com.example.service;
 
 import com.example.dto.attach.AttachDTO;
 import com.example.entity.AttachEntity;
+import com.example.entity.ProfileEntity;
+import com.example.enums.LanguageEnum;
 import com.example.exp.AppBadException;
 import com.example.repository.AttachRepository;
+import com.example.repository.ProfileRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
+
 import org.springframework.core.io.Resource;
+
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -36,6 +42,8 @@ public class AttachService {
     public String attachUrl;
 
     private final AttachRepository attachRepository;
+    private final ProfileRepository profileRepository;
+    private final ResourceBundleService messageService;
 
 
     private static final Map<String, Object> imageExtensionMap = new HashMap<>();
@@ -62,7 +70,7 @@ public class AttachService {
         String extension = getExtension(Objects.requireNonNull(file.getOriginalFilename()));
         try {
             AttachEntity entity = new AttachEntity();
-            entity.setId(key+"."+extension);
+            entity.setId(key + "." + extension);
             entity.setPath(pathFolder);
             entity.setSize(file.getSize());
             entity.setCreatedDate(LocalDateTime.now());
@@ -114,15 +122,22 @@ public class AttachService {
         }
     }
 
-    public boolean delete(String id){
-        AttachEntity entity = get(id);
-        attachRepository.delete(id);
-        File file=new File(attachUrl + "/" + entity.getPath() + "/" + entity.getId());
-        boolean b=false;
-        if(file.exists()){
-            b=file.delete();
+    @Transactional
+    public boolean delete(String id,LanguageEnum languageEnum) {
+        AttachEntity entity = attachRepository.findById(id)
+                .orElseThrow(() -> new AppBadException(messageService.getMessage("attach.not.found",languageEnum)));
+        profileRepository.nullifyPhotoReferences(id);
+        boolean fileDeleted = false;
+        Path filePath = Paths.get(attachUrl, entity.getPath(), entity.getId());
+        try {
+            if (Files.exists(filePath)) {
+                fileDeleted = Files.deleteIfExists(filePath);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to delete attachment file", e);
         }
-        return b;
+        attachRepository.delete(entity);
+        return fileDeleted;
     }
 
     private AttachEntity get(String attachId) {
@@ -157,10 +172,10 @@ public class AttachService {
     }
 
     public AttachDTO attachDTO(String photoId) {
-        if (photoId == null){
+        if (photoId == null) {
             return null;
         }
-        AttachDTO attachDTO=new AttachDTO();
+        AttachDTO attachDTO = new AttachDTO();
         attachDTO.setId(photoId);
         attachDTO.setUrl(openUrl(photoId));
         return attachDTO;
@@ -174,6 +189,7 @@ public class AttachService {
         }
         return optional.get();
     }
+
     public AttachEntity getAttach(String origenName) {
         Optional<AttachEntity> optional = attachRepository.findByOrigenName(origenName);
         if (optional.isEmpty()) {
@@ -190,15 +206,16 @@ public class AttachService {
     }
 
     private String openUrl(String fileName) {
-        return attachUrl + "/"+fileName;
+        return attachUrl + "/" + fileName;
     }
+
     private String getPath(AttachEntity entity) {
-        return  attachUrl + "/" + entity.getPath() + "/" + entity.getId() + "." + entity.getExtension();
+        return attachUrl + "/" + entity.getPath() + "/" + entity.getId() + "." + entity.getExtension();
     }
 
     public Optional<AttachEntity> getImage(String imageId) {
         Optional<AttachEntity> byId = attachRepository.findById(imageId);
-        if (byId.isEmpty()){
+        if (byId.isEmpty()) {
             throw new AppBadException("File not found");
         }
         return byId;

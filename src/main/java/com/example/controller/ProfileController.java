@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.dto.attach.ProfileUpdatePhoto;
 import com.example.dto.base.ApiResult;
 import com.example.dto.language.LanguageUpdateDto;
 import com.example.dto.profile.*;
@@ -22,7 +23,7 @@ public class ProfileController {
     private final ProfileService profileService;
 
     @PutMapping("/update/photo")
-    public ResponseEntity<ApiResult<String>> updatePhoto(@Valid @RequestBody ProfileSavePhoto photo,
+    public ResponseEntity<ApiResult<String>> updatePhoto(@Valid @RequestBody ProfileUpdatePhoto photo,
                                                          @RequestHeader(value = "Accept-Language",defaultValue = "ru") LanguageEnum language) {
         ApiResult<String> apiResult=profileService.updatePhoto(photo.getPhotoId(),language);
         return ResponseEntity.ok(apiResult);
@@ -54,6 +55,13 @@ public class ProfileController {
             @RequestBody ProfileUpdateDto dto,
             @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
         return ResponseEntity.ok(profileService.updateProfile(dto, language));
+    }
+
+    @PutMapping("/update/city")
+    public ResponseEntity<ApiResult<ProfileUpdateCity>> updateProfileCity(
+            @RequestBody ProfileUpdateCity dto,
+            @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
+        return ResponseEntity.ok(profileService.updateProfileCity(dto, language));
     }
 
     @PostMapping("/update/language/confirm")

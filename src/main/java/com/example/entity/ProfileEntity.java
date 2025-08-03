@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -17,7 +19,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "profile")
-public class ProfileEntity{
+public class ProfileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,7 +27,7 @@ public class ProfileEntity{
     @Column(name = "full_name")
     private String fullName;
 
-    @Column(name = "phone",unique = true)
+    @Column(name = "phone", unique = true)
     private String phone;
     @Column(name = "temp_phone")
     private String tempPhone;
@@ -40,8 +42,9 @@ public class ProfileEntity{
     @Column(name = "photo_id")
     private String photoId;
 
-    @ManyToOne(fetch =FetchType.EAGER)
-    @JoinColumn(name = "photo_id",insertable=false,updatable=false)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "photo_id", insertable = false, updatable = false)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private AttachEntity photo;
 
     @Column(name = "notifications_enabled")
@@ -53,14 +56,14 @@ public class ProfileEntity{
     private Boolean visible = Boolean.TRUE;
 
     @Column(name = "created_date")
-    private LocalDateTime createdDate=LocalDateTime.now();
+    private LocalDateTime createdDate = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "language")
-    private LanguageEnum language=LanguageEnum.ru;
+    private LanguageEnum language = LanguageEnum.ru;
 
-    @ManyToOne(fetch =FetchType.EAGER)
-    @JoinColumn(name = "city_id",insertable=false,updatable=false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "city_id", insertable = false, updatable = false)
     private CityEntity city;
     @Column(name = "city_id")
     private Long cityId;

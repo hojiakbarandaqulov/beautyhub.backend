@@ -7,8 +7,6 @@ import lombok.Data;
 @Data
 public class ProfileUpdateDto {
     private String fullName;
-    @NotBlank(message = "phone required")
-    private Long cityId;
     private Boolean notifications;
     private String photoId;
 }
