@@ -44,7 +44,9 @@ public class SpringConfig {
             "/configuration/security",
             "/swagger-ui/**",
             "/webjars/**",
-            "/swagger-ui.html"
+            "/swagger-ui.html",
+            "/swagger-ui/index.html",
+            "/swagger-ui/index.html/**"
     };
 
     @Bean
