@@ -49,6 +49,7 @@ public class SpringConfig {
             "/swagger-ui/index.html/**"
     };
 
+
     @Bean
     public AuthenticationProvider authenticationProvider(BCryptPasswordEncoder bCryptPasswordEncoder) {
         final DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();

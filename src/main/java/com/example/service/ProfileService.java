@@ -100,7 +100,7 @@ public class ProfileService {
             throw new AppBadException(messageService.getMessage("email.phone.exists", language));
         }
         if (PhoneUtil.isPhone(profileDTO.getPhone())) {
-            smsService.sendSms(profileDTO.getPhone());
+            smsService.sendSmsUpdatePhone(profileDTO.getPhone());
         }
         Long profileId = SpringSecurityUtil.getProfileId();
         profileRepository.updateTempPhone(profileId, profileDTO.getPhone());
