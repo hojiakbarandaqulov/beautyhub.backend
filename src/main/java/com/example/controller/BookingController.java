@@ -21,14 +21,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/bookings")
 @AllArgsConstructor
-@Tag(name = "Booking API", description = "Bron qilish va boshqarish uchun API")
+@Tag(name = "Bron qilish", description = "Bron qilish, bekor qilish va bo'sh vaqtlarni olish uchun APIlar")
 public class BookingController {
 
     private final BookingService bookingService;
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/create")
-    @Operation(summary = "Yangi bron yaratish")
+    @Operation(
+            summary = "Yangi bron yaratish",
+            description = "Foydalanuvchi xizmatni, ustani va sanani tanlab bron yaratadi. Bron ma'lumotlari qaytariladi."
+    )
     public ResponseEntity<ApiResponse<BookingResponse>> createBooking(
             @Valid @RequestBody BookingRequest request) {
         return ResponseEntity.ok(bookingService.createBooking(request));
@@ -36,7 +39,10 @@ public class BookingController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/bron")
-    @Operation(summary = "Foydalanuvchi bronlari")
+    @Operation(
+            summary = "Foydalanuvchi bronlari",
+            description = "Kirish qilgan foydalanuvchi o'z bronlarini paginatsiya bilan ko'radi."
+    )
     public ResponseEntity<ApiResponse<Page<BookingDto>>> getUserBookings(
             @AuthenticationPrincipal UserDetails user,
             @RequestParam(defaultValue = "0") int page,
@@ -44,10 +50,12 @@ public class BookingController {
         return ResponseEntity.ok(bookingService.getUserBookings(page-1, size));
     }
 
-
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/cancel/{id}")
-    @Operation(summary = "Bronni bekor qilish")
+    @Operation(
+            summary = "Bronni bekor qilish",
+            description = "Foydalanuvchi o'z bronini bekor qilishi mumkin. Natijada bron holati o'zgartiriladi."
+    )
     public ResponseEntity<ApiResponse<Boolean>> cancelBooking(
             @PathVariable Long id) {
         return ResponseEntity.ok(bookingService.cancelBooking(id));
@@ -55,7 +63,10 @@ public class BookingController {
 
     @PreAuthorize("hasAnyRole('USER', 'SALON_MANAGER', 'MASTER')")
     @GetMapping("/available-slots")
-    @Operation(summary = "Bo'sh vaqtlarni olish")
+    @Operation(
+            summary = "Bo'sh vaqtlarni olish",
+            description = "Salon, xizmat, usta va sana bo'yicha mavjud bo'sh vaqtlarni qaytaradi. Bron qilish uchun kerakli vaqtni tanlashga yordam beradi."
+    )
     public ResponseEntity<ApiResponse<List<TimeSlotDto>>> getAvailableSlots(
             @RequestParam Long salonId,
             @RequestParam Long serviceId,
