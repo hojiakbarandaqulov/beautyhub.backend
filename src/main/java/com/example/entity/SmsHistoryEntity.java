@@ -27,10 +27,6 @@ public class SmsHistoryEntity {
     @Column(name = "created_date")
     private LocalDateTime createdDate=LocalDateTime.now();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "city_id")
-    private CityEntity city;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "sms_type")
     private SmsType smsType;

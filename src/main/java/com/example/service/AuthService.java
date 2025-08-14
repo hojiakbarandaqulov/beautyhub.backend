@@ -23,6 +23,7 @@ import com.example.util.PhoneUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,9 +44,9 @@ public class AuthService {
     private final ProfileRoleRepository profileRoleRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final SmsService smsService;
+    private final ModelMapper modelMapper;
     private final SmsHistoryService smsHistoryService;
 
-    @Transactional
     public ApiResult<String> registration(RegistrationDTO registrationDTO, LanguageEnum language) {
         Optional<ProfileEntity> optional = profileRepository.findByPhoneAndVisibleTrue(registrationDTO.getPhone());
         if (optional.isPresent()) {
@@ -54,7 +55,7 @@ public class AuthService {
                 profileRoleService.deleteRoles(profileEntity.getId());
                 profileRepository.delete(profileEntity);
             } else {
-                throw new AppBadException(messageSource.getMessage("email.phone.exists", language));
+                return new ApiResult<>(messageSource.getMessage("email.phone.exists", language));
             }
         }
         if (!registrationDTO.getPassword().equals(registrationDTO.getConfirmPassword())) {
@@ -74,6 +75,8 @@ public class AuthService {
         profileRepository.save(profileEntity);
         profileRoleService.create(profileEntity.getId(), ProfileRole.ROLE_USER);
         smsService.sendSms(profileEntity.getPhone());
+        modelMapper.map(registrationDTO, profileEntity);
+
         return new ApiResult<>(messageSource.getMessage("phone.sms.send", language));
     }
 
@@ -128,13 +131,13 @@ public class AuthService {
         return response;
     }
 
-    public ApiResult<String> resetPassword(ResetPasswordDTO dto, LanguageEnum language) {
+    public ApiResult<String> resetSms(ResetPasswordDTO dto, LanguageEnum language) {
         Optional<ProfileEntity> optional = profileRepository.findByPhoneAndVisibleTrue(dto.getPhone());
         if (optional.isEmpty()) {
             throw new AppBadException(messageSource.getMessage("phone.password.wrong", language));
         }
         ProfileEntity profile = optional.get();
-        if (!profile.getStatus().equals(GeneralStatus.ACTIVE)) {
+        if (profile.getStatus().equals(GeneralStatus.ACTIVE)) {
             throw new AppBadException(messageSource.getMessage("wrong.status", language));
         }
         smsService.sendSms(profile.getPhone());
@@ -147,13 +150,8 @@ public class AuthService {
             throw new AppBadException(messageSource.getMessage("verification.wrong", language));
         }
         ProfileEntity profile = optional.get();
-        if (!profile.getStatus().equals(GeneralStatus.ACTIVE)) {
+        if (profile.getStatus().equals(GeneralStatus.ACTIVE)) {
             throw new AppBadException(messageSource.getMessage("wrong.status", language));
-        }
-        if (PhoneUtil.isPhone(dto.getPhone())) {
-            smsService.sendSms(dto.getPhone());
-        } else {
-            throw new AppBadException("phone.not.valid.number");
         }
         profileRepository.updatePassword(profile.getId(), bCryptPasswordEncoder.encode(dto.getPassword()));
         return new ApiResult<String>(messageSource.getMessage("reset.password.success", language));

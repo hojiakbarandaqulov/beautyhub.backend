@@ -22,7 +22,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/api/auth")
 public class AuthController {
 
@@ -31,7 +30,6 @@ public class AuthController {
     public AuthController(AuthService authService) {
         this.authService = authService;
     }
-
 
     @PostMapping("/registration")
     public ResponseEntity<ApiResult<String>> registration(@RequestBody @Valid RegistrationDTO registrationDTO,
@@ -56,8 +54,8 @@ public class AuthController {
 
     @PostMapping("/registration/reset")
     public ResponseEntity<ApiResult<String>> resent(@Valid @RequestBody ResetPasswordDTO dto,
-                                                    @RequestHeader(defaultValue = "ru") LanguageEnum language) {
-        ApiResult<String> ok = authService.resetPassword(dto, language);
+                                                    @RequestHeader(value = "Accept-Language",defaultValue = "ru") LanguageEnum language) {
+        ApiResult<String> ok = authService.resetSms(dto, language);
         return ResponseEntity.ok(ok);
     }
 

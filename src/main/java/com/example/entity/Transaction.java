@@ -16,22 +16,18 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Double amount;
+    private String transactionId; // Click tomonidan yuborilgan transaction
+    private Long amount;
+    private String phone;// foydalanuvchi raqami
+    @Enumerated(EnumType.STRING)
+    private TransactionStatus status; // NEW, SUCCESS, FAILED
+
+    private String clickTransId;
+    private String clickPaydocId;
 
     private LocalDateTime createdAt;
 
-    @Enumerated(EnumType.STRING)
-    private TransactionType type;
-
-    @Enumerated(EnumType.STRING)
-    private TransactionStatus status;
-
-    private String description;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "card_id",insertable = false, updatable = false)
-    private CardEntity card;
-    @Column(name = "card_id")
-    private Long cardId;
+    private LocalDateTime createTime=LocalDateTime.now();
+    private LocalDateTime updateTime;
 }
 

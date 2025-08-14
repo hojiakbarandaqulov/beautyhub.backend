@@ -23,4 +23,5 @@ public class ResourceBundleService {
     public String getMessage(String code, String lang) {
         return resourceBundle.getMessage(code,null, new Locale(lang));
     }
+
 }
