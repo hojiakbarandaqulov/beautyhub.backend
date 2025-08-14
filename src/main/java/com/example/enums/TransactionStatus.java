@@ -1,7 +1,5 @@
 package com.example.enums;
 
 public enum TransactionStatus {
-    PENDING,
-    SUCCESS,
-    FAILED
+    NEW, SUCCESS, FAILED
 }

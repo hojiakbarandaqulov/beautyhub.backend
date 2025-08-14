@@ -2,6 +2,6 @@ POST https://notify.eskiz.uz/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "4dm1n217@gmail.com",
-  "password":"pihI2UObn50cbBvDS1cCXSgoWku1PE2rkhHWCiaM"
+  "email": "fayzullindmr@gmail.com",
+  "password":"rlPJjmkaqRvZshRoNpcIiCFtC5GiNzI7k7YNe8fs"
 }
