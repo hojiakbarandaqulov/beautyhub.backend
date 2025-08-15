@@ -11,9 +11,10 @@ import com.example.mapper.ChatMessageMapper;
 import com.example.service.AttachService;
 import com.example.service.ChatMessageService;
 import com.example.service.ProfileService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -30,6 +31,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/api/chat")
 @AllArgsConstructor
+@Tag(name = "Chat", description = "Foydalanuvchilar o'rtasida xabar yuborish va tarixini olish uchun APIlar")
 public class ChatController {
 
     private final SimpMessagingTemplate messagingTemplate;
@@ -40,6 +42,10 @@ public class ChatController {
 
     @MessageMapping("/send")
     @SendTo("/queue/chat/messages")
+    @Operation(
+            summary = "Real-time xabar yuborish (WebSocket)",
+            description = "Foydalanuvchi real vaqt rejimida boshqa foydalanuvchiga xabar yuboradi. Rasm/xabar/voice yuborish mumkin."
+    )
     public ResponseEntity<ApiResponse<?>> sendMessage(@Payload ChatMessageSend chatMessageDTO, Principal principal) {
         ProfileEntity sender = profileService.findByPhone(principal.getName());
         ProfileEntity recipient = profileService.findById(chatMessageDTO.getRecipientId());
@@ -75,6 +81,10 @@ public class ChatController {
     }
 
     @PostMapping("/send")
+    @Operation(
+            summary = "REST orqali xabar yuborish",
+            description = "Oddiy HTTP orqali xabar yuboriladi. Xabar turi va kontenti yuboriladi."
+    )
     public ResponseEntity<ApiResponse<?>> sendMessageRest(@RequestBody @Valid ChatMessageSend messageDTO,
                                                           Principal principal) {
         ProfileEntity sender = profileService.findByPhone(principal.getName());
@@ -111,6 +121,10 @@ public class ChatController {
     }
 
     @GetMapping("/history/{recipientId}")
+    @Operation(
+            summary = "Chat tarixini olish",
+            description = "Berilgan recipientId bo'yicha chat tarixini paginatsiya bilan qaytaradi."
+    )
     public ResponseEntity<ApiResponse<Page<ChatMessageDTO>>> getChatHistory(
             @PathVariable Long recipientId,
             Principal principal,
@@ -122,6 +136,10 @@ public class ChatController {
     }
 
     @PutMapping("/mark-as-read/{messageId}")
+    @Operation(
+            summary = "Xabarni o'qilgan deb belgilash",
+            description = "Berilgan messageId bo'yicha xabar holatini o'qilgan deb belgilaydi."
+    )
     public ResponseEntity<ApiResponse<Boolean>> markAsRead(@PathVariable Long messageId) {
         ApiResponse<Boolean> booleanApiResponse = chatMessageService.markAsRead(messageId);
         return ResponseEntity.ok(booleanApiResponse);
