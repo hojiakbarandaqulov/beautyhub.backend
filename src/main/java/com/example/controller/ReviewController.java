@@ -3,12 +3,14 @@ package com.example.controller;
 import com.example.dto.base.ApiResult;
 import com.example.dto.review.ReviewCreateDTO;
 import com.example.dto.review.ReviewResponseDTO;
-import com.example.entity.home_pages.Review;
 import com.example.enums.LanguageEnum;
 import com.example.service.ReviewService;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -102,5 +104,13 @@ public class ReviewController {
             @PathVariable Long salonId) {
         ApiResult<Double> averageRating = reviewService.getAverageRatingForSalon(salonId);
         return ResponseEntity.ok(averageRating);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'MASTER', 'SALON_MANAGER')")
+    @GetMapping("/api/v1/reviews/top-salons/")
+    public ResponseEntity<ApiResult<PageImpl<ReviewResponseDTO>>> getSalonForTop(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(reviewService.getReviews(page-1, size));
     }
 }
