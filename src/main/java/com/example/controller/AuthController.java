@@ -46,7 +46,7 @@ public class AuthController {
     }
 
     @PostMapping("/registration/verification")
-    public ResponseEntity<ProfileDTO> registrationVerification(@RequestBody @Valid SmsVerificationDTO smsVerification,
+    public ResponseEntity<ProfileDTO> registrationVerification(@RequestBody  @Valid SmsVerificationDTO smsVerification,
                                                                @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum lang) {
         ProfileDTO ok = authService.regVerification(smsVerification, lang);
         return ResponseEntity.ok(ok);
