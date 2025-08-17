@@ -42,13 +42,13 @@ public class AuthController {
 
     @PostMapping("/registration/login")
     public ResponseEntity<ApiResult<LoginResponseDTO>> login(@Valid @RequestBody LoginDTO dto,
-                                                       @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
+                                                             @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
         ApiResult<LoginResponseDTO> ok = authService.login(dto, language);
         return ResponseEntity.ok(ok);
     }
 
     @PostMapping("/registration/verification")
-    public ResponseEntity<ProfileDTO> registrationVerification(@RequestBody  @Valid SmsVerificationDTO smsVerification,
+    public ResponseEntity<ProfileDTO> registrationVerification(@RequestBody @Valid SmsVerificationDTO smsVerification,
                                                                @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum lang) {
         ProfileDTO ok = authService.regVerification(smsVerification, lang);
         return ResponseEntity.ok(ok);
@@ -56,7 +56,7 @@ public class AuthController {
 
     @PostMapping("/registration/reset")
     public ResponseEntity<ApiResult<String>> resent(@Valid @RequestBody ResetPasswordDTO dto,
-                                                    @RequestHeader(value = "Accept-Language",defaultValue = "ru") LanguageEnum language) {
+                                                    @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
         ApiResult<String> ok = authService.resetSms(dto, language);
         return ResponseEntity.ok(ok);
     }
@@ -71,7 +71,7 @@ public class AuthController {
     @PostMapping("/refresh-token")
     @PreAuthorize("hasAnyRole('USER','ADMIN','MASTER','SALON_MANAGER')")
     public ApiResult<RefreshTokenResponseDTO> refreshToken(@RequestBody @Valid TokenRefreshRequest request) {
-       ApiResult<RefreshTokenResponseDTO>apiResult= authService.refreshToken(request);
+        ApiResult<RefreshTokenResponseDTO> apiResult = authService.refreshToken(request);
         return ApiResult.successResponse(apiResult.getData());
     }
 }
