@@ -16,7 +16,4 @@ public class JwtDTO {
     private String username;
     private List<ProfileRole> roleList;
 
-    public JwtDTO(Long id, String username, List<ProfileRole> roleList, String token, Object o) {
-        this.id = id;
-    }
 }

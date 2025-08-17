@@ -4,6 +4,7 @@ import com.example.dto.city.SearchResultDTO;
 import com.example.entity.ChatMessageEntity;
 import com.example.enums.LanguageEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.ToString;
 

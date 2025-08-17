@@ -1,4 +1,5 @@
 package com.example.controller;
+import io.swagger.v3.oas.annotations.Operation;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +26,10 @@ public class LocationController {
     private String yandexApiKey;
 
     @GetMapping
+    @Operation(
+            summary = "Manzil bo'yicha koordinata olish",
+            description = "Berilgan manzilga (adresga) Yandex orqali koordinata (longitude, latitude) ni qaytaradi. Masalan, salon manzilidan joylashuv aniqlash uchun ishlatiladi."
+    )
     public ResponseEntity<?> getCoordinates(@RequestParam String address) {
         try {
             String url = "https://geocode-maps.yandex.ru/1.x/?apikey=" + yandexApiKey +
