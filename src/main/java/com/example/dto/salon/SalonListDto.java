@@ -8,9 +8,10 @@ import java.util.List;
 public class SalonListDto {
     private Long id;
     private String name;
+    private String description;
     private String address;
-    private Double distance; // km
-    private Double rating;
-    private String mainImageUrl;
-    private List<String> categories;
+    private String phone;
+    private boolean isActive;
+    private boolean subscriptionActive;
+    private boolean isVerified;
 }

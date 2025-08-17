@@ -20,7 +20,6 @@ import java.util.List;
 @RequestMapping("/api/city")
 @Tag(name = "Shahar", description = "Shaharlar bilan ishlash uchun API: yaratish, tahrirlash, barcha shaharlani ko'rish va qidirish")
 public class CityController {
-
     private final CityService cityService;
 
     @PostMapping(value = "/create")

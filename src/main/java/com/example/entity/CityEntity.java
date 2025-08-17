@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Entity
-@Table(name = "cities") // Shaharlar jadvali
+@Table(name = "cities")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
