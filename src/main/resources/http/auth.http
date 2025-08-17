@@ -16,7 +16,7 @@ Content-Type: application/json
 Accept-Language: uz
 
 {
-  "phone": "998995092376",
+  "phone": "+998995092376",
   "password": "12345678"
 }
 
