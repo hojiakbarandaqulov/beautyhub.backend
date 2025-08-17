@@ -1,25 +1,27 @@
 package com.example.controller;
 
-import com.example.dto.auth.LoginResponseDTO;
-import com.example.dto.auth.RegistrationDTO;
-import com.example.dto.auth.SmsVerificationDTO;
-import com.example.dto.auth.LoginDTO;
+import com.example.dto.auth.*;
 import com.example.dto.base.ApiResponse;
 import com.example.dto.base.ApiResult;
 import com.example.dto.profile.ProfileDTO;
 import com.example.dto.reset.ResetPasswordConfirmDTO;
 import com.example.dto.reset.ResetPasswordDTO;
 import com.example.enums.LanguageEnum;
+import com.example.exp.AppBadException;
 import com.example.service.AuthService;
+import com.example.util.JwtUtil;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -66,5 +68,11 @@ public class AuthController {
         return ResponseEntity.ok(ok);
     }
 
+    @PostMapping("/refresh-token")
+    @PreAuthorize("hasAnyRole('USER','ADMIN','MASTER','SALON_MANAGER')")
+    public ApiResult<RefreshTokenResponseDTO> refreshToken(@RequestBody @Valid TokenRefreshRequest request) {
+       ApiResult<RefreshTokenResponseDTO>apiResult= authService.refreshToken(request);
+        return ApiResult.successResponse(apiResult.getData());
+    }
 }
 

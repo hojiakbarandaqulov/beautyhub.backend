@@ -17,7 +17,7 @@
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <!-- MapStruct, Lombok, JJWT va SpringDoc versiyalarini shu yerda belgilaymiz -->
+
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <lombok.version>1.18.30</lombok.version>
         <jjwt.version>0.12.6</jjwt.version>
@@ -93,25 +93,31 @@
             <version>2.17.2</version>
         </dependency>
 
-        <!-- JWT (JSON Web Token) -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
-            <version>${jjwt.version}</version>
+            <version>0.12.6</version>
         </dependency>
-
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
-            <version>${jjwt.version}</version>
+            <version>0.12.6</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId> <!-- Jackson implementatsiyasi runtime uchun -->
-            <version>${jjwt.version}</version>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.12.6</version>
             <scope>runtime</scope>
         </dependency>
+
+        <!-- pom.xml -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.16.0</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springdoc</groupId>

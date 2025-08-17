@@ -8,16 +8,15 @@ import java.util.List;
 
 @Getter
 @Setter
-public class LoginResponseDTO {
-    private List<ProfileRole> role;
+public class RefreshTokenResponseDTO {
     private String jwt;
     private String refreshToken;
 
-    public LoginResponseDTO(String jwt, String newRefreshToken) {
+    public RefreshTokenResponseDTO(String jwt, String newRefreshToken) {
         this.refreshToken = newRefreshToken;
         this.jwt=jwt;
     }
 
-    public LoginResponseDTO() {
+    public RefreshTokenResponseDTO() {
     }
 }

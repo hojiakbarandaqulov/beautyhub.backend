@@ -13,9 +13,10 @@ Accept-Language: uz
 ### registartion login api
 POST http://localhost:8080/api/auth/registration/login
 Content-Type: application/json
+Accept-Language: uz
 
 {
-  "phone": "+998995092376",
+  "phone": "998995092376",
   "password": "12345678"
 }
 
@@ -45,5 +46,15 @@ Content-Type: application/json
   "phone": "+998772653507",
   "password": "123456789",
   "confirmPassword": "123456789"
+}
+
+
+### refresh token
+POST http://localhost:8080/api/auth/refresh-token
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5OTg5OTUwOTIzNzYiLCJyb2xlcyI6IlJPTEVfVVNFUiIsImlkIjoyMSwiaWF0IjoxNzU1NDM5ODA3LCJleHAiOjE3NTU1MjYyMDd9.bjERFea5JQawcapLZdhhPnQYpQy2gYj57GzCJSpip94
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5OTg5OTUwOTIzNzYiLCJpZCI6MjEsImlhdCI6MTc1NTQzOTgwNywiZXhwIjoxNzU2MDQ0NjA3fQ.3DHRkI8HZuF-6W9bZoFf1YC1Nmf7GrRVNoypwzegT2I"
 }
 

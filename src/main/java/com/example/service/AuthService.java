@@ -1,9 +1,7 @@
 package com.example.service;
 
-import com.example.dto.auth.LoginResponseDTO;
-import com.example.dto.auth.RegistrationDTO;
-import com.example.dto.auth.LoginDTO;
-import com.example.dto.auth.SmsVerificationDTO;
+import com.example.dto.JwtDTO;
+import com.example.dto.auth.*;
 import com.example.dto.base.ApiResponse;
 import com.example.dto.base.ApiResult;
 import com.example.dto.profile.ProfileDTO;
@@ -20,6 +18,7 @@ import com.example.service.sms.SmsHistoryService;
 import com.example.service.sms.SmsService;
 import com.example.util.JwtUtil;
 import com.example.util.PhoneUtil;
+import com.example.util.SpringSecurityUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +45,7 @@ public class AuthService {
     private final SmsService smsService;
     private final ModelMapper modelMapper;
     private final SmsHistoryService smsHistoryService;
+    private final JwtUtil jwtUtil;
 
     public ApiResult<String> registration(RegistrationDTO registrationDTO, LanguageEnum language) {
         Optional<ProfileEntity> optional = profileRepository.findByPhoneAndVisibleTrue(registrationDTO.getPhone());
@@ -156,5 +156,35 @@ public class AuthService {
         profileRepository.updatePassword(profile.getId(), bCryptPasswordEncoder.encode(dto.getPassword()));
         return new ApiResult<String>(messageSource.getMessage("reset.password.success", language));
     }
+
+    public ApiResult<RefreshTokenResponseDTO> refreshToken(TokenRefreshRequest request) {
+        // Validate the refresh token first
+        if (!JwtUtil.validateRefreshToken(request.getRefreshToken())) {
+            throw new AppBadException("Refresh token is invalid or expired");
+        }
+
+        String username = jwtUtil.getUsernameFromToken(request.getRefreshToken());
+        Long userId = jwtUtil.getUserIdFromToken(request.getRefreshToken());
+        String newAccessToken = JwtUtil.encode(userId,username);
+        String newRefreshToken = JwtUtil.generateRefreshToken(username, userId);
+        return new ApiResult<>(new RefreshTokenResponseDTO(newAccessToken, newRefreshToken));
+    }
+
+   /* public ApiResult<LoginResponseDTO> refreshToken() {
+        Long profileId = SpringSecurityUtil.getProfileId();
+        assert profileId != null;
+        Optional<ProfileEntity> optional = profileRepository.findById(profileId);
+        if (optional.isEmpty()) {
+            throw new AppBadException(messageSource.getMessage("phone.not.found"));
+        }
+        ProfileEntity profile = optional.get();
+        if (!bCryptPasswordEncoder.matches(loginDTO.getPassword(), profile.getPassword())) {
+            throw new AppBadException(messageSource.getMessage("wrong.password", language));
+        }
+        if (!profile.getStatus().equals(GeneralStatus.ACTIVE)) {
+            throw new AppBadException(messageSource.getMessage("wrong.status", language));
+        }
+    }*/
+
 }
 
