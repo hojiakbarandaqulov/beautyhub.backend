@@ -9,6 +9,7 @@ import com.example.enums.LanguageEnum;
 import com.example.exp.AppBadException;
 import com.example.repository.SalonRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,39 +29,12 @@ public class SalonServiceImpl implements SalonService {
         this.messageService = messageService;
     }
 
-    @Override
-    public ApiResult<SalonCreateResponseDto>create(SalonCreateDto dto,LanguageEnum languageEnum) {
-        SalonEntity salon = modelMapper.map(dto, SalonEntity.class);
-        salon.setRating(0.0);
-        SalonEntity savedSalon = salonRepository.save(salon);
-        SalonCreateResponseDto map = modelMapper.map(savedSalon, SalonCreateResponseDto.class);
-        return new ApiResult<>(map);
-    }
 
     @Override
-    public ApiResult<SalonCreateResponseDto> update(Long id, SalonUpdateDto dto,LanguageEnum languageEnum) {
-        SalonEntity salon = salonRepository.findById(id)
-                .orElseThrow(() -> new AppBadException("Salon topilmadi"));
-
-        modelMapper.map(dto, salon);
-        SalonEntity updatedSalon = salonRepository.save(salon);
-        SalonCreateResponseDto map = modelMapper.map(updatedSalon, SalonCreateResponseDto.class);
-        return new ApiResult<>(map);
-    }
-
-    @Override
-    public ApiResult<Boolean> delete(Long id, LanguageEnum languageEnum) {
-        SalonEntity salon = salonRepository.findById(id)
-                .orElseThrow(() -> new AppBadException(messageService.getMessage("salon.not.found",languageEnum)));
-        salonRepository.delete(salon);
-        return ApiResult.successResponse(true);
-    }
-
-    @Override
-    public ApiResult<SalonCreateResponseDto> getById(Long id, LanguageEnum languageEnum) {
+    public ApiResult<SalonListDto> getById(Long id, LanguageEnum languageEnum) {
         SalonEntity salon =salonRepository.findById(id)
                 .orElseThrow(() -> new AppBadException(messageService.getMessage("salon.not.found",languageEnum)));
-        SalonCreateResponseDto map = modelMapper.map(salon, SalonCreateResponseDto.class);
+        SalonListDto map = modelMapper.map(salon, SalonListDto.class);
         return new ApiResult<>(map);
     }
 
@@ -72,11 +46,16 @@ public class SalonServiceImpl implements SalonService {
         List<SalonListDto> salonListDtos = salons.stream()
                 .map(salon -> modelMapper.map(salon, SalonListDto.class))
                 .collect(Collectors.toList());
-
         return  ApiResult.successResponse(salonListDtos);
     }
 
     @Override
+    public ApiResult<PageImpl<SalonListDto>> getSalons(int page, int size) {
+
+        return null;
+    }
+
+   /* @Override
     public ApiResult<List<SalonListDto>> findNearby(Double latitude, Double longitude, Double radiusKm,LanguageEnum languageEnum) {
          salonRepository.findNearbySalons(latitude, longitude, radiusKm).stream()
                 .map(salon -> {
@@ -103,5 +82,5 @@ public class SalonServiceImpl implements SalonService {
                  })
                  .collect(Collectors.toList());
         return null;
-    }
+    }*/
 }
