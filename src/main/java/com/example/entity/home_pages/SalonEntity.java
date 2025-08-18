@@ -13,48 +13,30 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "salons")
+@Table(name = "admin_apps_salon")
 public class SalonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(nullable = false)
-    private String address;
-
-    @Column(columnDefinition = "TEXT")
+    @Column(length = 500)
     private String description;
 
-    @Column(nullable = false)
-    private Double latitude;
+    @Column(length = 255)
+    private String address;
 
-    @Column(nullable = false)
-    private Double longitude;
+    @Column(length = 20)
+    private String phone;
 
-    @Column(nullable = false)
-    private Double rating;
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive;
 
-    @Column(name = "main_image_url")
-    private String mainImageUrl;
+    @Column(name = "subscription_active", nullable = false)
+    private boolean subscriptionActive;
 
-    @ElementCollection
-    @CollectionTable(name = "salon_images", joinColumns = @JoinColumn(name = "salon_id"))
-    @Column(name = "image_url")
-    private List<String> imageUrls = new ArrayList<>();
-
-    @OneToMany(mappedBy = "salon", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ServiceEntity> services;
-
-    @OneToMany(mappedBy = "salon", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<WorkingTime> workingTimes = new ArrayList<>();
-
-    @OneToMany(mappedBy = "salon", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Review> reviews = new ArrayList<>();
-
-    @OneToMany(mappedBy = "salon", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Master> masters = new ArrayList<>();
-
+    @Column(name = "is_verified", nullable = false)
+    private boolean isVerified;
 }

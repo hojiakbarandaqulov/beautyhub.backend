@@ -7,6 +7,7 @@ import com.example.enums.LanguageEnum;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -21,43 +22,6 @@ public class SalonController {
 
     private final SalonService salonService;
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'SALON_MANAGER')")
-    @PostMapping("/create")
-    @Operation(
-            summary = "Yangi salon yaratish",
-            description = "Yangi salon ma'lumotlarini tizimga qo'shadi (nomi, manzili, va h.k.). Faqat admin va salon managerlar foydalanadi."
-    )
-    public ResponseEntity<ApiResult<SalonCreateResponseDto>> create(@RequestBody SalonCreateDto dto,
-                                                                    @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
-        ApiResult<SalonCreateResponseDto> result = salonService.create(dto, language);
-        return ResponseEntity.ok(result);
-    }
-
-    @PreAuthorize("hasAnyRole('ADMIN', 'SALON_MANAGER')")
-    @PutMapping("/update/{id}")
-    @Operation(
-            summary = "Salon ma'lumotlarini tahrirlash",
-            description = "Berilgan id bo'yicha salon ma'lumotlarini yangilaydi. Faqat admin va salon managerlar foydalanadi."
-    )
-    public ResponseEntity<ApiResult<SalonCreateResponseDto>> update(
-            @PathVariable Long id,
-            @RequestBody SalonUpdateDto dto,
-            @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
-        ApiResult<SalonCreateResponseDto> result = salonService.update(id, dto, language);
-        return ResponseEntity.ok(result);
-    }
-
-    @PreAuthorize("hasAnyRole('ADMIN', 'SALON_MANAGER')")
-    @DeleteMapping("/delete/{id}")
-    @Operation(
-            summary = "Salon o'chirish",
-            description = "Berilgan id bo'yicha salonni tizimdan o'chiradi. Faqat admin va salon managerlar foydalanadi."
-    )
-    public ResponseEntity<ApiResult<Boolean>> delete(@PathVariable Long id,
-                                                     @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
-        ApiResult<Boolean> delete = salonService.delete(id, language);
-        return ResponseEntity.ok(delete);
-    }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'MASTER', 'SALON_MANAGER')")
     @GetMapping("/get/{id}")
@@ -65,13 +29,12 @@ public class SalonController {
             summary = "Salon tafsilotlari",
             description = "Berilgan id bo'yicha salonning to'liq ma'lumotlarini qaytaradi. Barcha role uchun."
     )
-    public ResponseEntity<ApiResult<SalonCreateResponseDto>> getById(@PathVariable Long id,
-                                                                     @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
-        ApiResult<SalonCreateResponseDto> result = salonService.getById(id, language);
+    public ResponseEntity<ApiResult<SalonListDto>> getById(@PathVariable Long id,
+                                                           @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
+        ApiResult<SalonListDto> result = salonService.getById(id, language);
         return ResponseEntity.ok(result);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'MASTER', 'SALON_MANAGER')")
     @GetMapping("/getAll")
     @Operation(
             summary = "Barcha salonlar ro'yxati",
@@ -82,7 +45,18 @@ public class SalonController {
         return ResponseEntity.ok(result);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'MASTER', 'SALON_MANAGER')")
+   /* @GetMapping
+    @Operation(
+            summary = "Barcha salonlar ro'yxati pagination bilan",
+            description = "Tizimdagi barcha salonlar ro'yxatini qaytaradi. Barcha role uchun."
+    )
+    public ResponseEntity<ApiResult<PageImpl<SalonListDto>>> salonPagination(@RequestParam(value = "page",defaultValue = "1")int page,
+                                                                             @RequestParam(value = "size",defaultValue = "10")int size) {
+        ApiResult<PageImpl<SalonListDto>> result = salonService.getSalons(page-1,size);
+        return ResponseEntity.ok(result);
+    }*/
+
+   /* @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'MASTER', 'SALON_MANAGER')")
     @GetMapping("/nearby")
     @Operation(
             summary = "Yaqin atrofdagi salonlarni qidirish",
@@ -109,5 +83,5 @@ public class SalonController {
             @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
         ApiResult<List<SalonListDto>> result = salonService.search(query, category, language);
         return ResponseEntity.ok(result);
-    }
+    }*/
 }

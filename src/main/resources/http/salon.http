@@ -30,8 +30,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZ
 
 
 ### getAll Salons
-GET http://localhost:8080/api/salons/getAll
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzUyNjk2MywiZXhwIjoxNzUzNjEzMzYzfQ.9-avr1eJhF-qD4ipEiBA0Ue-hYA3mNge0SXMvyVr5-I
+GET https://beautyhubuz-3d777984d358.herokuapp.com/api/salons/getAll
+#GET http://localhost:8080/api/salons/getAll
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoxLCJpYXQiOjE3NTU1MzM4MDEsImV4cCI6MTc1NTYyMDIwMX0.ZTEz3h-wAf9lOjKe_NlARWyJLqTLWhKhQNpnrHqMjXc
 
 
 ###

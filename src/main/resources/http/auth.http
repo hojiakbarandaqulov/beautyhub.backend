@@ -11,7 +11,8 @@ Accept-Language: uz
 }
 
 ### registartion login api
-POST http://localhost:8080/api/auth/registration/login
+#POST http://localhost:8080/api/auth/registration/login
+POST https://beautyhubuz-3d777984d358.herokuapp.com/api/auth/registration/login
 Content-Type: application/json
 Accept-Language: uz
 
