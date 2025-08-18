@@ -90,7 +90,8 @@ public class SpringConfig {
                                     "/api/profile/update").permitAll()
                             .requestMatchers("/api/city/create",
                                     "/api/profile/update",
-                                      "/api/salons/getAll").permitAll()
+                                    "/api/salons/getAll",
+                                      "/api/salons/get/").permitAll()
                             .anyRequest()
                             .authenticated();
                 })

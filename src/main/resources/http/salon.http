@@ -36,6 +36,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZ
 
 
 ###
+GET https://beautyhubuz-3d777984d358.herokuapp.com/api/salons/get/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoxLCJpYXQiOjE3NTU1MzM4MDEsImV4cCI6MTc1NTYyMDIwMX0.ZTEz3h-wAf9lOjKe_NlARWyJLqTLWhKhQNpnrHqMjXc
+
+
+###
 GET http://localhost:8080/api/salons/nearby?
     latitude=35.65&
     longitude=44.45&

@@ -23,7 +23,6 @@ public class SalonController {
     private final SalonService salonService;
 
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'MASTER', 'SALON_MANAGER')")
     @GetMapping("/get/{id}")
     @Operation(
             summary = "Salon tafsilotlari",
