@@ -14,7 +14,7 @@ public interface SalonService {
 
     ApiResult<PageImpl<SalonListDto>> getSalons(int page, int size);
 
-   /* ApiResult<List<SalonListDto>> findNearby(Double latitude, Double longitude, Double radiusKm,LanguageEnum languageEnum);
+    ApiResult<List<SalonListDto>> findNearby(Double latitude, Double longitude, Double radiusKm,LanguageEnum languageEnum);
 
-    ApiResult<List<SalonListDto>> search(String query, Long category,LanguageEnum languageEnum);*/
+    ApiResult<List<SalonListDto>> search(String query, Long category,int page,int size,LanguageEnum languageEnum);
 }

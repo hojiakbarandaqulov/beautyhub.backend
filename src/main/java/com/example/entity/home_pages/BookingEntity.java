@@ -23,7 +23,7 @@ public class BookingEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "salon_id", insertable = false, updatable = false)
-    private SalonEntity salon;
+    private AdminAppsSalonEntity salon;
     @Column(name = "salon_id")
     private Long salonId;
 

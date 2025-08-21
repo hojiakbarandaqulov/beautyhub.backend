@@ -1,3 +1,7 @@
 ###
 GET http://localhost:8080/api/location?
     address=O'zbekiston, Farg'ona
+
+###
+GET https://beautyhubuz-3d777984d358.herokuapp.com/api/location?
+    address=O'zbekiston, Tashkent, chilonzor

@@ -4,7 +4,7 @@ import com.example.dto.base.ApiResult;
 import com.example.dto.review.ReviewCreateDTO;
 import com.example.dto.review.ReviewResponseDTO;
 import com.example.entity.home_pages.Review;
-import com.example.entity.home_pages.SalonEntity;
+import com.example.entity.home_pages.AdminAppsSalonEntity;
 import com.example.enums.LanguageEnum;
 import com.example.exp.AppBadException;
 import com.example.repository.ReviewRepository;
@@ -35,7 +35,7 @@ public class ReviewService {
     @Transactional
     public ApiResult<ReviewResponseDTO> createReview(ReviewCreateDTO reviewDTO, LanguageEnum language) {
         // Salon mavjudligini tekshirish
-        SalonEntity salon = salonRepository.findById(reviewDTO.getSalonId())
+        AdminAppsSalonEntity salon = salonRepository.findById(reviewDTO.getSalonId())
                 .orElseThrow(() -> new AppBadException(messageService.getMessage("salon.not.found", language)));
 
         Review review = modelMapper.map(reviewDTO, Review.class);
@@ -86,7 +86,7 @@ public class ReviewService {
                 .orElseThrow(() -> new AppBadException(messageService.getMessage("review.not.found", language)));
 
         // Salon mavjudligini tekshirish
-        SalonEntity salon = salonRepository.findById(reviewDTO.getSalonId())
+        AdminAppsSalonEntity salon = salonRepository.findById(reviewDTO.getSalonId())
                 .orElseThrow(() -> new AppBadException(messageService.getMessage("salon.not.found", language)));
 
         // Yangi ma'lumotlarni o'zgartirish

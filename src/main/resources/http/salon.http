@@ -42,17 +42,30 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZ
 
 ###
 GET http://localhost:8080/api/salons/nearby?
-    latitude=35.65&
-    longitude=44.45&
-    radiusKm=5
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzUyNjk2MywiZXhwIjoxNzUzNjEzMzYzfQ.9-avr1eJhF-qD4ipEiBA0Ue-hYA3mNge0SXMvyVr5-I
+    latitude=41.28141&
+    longitude=69.212668&
+    radiusKm=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5OTg5OTUwOTIzNzYiLCJyb2xlcyI6IlJPTEVfVVNFUiIsImlkIjoyMSwiaWF0IjoxNzU1Nzc2OTMzLCJleHAiOjE3NTU4NjMzMzN9.kutuAHF7Aj8DcJU-9T9oRlXuqXGIxyaf3ISLp4r6mE8
+
+###
+GET https://beautyhubuz-3d777984d358.herokuapp.com/api/salons/nearby?
+    latitude=41.28141&
+    longitude=69.212668&
+    radiusKm=2
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoxLCJpYXQiOjE3NTU3NzYxMTEsImV4cCI6MTc1NTg2MjUxMX0.5jEvAhZRg_Oa5nuKirP8ktKH4sFrhKzrA_4pci_RqBY
 
 
 ### salon search
 GET http://localhost:8080/api/salons/search?
-    query=Shayxontoxur&
+    query=Tashkent&
     category=1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1MzUyNjk2MywiZXhwIjoxNzUzNjEzMzYzfQ.9-avr1eJhF-qD4ipEiBA0Ue-hYA3mNge0SXMvyVr5-I
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5OTg5OTUwOTIzNzYiLCJyb2xlcyI6IlJPTEVfVVNFUiIsImlkIjoyMSwiaWF0IjoxNzU1Nzc2OTMzLCJleHAiOjE3NTU4NjMzMzN9.kutuAHF7Aj8DcJU-9T9oRlXuqXGIxyaf3ISLp4r6mE8
+
+### salon search
+GET https://beautyhubuz-3d777984d358.herokuapp.com/api/salons/search?
+    query=Tashkent&
+    category=1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoxLCJpYXQiOjE3NTU3NzYxMTEsImV4cCI6MTc1NTg2MjUxMX0.5jEvAhZRg_Oa5nuKirP8ktKH4sFrhKzrA_4pci_RqBY
 
 
 ###

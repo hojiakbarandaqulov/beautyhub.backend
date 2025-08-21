@@ -49,6 +49,7 @@ public class ProfileEntity {
 
     @Column(name = "notifications_enabled")
     private Boolean notificationsEnabled = Boolean.TRUE;
+
     @Column(name = "dark_theme_enabled")
     private Boolean darkThemeEnabled = Boolean.FALSE;
 

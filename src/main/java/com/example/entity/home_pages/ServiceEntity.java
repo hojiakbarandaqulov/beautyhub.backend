@@ -26,7 +26,7 @@ public class ServiceEntity {
 
     @ManyToOne
     @JoinColumn(name = "salon_id",insertable = false,updatable = false, nullable = false)
-    private SalonEntity salon;
+    private AdminAppsSalonEntity salon;
     @Column(name = "salon_id")
     private Long salonId;
 

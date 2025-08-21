@@ -4,7 +4,7 @@ package com.example.service;
 import com.example.dto.base.ApiResult;
 import com.example.dto.master.*;
 import com.example.entity.home_pages.Master;
-import com.example.entity.home_pages.SalonEntity;
+import com.example.entity.home_pages.AdminAppsSalonEntity;
 import com.example.entity.home_pages.ServiceEntity;
 import com.example.enums.LanguageEnum;
 import com.example.exp.AppBadException;
@@ -32,7 +32,7 @@ public class MasterService {
         master.setSpecialization(dto.getSpecialization());
         master.setPhotoId(dto.getPhotoId());
 
-        SalonEntity salon = salonRepository.findById(dto.getSalonId())
+        AdminAppsSalonEntity salon = salonRepository.findById(dto.getSalonId())
                 .orElseThrow(() -> new AppBadException(messageService.getMessage("salon.not.found", languageEnum)));
         master.setSalon(salon);
 

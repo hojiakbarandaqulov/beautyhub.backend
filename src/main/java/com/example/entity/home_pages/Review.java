@@ -1,5 +1,6 @@
 package com.example.entity.home_pages;
 
+import com.example.entity.ProfileEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,8 +32,14 @@ public class Review {
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @ManyToOne
+    @JoinColumn(name = "profile_id",insertable = false, updatable = false, nullable = false)
+    private ProfileEntity profile;
+    @Column(name = "profile_id")
+    private Long profileId;
+
+    @ManyToOne
     @JoinColumn(name = "salon_id",insertable = false,updatable = false, nullable = false)
-    private SalonEntity salon;
+    private AdminAppsSalonEntity salon;
     @Column(name = "salon_id")
     private Long salonId;
 }

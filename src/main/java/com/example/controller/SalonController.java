@@ -44,7 +44,7 @@ public class SalonController {
         return ResponseEntity.ok(result);
     }
 
-   /* @GetMapping
+    @GetMapping
     @Operation(
             summary = "Barcha salonlar ro'yxati pagination bilan",
             description = "Tizimdagi barcha salonlar ro'yxatini qaytaradi. Barcha role uchun."
@@ -53,9 +53,9 @@ public class SalonController {
                                                                              @RequestParam(value = "size",defaultValue = "10")int size) {
         ApiResult<PageImpl<SalonListDto>> result = salonService.getSalons(page-1,size);
         return ResponseEntity.ok(result);
-    }*/
+    }
 
-   /* @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'MASTER', 'SALON_MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'MASTER', 'SALON_MANAGER')")
     @GetMapping("/nearby")
     @Operation(
             summary = "Yaqin atrofdagi salonlarni qidirish",
@@ -79,8 +79,10 @@ public class SalonController {
     public ResponseEntity<ApiResult<List<SalonListDto>>> search(
             @RequestParam String query,
             @RequestParam(required = false) Long category,
+            @RequestParam(value = "page",defaultValue = "1")int page,
+            @RequestParam(value = "size", defaultValue = "10")int size,
             @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
-        ApiResult<List<SalonListDto>> result = salonService.search(query, category, language);
+        ApiResult<List<SalonListDto>> result = salonService.search(query, category,page-1,size, language);
         return ResponseEntity.ok(result);
-    }*/
+    }
 }
