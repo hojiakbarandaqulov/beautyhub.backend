@@ -42,11 +42,11 @@ public class AdminAppsSalonEntity {
     @Column(name = "discount_percentage")
     private Integer discountPercentage; // Chegirma foizi (masalan, 10, 20, 30%)
 
-    @Column(name = "is_outdoor")
-    private boolean isOutdoor=Boolean.FALSE;
+    @Column(name = "is_outdoor",nullable = false)
+    private boolean isOutdoor=false;
 
-    @Column(name = "is_for_kids")
-    private boolean isForKids=Boolean.FALSE;
+    @Column(name = "is_for_kids",nullable = false)
+    private boolean isForKids=false;
 
     @Column(name = "latitude", nullable = true)
     private Double latitude;

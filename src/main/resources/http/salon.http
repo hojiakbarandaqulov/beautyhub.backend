@@ -65,7 +65,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5OTg5OTUwOTIzNzYiLCJyb2xlc
 GET https://beautyhubuz-3d777984d358.herokuapp.com/api/salons/search?
     query=Tashkent&
     category=1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoxLCJpYXQiOjE3NTU3NzYxMTEsImV4cCI6MTc1NTg2MjUxMX0.5jEvAhZRg_Oa5nuKirP8ktKH4sFrhKzrA_4pci_RqBY
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoxLCJpYXQiOjE3NTU3ODUwMDEsImV4cCI6MTc1NTg3MTQwMX0.1aSvuroscKlnS-mp5XnbIUm9M4NZE5Q99D0dFDf9bts
 
 
 ###
