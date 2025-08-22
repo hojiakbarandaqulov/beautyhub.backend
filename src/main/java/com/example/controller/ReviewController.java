@@ -8,6 +8,7 @@ import com.example.service.ReviewService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.security.PermitAll;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -106,8 +107,8 @@ public class ReviewController {
         return ResponseEntity.ok(averageRating);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'MASTER', 'SALON_MANAGER')")
     @GetMapping("/api/v1/reviews/top-salons/")
+    @PermitAll
     public ResponseEntity<ApiResult<PageImpl<ReviewResponseDTO>>> getSalonForTop(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {

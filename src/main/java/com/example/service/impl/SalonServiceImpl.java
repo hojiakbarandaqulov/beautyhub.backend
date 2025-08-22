@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.nio.channels.FileChannel;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,5 +81,19 @@ public class SalonServiceImpl implements SalonService {
                 .collect(Collectors.toList());
 
         return ApiResult.successResponse(salonListDtos);
+    }
+
+    @Override
+    public Page<SalonListDto> getOutdoor(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<AdminAppsSalonEntity> byOutdoorTrue = salonRepository.findByIsOutdoorTrue(pageable);
+        return byOutdoorTrue.map(salon->modelMapper.map(salon,SalonListDto.class));
+    }
+
+    @Override
+    public Page<SalonListDto> getForKids(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<AdminAppsSalonEntity> forKidsSalonsPage = salonRepository.findByIsForKidsTrue(pageable);
+        return forKidsSalonsPage.map(salon -> modelMapper.map(salon, SalonListDto.class));
     }
 }

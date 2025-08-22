@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import java.nio.channels.FileChannel;
 import java.util.List;
 
 
@@ -45,4 +47,11 @@ public interface SalonRepository extends JpaRepository<AdminAppsSalonEntity, Lon
             @Param("query") String query,
             @Param("categoryId") Long categoryId,
             Pageable pageable);
+
+    @Query("SELECT s FROM AdminAppsSalonEntity  s WHERE s.isOutdoor=true")
+    Page<AdminAppsSalonEntity> findByIsOutdoorTrue(Pageable pageable);
+
+
+    @Query("SELECT s FROM  AdminAppsSalonEntity s WHERE s.isForKids=true")
+    Page<AdminAppsSalonEntity> findByIsForKidsTrue(Pageable pageable);
 }

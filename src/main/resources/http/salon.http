@@ -72,4 +72,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZ
 GET http://localhost:8080/api/reviews/api/v1/reviews/top-salons/?
     page=1&
     size=10
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTk1MDkyMzc2Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9BRE1JTiIsImlkIjoiMSIsImlhdCI6MTc1NDIxMjQ1NywiZXhwIjoxNzU0Mjk4ODU3fQ.P0A3NsChQFhD1bTkngfaC7hwvephAvlbtVpNz5DvO6E
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5OTg5OTUwOTIzNzYiLCJyb2xlcyI6IlJPTEVfVVNFUiIsImlkIjoyMSwiaWF0IjoxNzU1ODQwNjQ2LCJleHAiOjE3NTU5MjcwNDZ9.9BRNRwjufIx3Lc9UnvkoW-AdFpZ_53Bl7uIRlDgvx4w
+
+
+
+### IsOutdoor api
+GET http://localhost:8080/api/salons/outdoor?
+    page=0&
+    size=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5OTg5OTUwOTIzNzYiLCJyb2xlcyI6IlJPTEVfVVNFUiIsImlkIjoyMSwiaWF0IjoxNzU1ODQwNjQ2LCJleHAiOjE3NTU5MjcwNDZ9.9BRNRwjufIx3Lc9UnvkoW-AdFpZ_53Bl7uIRlDgvx4w
+
+###
+GET http://localhost:8080/api/salons/for-kids?
+    page=0&
+    size=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5OTg5OTUwOTIzNzYiLCJyb2xlcyI6IlJPTEVfVVNFUiIsImlkIjoyMSwiaWF0IjoxNzU1ODQwNjQ2LCJleHAiOjE3NTU5MjcwNDZ9.9BRNRwjufIx3Lc9UnvkoW-AdFpZ_53Bl7uIRlDgvx4w
+

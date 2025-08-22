@@ -3,6 +3,7 @@ package com.example.service.service_interface;
 import com.example.dto.base.ApiResult;
 import com.example.dto.salon.*;
 import com.example.enums.LanguageEnum;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
 import java.util.List;
@@ -17,4 +18,8 @@ public interface SalonService {
     ApiResult<List<SalonListDto>> findNearby(Double latitude, Double longitude, Double radiusKm,LanguageEnum languageEnum);
 
     ApiResult<List<SalonListDto>> search(String query, Long category,int page,int size,LanguageEnum languageEnum);
+
+    Page<SalonListDto> getOutdoor(int page, int size);
+
+    Page<SalonListDto> getForKids(int page, int size);
 }
