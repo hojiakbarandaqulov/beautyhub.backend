@@ -1,13 +1,13 @@
 ### create review
 POST http://localhost:8080/api/reviews/create
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTk4OTkyNDMxMDY4Iiwicm9sZXMiOiJST0xFX1VTRVIsUk9MRV9NQVNURVIsUk9MRV9TQUxPTl9NQU5BR0VSIiwiaWQiOiIxMCIsImlhdCI6MTc1NDA0NTk4MSwiZXhwIjoxNzU0MTMyMzgxfQ.9rqEVb5Lo-vZlpBSbEGQDCZeRhSM8v-UAfsBuy7kNrU
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5OTg5OTUwOTIzNzYiLCJyb2xlcyI6IlJPTEVfVVNFUiIsImlkIjoyMSwiaWF0IjoxNzU1ODQwNjQ2LCJleHAiOjE3NTU5MjcwNDZ9.9BRNRwjufIx3Lc9UnvkoW-AdFpZ_53Bl7uIRlDgvx4w
 
 {
   "author": "Foydalanuvchi Ismi",
   "rating": 4.5,
   "comment": "Ajoyib salon, juda yaxshi xizmat!",
-  "salonId": 3
+  "salonId": 1
 }
 
 ### get List

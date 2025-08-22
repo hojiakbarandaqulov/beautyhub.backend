@@ -34,10 +34,10 @@ public class AdminAppsSalonEntity {
     private boolean isActive;
 
     @Column(name = "subscription_active", nullable = false)
-    private boolean subscriptionActive;
+    private boolean subscriptionActive=false;
 
     @Column(name = "is_verified", nullable = false)
-    private boolean isVerified;
+    private boolean isVerified=false;
 
     @Column(name = "discount_percentage")
     private Integer discountPercentage; // Chegirma foizi (masalan, 10, 20, 30%)

@@ -6,7 +6,9 @@ import com.example.service.service_interface.SalonService;
 import com.example.enums.LanguageEnum;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.security.PermitAll;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -84,5 +86,24 @@ public class SalonController {
             @RequestHeader(value = "Accept-Language", defaultValue = "ru") LanguageEnum language) {
         ApiResult<List<SalonListDto>> result = salonService.search(query, category,page-1,size, language);
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/outdoor")
+    @PermitAll
+    public ResponseEntity<ApiResult<Page<SalonListDto>>> getOutdoor(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return ResponseEntity.ok(ApiResult.successResponse(salonService.getOutdoor(page, size)));
+    }
+
+    // 🔹 Bolalar uchun
+    @GetMapping("/for-kids")
+    @PermitAll
+    public ResponseEntity<ApiResult<Page<SalonListDto>>> getForKids(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return ResponseEntity.ok(ApiResult.successResponse(salonService.getForKids(page, size)));
     }
 }
